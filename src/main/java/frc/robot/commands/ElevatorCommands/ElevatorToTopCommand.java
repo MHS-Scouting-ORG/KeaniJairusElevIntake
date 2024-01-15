@@ -1,13 +1,13 @@
-package frc.robot.commands;
+package frc.robot.commands.ElevatorCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorToBottomCommand extends Command {
+public class ElevatorToTopCommand extends Command {
 
   private ElevatorSubsystem elevSub;
 
-  public ElevatorToBottomCommand(ElevatorSubsystem newElevSub) {
+  public ElevatorToTopCommand(ElevatorSubsystem newElevSub) {
     elevSub = newElevSub;
     addRequirements(elevSub);
   }
@@ -17,7 +17,7 @@ public class ElevatorToBottomCommand extends Command {
 
   @Override
   public void execute() {
-    elevSub.toBottom();
+    elevSub.toTop();
   }
 
   @Override
@@ -27,6 +27,6 @@ public class ElevatorToBottomCommand extends Command {
 
   @Override
   public boolean isFinished() {
-    return elevSub.getBottomLimitSwitch();
+    return elevSub.getTopLimitSwitch();
   }
 }
