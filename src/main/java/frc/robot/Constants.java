@@ -8,6 +8,5 @@ public final class Constants {
 
   public static class ElevatorConstants {
     public static final int ELEVATOR_PORT = 2;
-    public static final double ELEVATOR_SPEEDCAP = 0.5;
   }
 }
