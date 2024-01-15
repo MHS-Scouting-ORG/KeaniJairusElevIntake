@@ -11,25 +11,33 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private CANSparkMax intakeMotor;
   private CANSparkMax intakePivotMotor;
+  private double maxSpeed;
 
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless); 
     intakePivotMotor = new CANSparkMax(IntakeConstants.INTAKEPIVOT_PORT, MotorType.kBrushless);
     intakeMotor.setIdleMode(IdleMode.kCoast);
     intakePivotMotor.setIdleMode(IdleMode.kBrake);
+    maxSpeed = 0.5;
   }
 
   public void intake(){
-    intakeMotor.set(0.5);
+    intakeMotor.set(maxSpeed);
   }
 
   public void outtake(){
-    intakeMotor.set(-0.5);
+    intakeMotor.set(-maxSpeed);
   }
 
   public double deadZone(double speed){
     if(Math.abs(speed) < 0.1){
       return 0;
+    }
+    else if(speed > maxSpeed){
+      return maxSpeed;
+    }
+    else if(speed < -maxSpeed){
+      return -maxSpeed;
     }
     else{
       return speed;
