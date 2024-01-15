@@ -75,6 +75,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     else{
       elevStop();
     }
+
+    // elevMotor.set(deadzone(speed)); 
   }
 
   public double deadzone(double speed) {
