@@ -10,6 +10,8 @@ import frc.robot.commands.ElevatorToBottomCommand;
 import frc.robot.commands.ElevatorToTopCommand;
 import frc.robot.commands.ManualElevatorCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.commands.IntakeCmd;
+import frc.robot.commands.OuttakeCmd;
 
 public class RobotContainer {
   private final IntakeSubsystem i_subsystem = new IntakeSubsystem();
@@ -26,6 +28,8 @@ public class RobotContainer {
   private void configureBindings() {
     new JoystickButton(xboxController, 3).onTrue(new ElevatorToTopCommand(elevSub));
     new JoystickButton(xboxController, 4).onTrue(new ElevatorToBottomCommand(elevSub));
+    new JoystickButton(xboxController, 1).onTrue(new IntakeCmd(i_subsystem));
+    new JoystickButton(xboxController, 2).onTrue(new OuttakeCmd(i_subsystem));
   }
 
   public Command getAutonomousCommand() {
