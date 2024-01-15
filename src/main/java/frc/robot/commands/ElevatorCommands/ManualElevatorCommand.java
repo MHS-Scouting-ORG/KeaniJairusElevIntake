@@ -23,7 +23,7 @@ public class ManualElevatorCommand extends Command {
   @Override
   public void execute() {
     elevSub.ManualElevator(doubleSupplier.getAsDouble());
-    SmartDashboard.putNumber("Manual Elevator Output", doubleSupplier.getAsDouble());
+    SmartDashboard.putNumber("Manual Elevator Speed", doubleSupplier.getAsDouble());
   }
 
   @Override
