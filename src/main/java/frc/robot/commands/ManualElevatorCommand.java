@@ -13,6 +13,7 @@ public class ManualElevatorCommand extends Command {
   public ManualElevatorCommand(ElevatorSubsystem newElevSub, DoubleSupplier newDoubleSupplier) {
     elevSub = newElevSub;
     doubleSupplier = newDoubleSupplier;
+    addRequirements(elevSub);
   }
 
   @Override
