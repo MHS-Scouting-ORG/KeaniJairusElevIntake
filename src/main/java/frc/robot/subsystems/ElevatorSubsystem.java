@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,6 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     bottomLimitSwitch = new DigitalInput(1);
     enc = elevMotor.getEncoder();
     speedCap = 0.5;
+    elevMotor.setIdleMode(IdleMode.kBrake);
   }
 
   public double getEnc() {
@@ -40,6 +42,24 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void elevStop(){
     elevMotor.stopMotor();
+  }
+
+  public void toBottom(){
+    if (!getBottomLimitSwitch()) {
+      elevMotor.set(-0.3);
+    }
+    else {
+      elevStop();
+    }
+  }
+
+  public void toTop() {
+    if (!getTopLimitSwitch()) {
+      elevMotor.set(0.3);
+    }
+    else {
+      elevStop();
+    }
   }
 
   public void ManualElevator(double speed) {
