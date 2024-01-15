@@ -2,6 +2,7 @@ package frc.robot.commands.IntakeCommands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -22,6 +23,7 @@ public class ManualIntakePivot extends Command {
 
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Manual Intake Speed", speed.getAsDouble());
     i_subsystem.manualIntake(speed.getAsDouble());
   }
 
