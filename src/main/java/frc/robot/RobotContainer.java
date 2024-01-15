@@ -25,10 +25,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(xboxController, 3).onTrue(new ElevatorToTopCommand(elevSub));
-    new JoystickButton(xboxController, 4).onTrue(new ElevatorToBottomCommand(elevSub));
     new JoystickButton(xboxController, 1).onTrue(new IntakeCmd(i_subsystem));
     new JoystickButton(xboxController, 2).onTrue(new OuttakeCmd(i_subsystem));
+    new JoystickButton(xboxController, 3).onTrue(new ElevatorToTopCommand(elevSub));
+    new JoystickButton(xboxController, 4).onTrue(new ElevatorToBottomCommand(elevSub));
   }
 
   public Command getAutonomousCommand() {
