@@ -4,15 +4,16 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
   private CANSparkMax intakeMotor;
-  private CANSparkMax intakeElevMotor;
+  private CANSparkMax intakePivotMotor;
 
   public IntakeSubsystem() {
-    intakeMotor = new CANSparkMax(0, MotorType.kBrushless); 
-    intakeElevMotor = new CANSparkMax(0, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless); 
+    intakePivotMotor = new CANSparkMax(0, MotorType.kBrushless);
   }
 
   public void intake(){
@@ -33,7 +34,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void manualIntake(double speed){
-    intakeElevMotor.set(deadZone(speed));
+    intakePivotMotor.set(deadZone(speed));
   }
 
   @Override

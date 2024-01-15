@@ -5,11 +5,11 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ManualElevatorIntakeCmd extends Command {
+public class ManualIntakePivot extends Command {
   private IntakeSubsystem i_subsystem;
   private DoubleSupplier speed;
 
-  public ManualElevatorIntakeCmd(IntakeSubsystem intakeSubs, DoubleSupplier speed) {
+  public ManualIntakePivot(IntakeSubsystem intakeSubs, DoubleSupplier speed) {
     i_subsystem = intakeSubs;
     this.speed = speed;
     addRequirements(intakeSubs);
@@ -27,7 +27,7 @@ public class ManualElevatorIntakeCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    
+
   }
 
   @Override
