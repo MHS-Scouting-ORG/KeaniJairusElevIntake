@@ -2,10 +2,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.ManualIntakePivot;
 import frc.robot.commands.ManualElevatorCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.commands.IntakeCmd;
+import frc.robot.commands.OuttakeCmd;
 
 public class RobotContainer {
   private final IntakeSubsystem i_subsystem = new IntakeSubsystem();
@@ -20,6 +23,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    new JoystickButton(xboxController, 1).onTrue(new IntakeCmd(i_subsystem));
+    new JoystickButton(xboxController, 2).onTrue(new OuttakeCmd(i_subsystem));
   }
 
   public Command getAutonomousCommand() {
