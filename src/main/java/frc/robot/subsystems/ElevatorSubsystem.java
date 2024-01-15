@@ -97,5 +97,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Elevator Encoder", getEnc());
+    SmartDashboard.putBoolean("Elevator Top LS", getTopLimitSwitch());
+    SmartDashboard.putBoolean("Elevator Bottom LS", getBottomLimitSwitch());
   }
 }
