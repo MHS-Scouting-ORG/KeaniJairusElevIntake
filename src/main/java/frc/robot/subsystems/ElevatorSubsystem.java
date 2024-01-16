@@ -28,6 +28,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevMotor.setIdleMode(IdleMode.kBrake);
   }
 
+  ////////////////////////
+  //  Accessor Methods  //
+  ////////////////////////
+
   public double getEnc() {
     return enc.getPosition();
   }
@@ -39,6 +43,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   public boolean getBottomLimitSwitch() {
     return bottomLimitSwitch.get();
   }
+
+  ////////////////////////
+  //  Movement Methods  //
+  ////////////////////////
 
   public void elevStop(){
     elevMotor.stopMotor();
@@ -62,6 +70,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
   }
 
+  // Checks if limit switches are pressed to prevent movement in that direction
   public void ManualElevator(double speed) {
     if (getTopLimitSwitch() && speed < -0.1) {
       elevMotor.set(deadzone(speed));
@@ -76,9 +85,12 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevStop();
     }
 
+    // This line is in case of no limitswitches and just sets motor to joystick speed
     // elevMotor.set(deadzone(speed)); 
   }
 
+
+  // Deadzone includes a speedcap at 0.5 in either direction
   public double deadzone(double speed) {
     if (Math.abs(speed) < 0.1) {
       return 0;
@@ -96,6 +108,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    // SmartDashboard
     SmartDashboard.putNumber("Elevator Encoder", getEnc());
     SmartDashboard.putBoolean("Elevator Top LS", getTopLimitSwitch());
     SmartDashboard.putBoolean("Elevator Bottom LS", getBottomLimitSwitch());

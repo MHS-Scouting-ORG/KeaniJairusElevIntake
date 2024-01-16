@@ -11,9 +11,13 @@ public class ManualElevatorCommand extends Command {
   private ElevatorSubsystem elevSub;
   private DoubleSupplier doubleSupplier;
 
+  // Command allows manual control of elevator using a joystick
+
   public ManualElevatorCommand(ElevatorSubsystem newElevSub, DoubleSupplier newDoubleSupplier) {
+
     elevSub = newElevSub;
     doubleSupplier = newDoubleSupplier;
+    
     addRequirements(elevSub);
   }
 

@@ -7,8 +7,12 @@ public class ElevatorToTopCommand extends Command {
 
   private ElevatorSubsystem elevSub;
 
+  // Command moves elevator to top until encoder value is met or limit swtich is pressed
+
   public ElevatorToTopCommand(ElevatorSubsystem newElevSub) {
+    
     elevSub = newElevSub;
+    
     addRequirements(elevSub);
   }
 
