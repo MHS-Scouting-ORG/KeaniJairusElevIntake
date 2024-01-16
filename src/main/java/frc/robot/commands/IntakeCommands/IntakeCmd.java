@@ -27,7 +27,7 @@ public class IntakeCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-
+    i_subsystem.stopIntake();
   }
 
   @Override

@@ -29,7 +29,7 @@ public class ManualIntakePivot extends Command {
 
   @Override
   public void end(boolean interrupted) {
-
+   
   }
 
   @Override
