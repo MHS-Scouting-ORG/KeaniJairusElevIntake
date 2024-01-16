@@ -23,7 +23,7 @@ public class OuttakeCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-
+    i_subsystem.stopIntake();
   }
 
   @Override

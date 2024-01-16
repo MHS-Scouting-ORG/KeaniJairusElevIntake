@@ -37,15 +37,24 @@ public class IntakeSubsystem extends SubsystemBase {
       return maxSpeed;
     }
     else if(speed < -maxSpeed){
-      return -maxSpeed;
+      return -maxSpeed;   
     }
     else{
       return speed;
     }
   }
 
+
   public void manualIntake(double speed){
     intakePivotMotor.set(deadZone(speed));
+  }
+
+  public void stopIntake(){
+    intakeMotor.stopMotor();
+  }
+
+  public void stopPivotIntake(){
+    intakePivotMotor.stopMotor();
   }
 
   @Override
