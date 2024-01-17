@@ -8,8 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeCmd extends Command {
+  
   private IntakeSubsystem i_subsystem;
 
+  //Runs the elevator intake to "intake" notes
+  
   public IntakeCmd(IntakeSubsystem intakeSubs) {
     i_subsystem = intakeSubs;
     addRequirements(intakeSubs);

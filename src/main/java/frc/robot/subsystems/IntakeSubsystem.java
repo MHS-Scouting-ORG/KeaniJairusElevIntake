@@ -21,6 +21,10 @@ public class IntakeSubsystem extends SubsystemBase {
     maxSpeed = 0.5;
   }
 
+  //////////////////////////
+  //   Movement Methods   //
+  //////////////////////////
+
   public void intake(){
     intakeMotor.set(maxSpeed);
   }
@@ -29,6 +33,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(-maxSpeed);
   }
 
+  //Deadzone for the Xbox Controller and sets a max speed of 0.5 in both directions
   public double deadZone(double speed){
     if(Math.abs(speed) < 0.1){
       return 0;
@@ -44,7 +49,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
   }
 
-
+  
   public void manualIntake(double speed){
     intakePivotMotor.set(deadZone(speed));
   }

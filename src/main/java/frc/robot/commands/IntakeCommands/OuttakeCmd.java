@@ -4,8 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class OuttakeCmd extends Command {
+
   private IntakeSubsystem i_subsystem;
 
+  //Runs the elevator intake to "outtake" notes
+  
   public OuttakeCmd(IntakeSubsystem intakeSubs) {
     i_subsystem = intakeSubs;
     addRequirements(intakeSubs);
