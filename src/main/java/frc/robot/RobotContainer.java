@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -17,19 +18,20 @@ public class RobotContainer {
   private final ElevatorSubsystem elevSub = new ElevatorSubsystem();
 
   private final XboxController xboxController = new XboxController(0);
+  private final Joystick joystick = new Joystick(1);
 
   public RobotContainer() {
-    i_subsystem.setDefaultCommand(new ManualIntakePivot(i_subsystem, () -> xboxController.getLeftY()));
-    elevSub.setDefaultCommand(new ManualElevatorCommand(elevSub, () -> xboxController.getRightY()));
+    // i_subsystem.setDefaultCommand(new ManualIntakePivot(i_subsystem, () -> joystick.getY()));
+    elevSub.setDefaultCommand(new ManualElevatorCommand(elevSub, () -> joystick.getY()));
 
     configureBindings();
   }
 
   private void configureBindings() {
-    new JoystickButton(xboxController, 1).onTrue(new IntakeCmd(i_subsystem));
-    new JoystickButton(xboxController, 2).onTrue(new OuttakeCmd(i_subsystem));
-    new JoystickButton(xboxController, 3).onTrue(new ElevatorToTopCommand(elevSub));
-    new JoystickButton(xboxController, 4).onTrue(new ElevatorToBottomCommand(elevSub));
+    // new JoystickButton(joystick, 5).whileTrue(new IntakeCmd(i_subsystem));
+    // new JoystickButton(joystick, 3).whileTrue(new OuttakeCmd(i_subsystem));
+    new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCommand(elevSub));
+    new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCommand(elevSub));
   }
 
   public Command getAutonomousCommand() {

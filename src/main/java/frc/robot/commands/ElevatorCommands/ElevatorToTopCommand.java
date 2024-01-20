@@ -31,6 +31,6 @@ public class ElevatorToTopCommand extends Command {
 
   @Override
   public boolean isFinished() {
-    return elevSub.getTopLimitSwitch();
+    return elevSub.getEnc() > 50;
   }
 }

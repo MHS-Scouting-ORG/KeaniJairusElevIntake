@@ -53,8 +53,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void toBottom(){
-    if (!getBottomLimitSwitch()) {
-      elevMotor.set(-0.3);
+    if (getEnc() > -50) {
+      elevMotor.set(-0.5);
     }
     else {
       elevStop();
@@ -62,8 +62,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void toTop() {
-    if (!getTopLimitSwitch()) {
-      elevMotor.set(0.3);
+    if (getEnc() < 50) {
+      elevMotor.set(0.5);
     }
     else {
       elevStop();
@@ -72,21 +72,21 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   // Checks if limit switches are pressed to prevent movement in that direction
   public void ManualElevator(double speed) {
-    if (getTopLimitSwitch() && speed < -0.1) {
-      elevMotor.set(deadzone(speed));
-    }
-    else if (getBottomLimitSwitch() && speed > 0.1){
-      elevMotor.set(deadzone(speed));
-    }
-    else if (!getTopLimitSwitch() && !getBottomLimitSwitch()){
-      elevMotor.set(deadzone(speed));
-    }
-    else{
-      elevStop();
-    }
+    // if (getTopLimitSwitch() && speed < -0.1) {
+    //   elevMotor.set(deadzone(speed));
+    // }
+    // else if (getBottomLimitSwitch() && speed > 0.1){
+    //   elevMotor.set(deadzone(speed));
+    // }
+    // else if (!getTopLimitSwitch() && !getBottomLimitSwitch()){
+    //   elevMotor.set(deadzone(speed));
+    // }
+    // else{
+    //   elevStop();
+    // }
 
     // This line is in case of no limitswitches and just sets motor to joystick speed
-    // elevMotor.set(deadzone(speed)); 
+    elevMotor.set(deadzone(speed)); 
   }
 
 

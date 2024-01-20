@@ -31,6 +31,6 @@ public class ElevatorToBottomCommand extends Command {
 
   @Override
   public boolean isFinished() {
-    return elevSub.getBottomLimitSwitch();
+    return elevSub.getEnc() < -50;
   }
 }
