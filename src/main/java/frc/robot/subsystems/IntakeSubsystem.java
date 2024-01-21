@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
@@ -12,6 +13,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakeMotor;
   private CANSparkMax intakePivotMotor;
   private double maxSpeed;
+  private RelativeEncoder rEnc;
 
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless); 
@@ -19,6 +21,11 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setIdleMode(IdleMode.kCoast);
     intakePivotMotor.setIdleMode(IdleMode.kBrake);
     maxSpeed = 0.5;
+    rEnc = intakePivotMotor.getEncoder();
+  }
+
+  public double getEnc(){
+    return rEnc.getPosition();
   }
 
   //////////////////////////
@@ -52,6 +59,25 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public void manualIntake(double speed){
     intakePivotMotor.set(deadZone(speed));
+  }
+
+  public void setPos(double enc, double speed, double toll){
+    if(enc > 0){
+      if(getEnc() < enc - toll){
+        intakePivotMotor.set(speed);
+      }
+      else{
+        stopPivotIntake();
+      }
+    }
+    else{
+      if(getEnc() > enc - toll){
+        intakePivotMotor.set(-speed);
+      }
+      else{
+        stopPivotIntake();
+      }
+    }
   }
 
   public void stopIntake(){
