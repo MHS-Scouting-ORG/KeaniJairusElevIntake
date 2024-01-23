@@ -13,15 +13,14 @@ public class ManualIntakePivot extends Command {
 
   //Runs the intake pivot manually using an Xbox Controller
 
-  public ManualIntakePivot(IntakeSubsystem intakeSubs, DoubleSupplier speed) {
-    i_subsystem = intakeSubs;
+  public ManualIntakePivot(IntakeSubsystem iSubs, DoubleSupplier speed) {
+    i_subsystem = iSubs;
     this.speed = speed;
-    addRequirements(intakeSubs);
+    addRequirements(iSubs);
   }
 
   @Override
   public void initialize() {
-
   }
 
   @Override
@@ -32,7 +31,6 @@ public class ManualIntakePivot extends Command {
 
   @Override
   public void end(boolean interrupted) {
-   
   }
 
   @Override

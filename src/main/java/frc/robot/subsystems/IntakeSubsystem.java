@@ -3,7 +3,10 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
@@ -12,6 +15,11 @@ public class IntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakeMotor;
   private CANSparkMax intakePivotMotor;
   private double maxSpeed;
+  private RelativeEncoder rEnc;
+  private PIDController pid;
+  private boolean pidOn = false;
+  private double encoderVal;
+  private double setpoint;
 
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless); 
@@ -19,6 +27,16 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setIdleMode(IdleMode.kCoast);
     intakePivotMotor.setIdleMode(IdleMode.kBrake);
     maxSpeed = 0.5;
+    rEnc = intakePivotMotor.getEncoder();
+    pid = new PIDController(0, 0, 0);
+  }
+
+  //////////////////////////
+  //   Accessor Methods   //
+  //////////////////////////
+
+  public double getEnc(){
+    return rEnc.getPosition();
   }
 
   //////////////////////////
@@ -54,6 +72,25 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePivotMotor.set(deadZone(speed));
   }
 
+  public void setPos(double enc, double speed, double toll){
+    if(enc > 0){
+      if(getEnc() < enc - toll){
+        intakePivotMotor.set(speed);
+      }
+      else{
+        stopPivotIntake();
+      }
+    }
+    else{
+      if(getEnc() > enc - toll){
+        intakePivotMotor.set(-speed);
+      }
+      else{
+        stopPivotIntake();
+      }
+    }
+  }
+
   public void stopIntake(){
     intakeMotor.stopMotor();
   }
@@ -62,7 +99,52 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePivotMotor.stopMotor();
   }
 
+  /////////////////////
+  //   PID Methods   //
+  /////////////////////
+
+  public void turnPIDOn(){
+    pidOn = true;
+  }
+
+  public void turnPIDOff(){
+    pidOn = false;
+  }
+
+  public boolean isAtSetpoint(){
+    double error = pid.calculate(getEnc(), setpoint);
+    return Math.abs(error) < 5;
+  }
+
+  public boolean isPIDOn(){
+    return pidOn;
+  }
+
+  public void newSetpoint(double setpoint){
+    this.setpoint = setpoint;
+  }
+  
   @Override
   public void periodic() {
+    encoderVal = getEnc();
+    double pidSpeed = 0;
+
+    if(pidOn){
+      pidSpeed = pid.calculate(encoderVal, setpoint);
+    }
+    else{
+      pidSpeed = maxSpeed;
+    }
+    if(pidSpeed > 0){
+      pidSpeed = 0;
+    }
+    else if(pidSpeed < 0){
+      pidSpeed = 0;
+    }
+    intakePivotMotor.set(pidSpeed);
+
+    SmartDashboard.putNumber("Intake Pivot Encoder", getEnc());
+    SmartDashboard.putNumber("Intake Pivot Setpoint", setpoint);
+    SmartDashboard.putBoolean("Intake Pivot PID", isPIDOn());
   }
 }

@@ -7,14 +7,12 @@ package frc.robot.commands.IntakeCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeCmd extends Command {
+public class IntakeTransferCmd extends Command {
   
-  private IntakeSubsystem i_subsystem;
+  private IntakeSubsystem i_Subsystem;
 
-  //Runs the elevator intake to "intake" notes
-  
-  public IntakeCmd(IntakeSubsystem iSubs) {
-    i_subsystem = iSubs;
+  public IntakeTransferCmd(IntakeSubsystem iSubs) {
+    i_Subsystem = iSubs;
     addRequirements(iSubs);
   }
 
@@ -25,16 +23,16 @@ public class IntakeCmd extends Command {
 
   @Override
   public void execute() {
-    i_subsystem.intake();
+    i_Subsystem.setPos(0, 30, 10);
   }
 
   @Override
   public void end(boolean interrupted) {
-    i_subsystem.stopIntake();
+
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return i_Subsystem.getEnc() <= 0;
   }
 }
