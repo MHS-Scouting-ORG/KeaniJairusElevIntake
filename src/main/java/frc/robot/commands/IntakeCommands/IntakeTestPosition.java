@@ -1,12 +1,12 @@
-package frc.robot.commands;
+package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakePosition extends Command {
-  public IntakeSubsystem i_Subsystem;
+public class IntakeTestPosition extends Command {
+  private IntakeSubsystem i_Subsystem;
 
-  public IntakePosition(IntakeSubsystem iSubs) {
+  public IntakeTestPosition(IntakeSubsystem iSubs) {
     i_Subsystem = iSubs;
     addRequirements(iSubs);
   }
