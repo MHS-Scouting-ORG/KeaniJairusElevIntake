@@ -21,15 +21,15 @@ public class RobotContainer {
   private final Joystick joystick = new Joystick(1);
 
   public RobotContainer() {
-    // i_subsystem.setDefaultCommand(new ManualIntakePivot(i_subsystem, () -> joystick.getY()));
-    elevSub.setDefaultCommand(new ManualElevatorCommand(elevSub, () -> joystick.getY()));
+    i_subsystem.setDefaultCommand(new ManualIntakePivot(i_subsystem, () -> joystick.getY()));
+    // elevSub.setDefaultCommand(new ManualElevatorCommand(elevSub, () -> joystick.getY()));
 
     configureBindings();
   }
 
   private void configureBindings() {
-    // new JoystickButton(joystick, 5).whileTrue(new IntakeCmd(i_subsystem));
-    // new JoystickButton(joystick, 3).whileTrue(new OuttakeCmd(i_subsystem));
+    new JoystickButton(joystick, 5).whileTrue(new IntakeCmd(i_subsystem));
+    new JoystickButton(joystick, 3).whileTrue(new OuttakeCmd(i_subsystem));
     new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCommand(elevSub));
     new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCommand(elevSub));
   }
