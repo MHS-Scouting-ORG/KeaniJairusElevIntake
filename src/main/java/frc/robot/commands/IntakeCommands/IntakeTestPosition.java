@@ -12,18 +12,23 @@ public class IntakeTestPosition extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    i_Subsystem.turnPIDOn();
+  }
 
   @Override
   public void execute() {
-    i_Subsystem.setPos(0, 30, 10);
+    i_Subsystem.newSetpoint(50);
   }
   
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    i_Subsystem.turnPIDOff();
+    i_Subsystem.stopPivotIntake();
+  }
 
   @Override
   public boolean isFinished() {
-    return i_Subsystem.getEnc() >= 0;
+    return i_Subsystem.isAtSetpoint();
   }
 }

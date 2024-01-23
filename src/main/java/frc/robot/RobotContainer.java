@@ -29,7 +29,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // new JoystickButton(joystick, 5).whileTrue(new IntakeCmd(i_subsystem));
+    //snew JoystickButton(joystick, 5).whileTrue(new IntakeCmd(i_subsystem));
     // new JoystickButton(joystick, 3).whileTrue(new OuttakeCmd(i_subsystem));
     new JoystickButton(joystick, 1).onTrue(new IntakeTestPosition(i_subsystem));
     new JoystickButton(joystick,   6).onTrue(new ElevatorToTopCommand(elevSub));

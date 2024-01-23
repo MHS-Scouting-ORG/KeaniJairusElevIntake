@@ -9,9 +9,9 @@ public class OuttakeCmd extends Command {
 
   //Runs the elevator intake to "outtake" notes
   
-  public OuttakeCmd(IntakeSubsystem intakeSubs) {
-    i_subsystem = intakeSubs;
-    addRequirements(intakeSubs);
+  public OuttakeCmd(IntakeSubsystem iSubs) {
+    i_subsystem = iSubs;
+    addRequirements(iSubs);
   }
 
   @Override

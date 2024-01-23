@@ -13,9 +13,9 @@ public class IntakeCmd extends Command {
 
   //Runs the elevator intake to "intake" notes
   
-  public IntakeCmd(IntakeSubsystem intakeSubs) {
-    i_subsystem = intakeSubs;
-    addRequirements(intakeSubs);
+  public IntakeCmd(IntakeSubsystem iSubs) {
+    i_subsystem = iSubs;
+    addRequirements(iSubs);
   }
 
   @Override
