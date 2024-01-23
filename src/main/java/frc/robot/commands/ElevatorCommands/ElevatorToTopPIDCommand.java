@@ -4,16 +4,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorToBottomCommand extends Command {
+public class ElevatorToTopPIDCommand extends Command {
 
   private ElevatorSubsystem elevSub;
 
-  // Command moves elevator to bottom until encoder value is met or limit swtich is pressed
+  public ElevatorToTopPIDCommand(ElevatorSubsystem newElevSub) {
 
-  public ElevatorToBottomCommand(ElevatorSubsystem newElevSub) {
-    
     elevSub = newElevSub;
-    
+
     addRequirements(elevSub);
   }
 
@@ -22,17 +20,15 @@ public class ElevatorToBottomCommand extends Command {
 
   @Override
   public void execute() {
-    elevSub.toBottom();
+    elevSub.toTopPID();
   }
 
   @Override
-  public void end(boolean interrupted) {
-    elevSub.elevStop();
-  }
+  public void end(boolean interrupted) {}
 
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return elevSub.getEnc() < ElevatorConstants.BOTTOM_ENC_LIMIT;
+    return elevSub.getEnc() > ElevatorConstants.TOP_ENC_LIMIT;
   }
 }
