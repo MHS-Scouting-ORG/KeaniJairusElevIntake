@@ -8,7 +8,7 @@ public class IntakeTestPosition extends Command {
 
   public IntakeTestPosition(IntakeSubsystem iSubs) {
     i_Subsystem = iSubs;
-    addRequirements(iSubs);
+    addRequirements(i_Subsystem);
   }
 
   @Override
@@ -24,7 +24,6 @@ public class IntakeTestPosition extends Command {
   @Override
   public void end(boolean interrupted) {
     i_Subsystem.turnPIDOff();
-    i_Subsystem.stopPivotIntake();
   }
 
   @Override

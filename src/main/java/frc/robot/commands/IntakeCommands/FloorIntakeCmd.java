@@ -9,26 +9,26 @@ public class FloorIntakeCmd extends Command {
 
   public FloorIntakeCmd(IntakeSubsystem iSubs) {
     i_subsystem = iSubs;
-    addRequirements(iSubs);
+    addRequirements(i_subsystem);
   }
 
   @Override
   public void initialize() {
-
+    i_subsystem.turnPIDOn();
   }
 
   @Override
   public void execute() {
-    i_subsystem.setPos(0, 30, 10);
+    i_subsystem.newSetpoint(0);
   }
 
   @Override
   public void end(boolean interrupted) {
-
+    i_subsystem.turnPIDOff();
   }
 
   @Override
   public boolean isFinished() {
-    return i_subsystem.getEnc() <= 0;
+    return false;
   }
 }

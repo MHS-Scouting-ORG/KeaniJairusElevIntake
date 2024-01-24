@@ -13,22 +13,22 @@ public class IntakeTransferCmd extends Command {
 
   public IntakeTransferCmd(IntakeSubsystem iSubs) {
     i_Subsystem = iSubs;
-    addRequirements(iSubs);
+    addRequirements(i_Subsystem);
   }
 
   @Override
   public void initialize() {
-
+    i_Subsystem.turnPIDOn();
   }
 
   @Override
   public void execute() {
-    i_Subsystem.setPos(0, 30, 10);
+    i_Subsystem.newSetpoint(-50);
   }
 
   @Override
   public void end(boolean interrupted) {
-
+    i_Subsystem.turnPIDOff();
   }
 
   @Override

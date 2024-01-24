@@ -16,7 +16,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakePivotMotor;
   private double maxSpeed;
   private RelativeEncoder rEnc;
-  private PIDController pid;
+  private PIDController pid;  
   private boolean pidOn = false;
   private double encoderVal;
   private double setpoint;
@@ -28,7 +28,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePivotMotor.setIdleMode(IdleMode.kBrake);
     maxSpeed = 0.5;
     rEnc = intakePivotMotor.getEncoder();
-    pid = new PIDController(0, 0, 0);
+    pid = new PIDController(IntakeConstants.INTAKEPIVOT_KP, IntakeConstants.INTAKEPIVOT_KI, IntakeConstants.INTAKEPIVOT_KD);
   }
 
   //////////////////////////
@@ -72,25 +72,6 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePivotMotor.set(deadZone(speed));
   }
 
-  public void setPos(double enc, double speed, double toll){
-    if(enc > 0){
-      if(getEnc() < enc - toll){
-        intakePivotMotor.set(speed);
-      }
-      else{
-        stopPivotIntake();
-      }
-    }
-    else{
-      if(getEnc() > enc - toll){
-        intakePivotMotor.set(-speed);
-      }
-      else{
-        stopPivotIntake();
-      }
-    }
-  }
-
   public void stopIntake(){
     intakeMotor.stopMotor();
   }
@@ -111,13 +92,13 @@ public class IntakeSubsystem extends SubsystemBase {
     pidOn = false;
   }
 
-  public boolean isAtSetpoint(){
-    double error = pid.calculate(getEnc(), setpoint);
-    return Math.abs(error) < 5;
-  }
-
   public boolean isPIDOn(){
     return pidOn;
+  }
+
+  public boolean isAtSetpoint(){
+    double error = setpoint - getEnc();
+    return Math.abs(error) <= 2;
   }
 
   public void newSetpoint(double setpoint){
@@ -128,6 +109,15 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     encoderVal = getEnc();
     double pidSpeed = 0;
+    double currentError = pid.getPositionError();
+    double prevError = pid.getPositionError();
+
+    if(currentError > 0 && prevError < 0){
+      pid.reset();
+    }
+    else if(currentError < 0 && prevError > 0){
+      pid.reset();
+    }
 
     if(pidOn){
       pidSpeed = pid.calculate(encoderVal, setpoint);
@@ -135,16 +125,17 @@ public class IntakeSubsystem extends SubsystemBase {
     else{
       pidSpeed = maxSpeed;
     }
-    if(pidSpeed > 0){
-      pidSpeed = 0;
+    if(pidSpeed > 0.5){
+      pidSpeed = 0.5;
     }
-    else if(pidSpeed < 0){
-      pidSpeed = 0;
+    else if(pidSpeed < -0.5){
+      pidSpeed = -0.5;
     }
     intakePivotMotor.set(pidSpeed);
 
     SmartDashboard.putNumber("Intake Pivot Encoder", getEnc());
     SmartDashboard.putNumber("Intake Pivot Setpoint", setpoint);
     SmartDashboard.putBoolean("Intake Pivot PID", isPIDOn());
+    SmartDashboard.putNumber("Intake Pivot Position Error", pid.getPositionError());
   }
 }
