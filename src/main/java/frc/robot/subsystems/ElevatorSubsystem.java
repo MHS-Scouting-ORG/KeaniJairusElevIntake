@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,16 +17,28 @@ public class ElevatorSubsystem extends SubsystemBase {
   private RelativeEncoder enc;
   private double speedCap;
 
+  private PIDController pid;
+  private double previousError;
+  private double currentError;
+
+  private double topEncLimit;
+  private double bottomEncLimit;
+
   private DigitalInput topLimitSwitch;
   private DigitalInput bottomLimitSwitch;
 
   public ElevatorSubsystem() {
     elevMotor = new CANSparkMax(ElevatorConstants.ELEVATOR_PORT, MotorType.kBrushless);
-    topLimitSwitch = new DigitalInput(0);
-    bottomLimitSwitch = new DigitalInput(1);
+    topLimitSwitch = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
+    bottomLimitSwitch = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
     enc = elevMotor.getEncoder();
-    speedCap = 0.5;
+    speedCap = ElevatorConstants.SPEED_CAP;
     elevMotor.setIdleMode(IdleMode.kBrake);
+    topEncLimit = ElevatorConstants.TOP_ENC_LIMIT;
+    bottomEncLimit = ElevatorConstants.BOTTOM_ENC_LIMIT;
+    pid = new PIDController(0.0, 0.0, 0.0);
+    previousError = 0;
+    pid.setTolerance(1);
   }
 
   ////////////////////////
@@ -44,9 +57,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     return bottomLimitSwitch.get();
   }
 
-  ////////////////////////
-  //  Movement Methods  //
-  ////////////////////////
+  //////////////////////////////
+  //  Basic Movement Methods  //
+  //////////////////////////////
 
   public void elevStop(){
     elevMotor.stopMotor();
@@ -106,8 +119,49 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
   }
 
+  //////////////////
+  //  PID Methods //
+  //////////////////
+  
+  public double calculateSpeed(double setpoint){
+    double error = pid.calculate(getEnc(), setpoint);
+
+    if (error > speedCap){
+      return speedCap;
+    }
+    else if (error < -speedCap){
+      return -speedCap;
+    }
+    else{
+      return error;
+    }
+  }
+
+  public void resetI(){
+    currentError = pid.getPositionError();
+    
+    if (currentError > 0 && previousError < 0){
+      pid.reset();
+    }
+    else if (currentError < 0 && previousError > 0){
+      pid.reset();
+    }
+    
+    previousError = currentError;
+  }
+
+  public void toTopPID(){
+    elevMotor.set(calculateSpeed(topEncLimit));
+  }
+
+  public void toBottomPID(){
+    elevMotor.set(calculateSpeed(bottomEncLimit));
+  }
+
   @Override
   public void periodic() {
+
+    resetI();
 
     // SmartDashboard
     SmartDashboard.putNumber("Elevator Encoder", getEnc());

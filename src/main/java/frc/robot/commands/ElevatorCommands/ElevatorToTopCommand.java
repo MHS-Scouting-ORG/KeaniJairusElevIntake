@@ -1,6 +1,7 @@
 package frc.robot.commands.ElevatorCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class ElevatorToTopCommand extends Command {
@@ -31,6 +32,7 @@ public class ElevatorToTopCommand extends Command {
 
   @Override
   public boolean isFinished() {
-    return elevSub.getEnc() > 50;
+    // Add limit switch condiiton
+    return elevSub.getEnc() > ElevatorConstants.TOP_ENC_LIMIT;
   }
 }
