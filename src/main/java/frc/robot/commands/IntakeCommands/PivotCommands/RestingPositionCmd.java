@@ -4,26 +4,31 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class RestingPositionCmd extends Command {
+  private IntakeSubsystem i_Subsystem;
 
-  private IntakeSubsystem intakeSubs;
-
-  public RestingPositionCmd(IntakeSubsystem newIntakeSubs) {
-    intakeSubs = newIntakeSubs;
-
-    addRequirements(intakeSubs);
- }
-    
-  @Override
-  public void initialize() {}
+  public RestingPositionCmd(IntakeSubsystem iSubs) {
+    i_Subsystem = iSubs;
+    addRequirements(iSubs);
+  }
 
   @Override
-  public void execute() {}
+  public void initialize() {
+    i_Subsystem.turnPIDOn();
+  }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void execute() {
+    i_Subsystem.newSetpoint(75);
+  }
+  
+  @Override
+  public void end(boolean interrupted) {
+    i_Subsystem.turnPIDOff();
+    i_Subsystem.stopPivotIntake();
+  }
 
   @Override
   public boolean isFinished() {
-    return intakeSubs.getEnc() <= 0;//intakeSubs.getRestingLS() || intakeSubs.getEnc() <= 0;
+    return i_Subsystem.isAtSetpoint() || i_Subsystem.getRestingLS();
   }
 }

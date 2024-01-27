@@ -21,8 +21,9 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean pidOn = false;
   private double encoderVal;
   private double setpoint;
-  // private DigitalInput restingLimitSwitch;
-  // private DigitalInput intakingLimitSwitch;
+  private double pidSpeed = 0;
+  private DigitalInput restingLimitSwitch;
+  private DigitalInput intakingLimitSwitch;
 
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless); 
@@ -31,9 +32,9 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePivotMotor.setIdleMode(IdleMode.kBrake);
     maxSpeed = 0.5;
     rEnc = intakePivotMotor.getEncoder();
-    pid = new PIDController(0, 0, 0);
-    // restingLimitSwitch = new DigitalInput(0);
-    // intakingLimitSwitch = new DigitalInput(1);
+    pid = new PIDController(0.01, 0, 0);
+    restingLimitSwitch = new DigitalInput(9);
+    intakingLimitSwitch = new DigitalInput(8);
     pid.setTolerance(encoderVal);
   }
 
@@ -45,13 +46,13 @@ public class IntakeSubsystem extends SubsystemBase {
     return rEnc.getPosition();
   }
 
-  // public boolean getRestingLS(){
-  //   return restingLimitSwitch.get();
-  // }
+  public boolean getRestingLS(){
+    return restingLimitSwitch.get();
+  }
 
-  // public boolean getIntakingLS(){
-  //   return intakingLimitSwitch.get();
-  // }
+  public boolean getIntakingLS(){
+    return intakingLimitSwitch.get();
+  }
 
   //////////////////////////
   //   Intaking Methods   //
@@ -89,7 +90,16 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   
   public void manualIntake(double speed){
-    intakePivotMotor.set(deadZone(speed));
+
+    if (getRestingLS() && speed > 0){
+      stopPivotIntake();
+    }
+    // else if (getIntakingLS() && speed < 0){
+    //   stopPivotIntake();
+    // }
+    else {
+      intakePivotMotor.set(deadZone(speed));
+    }
   }
 
   public void setPos(double enc, double speed, double toll){
@@ -130,8 +140,8 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    double error = pid.calculate(getEnc(), setpoint);
-    return Math.abs(error) < 5;
+    double error = getEnc() - setpoint;
+    return Math.abs(error) < 3;
   }
 
   public boolean isPIDOn(){
@@ -144,21 +154,24 @@ public class IntakeSubsystem extends SubsystemBase {
   
   @Override
   public void periodic() {
-    double pidSpeed = 0;
+
 
     if(pidOn){
       pidSpeed = pid.calculate(getEnc(), setpoint);
+
+      if(pidSpeed > maxSpeed){
+        pidSpeed = maxSpeed;
+      }
+      else if(pidSpeed < -maxSpeed){
+        pidSpeed = -maxSpeed;
+      }
+      intakePivotMotor.set(pidSpeed);
     }
-    if(pidSpeed > maxSpeed){
-      pidSpeed = maxSpeed;
-    }
-    else if(pidSpeed < -maxSpeed){
-      pidSpeed = -maxSpeed;
-    }
-    intakePivotMotor.set(pidSpeed);
 
     SmartDashboard.putNumber("Intake Pivot Encoder", getEnc());
     SmartDashboard.putNumber("Intake Pivot Setpoint", setpoint);
     SmartDashboard.putBoolean("Intake Pivot PID", isPIDOn());
+    SmartDashboard.putNumber("Intake PID Current Error", pid.getPositionError());
+    SmartDashboard.putBoolean("Resting LimitSwitch", restingLimitSwitch.get());
   }
 }

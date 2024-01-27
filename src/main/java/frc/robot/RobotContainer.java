@@ -10,9 +10,11 @@ import frc.robot.commands.ElevatorCommands.ElevatorToBottomCommand;
 import frc.robot.commands.ElevatorCommands.ElevatorToTopCommand;
 import frc.robot.commands.ElevatorCommands.ManualElevatorCommand;
 import frc.robot.commands.IntakeCommands.IntakeCmd;
-import frc.robot.commands.IntakeCommands.IntakeTestPosition;
 import frc.robot.commands.IntakeCommands.OuttakeCmd;
+import frc.robot.commands.IntakeCommands.PivotCommands.IntakePositionCmd;
+import frc.robot.commands.IntakeCommands.PivotCommands.RestingPositionCmd;
 import frc.robot.commands.IntakeCommands.PivotCommands.ManualIntakePivot;
+import frc.robot.commands.IntakeCommands.PivotCommands.TransferPositionCmd;
 
 public class RobotContainer {
   private final IntakeSubsystem i_subsystem = new IntakeSubsystem();
@@ -29,9 +31,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(joystick, 3).onTrue(new IntakeTestPosition(i_subsystem));
-    new JoystickButton(joystick,   6).onTrue(new ElevatorToTopCommand(elevSub));
-    new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCommand(elevSub));
+    new JoystickButton(joystick, 3).onTrue(new RestingPositionCmd(i_subsystem));
+    new JoystickButton(joystick, 5).onTrue(new TransferPositionCmd(i_subsystem));
+    new JoystickButton(joystick, 4).onTrue(new IntakePositionCmd(i_subsystem));
+
+    // new JoystickButton(joystick,   6).onTrue(new ElevatorToTopCommand(elevSub));
+    // new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCommand(elevSub));
   }
 
   public Command getAutonomousCommand() {

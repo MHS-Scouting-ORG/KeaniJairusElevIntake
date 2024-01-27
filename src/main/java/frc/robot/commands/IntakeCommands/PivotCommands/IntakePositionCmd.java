@@ -14,12 +14,12 @@ public class IntakePositionCmd extends Command {
 
   @Override
   public void initialize() {
-
+    i_subsystem.turnPIDOn();
   }
 
   @Override
   public void execute() {
-    i_subsystem.setPos(0, 30, 10);
+    i_subsystem.newSetpoint(0);
   }
 
   @Override
@@ -29,6 +29,6 @@ public class IntakePositionCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return i_subsystem.getEnc() <= 0;
+    return i_subsystem.isAtSetpoint();
   }
 }
