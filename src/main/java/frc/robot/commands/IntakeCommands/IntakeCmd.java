@@ -35,6 +35,6 @@ public class IntakeCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return i_subsystem.getOpticalSensor();
   }
 }

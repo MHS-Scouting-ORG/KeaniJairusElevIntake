@@ -9,6 +9,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.commands.ElevatorCommands.ElevatorToBottomCommand;
 import frc.robot.commands.ElevatorCommands.ElevatorToTopCommand;
 import frc.robot.commands.ElevatorCommands.ManualElevatorCommand;
+import frc.robot.commands.IntakeCommands.DeliverCmd;
 import frc.robot.commands.IntakeCommands.IntakeCmd;
 import frc.robot.commands.IntakeCommands.OuttakeCmd;
 import frc.robot.commands.IntakeCommands.PivotCommands.IntakePositionCmd;
@@ -34,6 +35,8 @@ public class RobotContainer {
     new JoystickButton(joystick, 3).onTrue(new RestingPositionCmd(i_subsystem));
     new JoystickButton(joystick, 5).onTrue(new TransferPositionCmd(i_subsystem));
     new JoystickButton(joystick, 4).onTrue(new IntakePositionCmd(i_subsystem));
+    new JoystickButton(joystick, 1).onTrue(new IntakeCmd(i_subsystem));
+    new JoystickButton(joystick, 2).onTrue(new DeliverCmd(i_subsystem));
 
     // new JoystickButton(joystick,   6).onTrue(new ElevatorToTopCommand(elevSub));
     // new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCommand(elevSub));

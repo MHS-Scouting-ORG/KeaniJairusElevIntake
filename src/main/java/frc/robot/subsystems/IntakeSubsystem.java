@@ -15,15 +15,20 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private CANSparkMax intakeMotor;
   private CANSparkMax intakePivotMotor;
+
   private double maxSpeed;
   private RelativeEncoder rEnc;
+
   private PIDController pid;  
   private boolean pidOn = false;
   private double encoderVal;
   private double setpoint;
   private double pidSpeed;
+
   private DigitalInput restingLimitSwitch;
   private DigitalInput intakingLimitSwitch;
+
+  private DigitalInput opticalSensor;
 
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless); 
@@ -36,6 +41,7 @@ public class IntakeSubsystem extends SubsystemBase {
     pid = new PIDController(IntakeConstants.INTAKEPIVOT_KP, IntakeConstants.INTAKEPIVOT_KI, IntakeConstants.INTAKEPIVOT_KD);
     restingLimitSwitch = new DigitalInput(IntakeConstants.INTAKE_RESTING_LS_PORT);
     intakingLimitSwitch = new DigitalInput(IntakeConstants.INTAKE_INTAKING_LS_PORT);
+    opticalSensor = new DigitalInput(IntakeConstants.INTAKE_OPTICAL_PORT);
     pid.setTolerance(encoderVal);
   }
 
@@ -55,6 +61,10 @@ public class IntakeSubsystem extends SubsystemBase {
     return intakingLimitSwitch.get();
   }
 
+  public boolean getOpticalSensor(){
+    return opticalSensor.get();
+  }
+
   //////////////////////////
   //   Intaking Methods   //
   //////////////////////////
@@ -70,6 +80,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void stopIntake(){
     intakeMotor.stopMotor();
   }
+  
   ////////////////////////
   //  Pivoting Methods  //
   ////////////////////////
