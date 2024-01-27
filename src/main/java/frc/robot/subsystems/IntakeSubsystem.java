@@ -21,8 +21,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean pidOn = false;
   private double encoderVal;
   private double setpoint;
-  private DigitalInput restingLimitSwitch;
-  private DigitalInput intakingLimitSwitch;
+  // private DigitalInput restingLimitSwitch;
+  // private DigitalInput intakingLimitSwitch;
 
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless); 
@@ -32,8 +32,8 @@ public class IntakeSubsystem extends SubsystemBase {
     maxSpeed = 0.5;
     rEnc = intakePivotMotor.getEncoder();
     pid = new PIDController(0, 0, 0);
-    restingLimitSwitch = new DigitalInput(0);
-    intakingLimitSwitch = new DigitalInput(1);
+    // restingLimitSwitch = new DigitalInput(0);
+    // intakingLimitSwitch = new DigitalInput(1);
     pid.setTolerance(encoderVal);
   }
 
@@ -45,13 +45,13 @@ public class IntakeSubsystem extends SubsystemBase {
     return rEnc.getPosition();
   }
 
-  public boolean getRestingLS(){
-    return restingLimitSwitch.get();
-  }
+  // public boolean getRestingLS(){
+  //   return restingLimitSwitch.get();
+  // }
 
-  public boolean getIntakingLS(){
-    return intakingLimitSwitch.get();
-  }
+  // public boolean getIntakingLS(){
+  //   return intakingLimitSwitch.get();
+  // }
 
   //////////////////////////
   //   Intaking Methods   //

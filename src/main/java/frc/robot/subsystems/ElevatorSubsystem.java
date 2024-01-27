@@ -24,13 +24,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double topEncLimit;
   private double bottomEncLimit;
 
-  private DigitalInput topLimitSwitch;
-  private DigitalInput bottomLimitSwitch;
+  // private DigitalInput topLimitSwitch;
+  // private DigitalInput bottomLimitSwitch;
 
   public ElevatorSubsystem() {
     elevMotor = new CANSparkMax(ElevatorConstants.ELEVATOR_PORT, MotorType.kBrushless);
-    topLimitSwitch = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
-    bottomLimitSwitch = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
+    // topLimitSwitch = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
+    // bottomLimitSwitch = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
     enc = elevMotor.getEncoder();
     speedCap = ElevatorConstants.SPEED_CAP;
     elevMotor.setIdleMode(IdleMode.kBrake);
@@ -49,13 +49,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     return enc.getPosition();
   }
 
-  public boolean getTopLimitSwitch() {
-    return topLimitSwitch.get();
-  }
+  // public boolean getTopLimitSwitch() {
+  //   return topLimitSwitch.get();
+  // }
 
-  public boolean getBottomLimitSwitch() {
-    return bottomLimitSwitch.get();
-  }
+  // public boolean getBottomLimitSwitch() {
+  //   return bottomLimitSwitch.get();
+  // }
 
   //////////////////////////////
   //  Basic Movement Methods  //
@@ -165,7 +165,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // SmartDashboard
     SmartDashboard.putNumber("Elevator Encoder", getEnc());
-    SmartDashboard.putBoolean("Elevator Top LS", getTopLimitSwitch());
-    SmartDashboard.putBoolean("Elevator Bottom LS", getBottomLimitSwitch());
+    // SmartDashboard.putBoolean("Elevator Top LS", getTopLimitSwitch());
+    // SmartDashboard.putBoolean("Elevator Bottom LS", getBottomLimitSwitch());
   }
 }

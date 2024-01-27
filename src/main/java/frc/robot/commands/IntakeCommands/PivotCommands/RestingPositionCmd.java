@@ -24,6 +24,6 @@ public class RestingPositionCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return intakeSubs.getRestingLS() || intakeSubs.getEnc() <= 0;
+    return intakeSubs.getEnc() <= 0;//intakeSubs.getRestingLS() || intakeSubs.getEnc() <= 0;
   }
 }
