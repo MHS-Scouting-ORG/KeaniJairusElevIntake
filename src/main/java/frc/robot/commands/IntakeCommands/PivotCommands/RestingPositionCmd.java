@@ -18,7 +18,7 @@ public class RestingPositionCmd extends Command {
 
   @Override
   public void execute() {
-    i_Subsystem.newSetpoint(75);
+    i_Subsystem.newSetpoint(50);
   }
   
   @Override
@@ -29,6 +29,6 @@ public class RestingPositionCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return i_Subsystem.isAtSetpoint() || i_Subsystem.getRestingLS();
+    return i_Subsystem.isAtSetpoint();
   }
 }

@@ -17,7 +17,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakePivotMotor;
   private double maxSpeed;
   private RelativeEncoder rEnc;
-  private PIDController pid;
+  private PIDController pid;  
   private boolean pidOn = false;
   private double encoderVal;
   private double setpoint;
@@ -148,13 +148,17 @@ public class IntakeSubsystem extends SubsystemBase {
     return pidOn;
   }
 
+  public boolean isAtSetpoint(){
+    double error = setpoint - getEnc();
+    return Math.abs(error) <= 2;
+  }
+
   public void newSetpoint(double setpoint){
     this.setpoint = setpoint;
   }
   
   @Override
   public void periodic() {
-
 
     if(pidOn){
       pidSpeed = pid.calculate(getEnc(), setpoint);

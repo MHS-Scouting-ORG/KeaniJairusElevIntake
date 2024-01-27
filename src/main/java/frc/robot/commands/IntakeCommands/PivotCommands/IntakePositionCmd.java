@@ -9,7 +9,7 @@ public class IntakePositionCmd extends Command {
 
   public IntakePositionCmd(IntakeSubsystem iSubs) {
     i_subsystem = iSubs;
-    addRequirements(iSubs);
+    addRequirements(i_subsystem);
   }
 
   @Override
@@ -24,7 +24,7 @@ public class IntakePositionCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-
+    i_subsystem.turnPIDOff();
   }
 
   @Override

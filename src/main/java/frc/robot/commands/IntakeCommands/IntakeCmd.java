@@ -15,7 +15,7 @@ public class IntakeCmd extends Command {
   
   public IntakeCmd(IntakeSubsystem iSubs) {
     i_subsystem = iSubs;
-    addRequirements(iSubs);
+    addRequirements(i_subsystem);
   }
 
   @Override

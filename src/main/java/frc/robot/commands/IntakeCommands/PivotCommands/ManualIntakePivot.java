@@ -16,7 +16,7 @@ public class ManualIntakePivot extends Command {
   public ManualIntakePivot(IntakeSubsystem iSubs, DoubleSupplier speed) {
     i_subsystem = iSubs;
     this.speed = speed;
-    addRequirements(iSubs);
+    addRequirements(i_subsystem);
   }
 
   @Override

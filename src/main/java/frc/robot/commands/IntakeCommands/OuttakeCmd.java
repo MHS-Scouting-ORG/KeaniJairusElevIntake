@@ -11,7 +11,7 @@ public class OuttakeCmd extends Command {
   
   public OuttakeCmd(IntakeSubsystem iSubs) {
     i_subsystem = iSubs;
-    addRequirements(iSubs);
+    addRequirements(i_subsystem);
   }
 
   @Override

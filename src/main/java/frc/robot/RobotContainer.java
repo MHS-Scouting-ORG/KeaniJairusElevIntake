@@ -20,12 +20,12 @@ public class RobotContainer {
   private final IntakeSubsystem i_subsystem = new IntakeSubsystem();
   private final ElevatorSubsystem elevSub = new ElevatorSubsystem();
 
-  private final XboxController xboxController = new XboxController(0);
+  //private final XboxController xboxController = new XboxController(0);
   private final Joystick joystick = new Joystick(1);
 
   public RobotContainer() {
-    i_subsystem.setDefaultCommand(new ManualIntakePivot(i_subsystem, () -> joystick.getY()));
-    // elevSub.setDefaultCommand(new ManualElevatorCommand(elevSub, () -> joystick.getY()));
+     i_subsystem.setDefaultCommand(new ManualIntakePivot(i_subsystem, () -> joystick.getY()));
+    //elevSub.setDefaultCommand(new ManualElevatorCommand(elevSub, () -> joystick.getY()));
 
     configureBindings();
   }
