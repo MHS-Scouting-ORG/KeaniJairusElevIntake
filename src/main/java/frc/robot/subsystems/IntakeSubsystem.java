@@ -21,7 +21,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean pidOn = false;
   private double encoderVal;
   private double setpoint;
-  private double pidSpeed = 0;
+  private double pidSpeed;
   private DigitalInput restingLimitSwitch;
   private DigitalInput intakingLimitSwitch;
 
@@ -31,10 +31,11 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setIdleMode(IdleMode.kCoast);
     intakePivotMotor.setIdleMode(IdleMode.kBrake);
     maxSpeed = 0.5;
+    pidSpeed = 0;
     rEnc = intakePivotMotor.getEncoder();
-    pid = new PIDController(0.01, 0, 0);
-    restingLimitSwitch = new DigitalInput(9);
-    intakingLimitSwitch = new DigitalInput(8);
+    pid = new PIDController(IntakeConstants.INTAKEPIVOT_KP, IntakeConstants.INTAKEPIVOT_KI, IntakeConstants.INTAKEPIVOT_KD);
+    restingLimitSwitch = new DigitalInput(IntakeConstants.INTAKE_RESTING_LS_PORT);
+    intakingLimitSwitch = new DigitalInput(IntakeConstants.INTAKE_INTAKING_LS_PORT);
     pid.setTolerance(encoderVal);
   }
 
@@ -141,16 +142,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public boolean isAtSetpoint(){
     double error = getEnc() - setpoint;
-    return Math.abs(error) < 3;
+    return Math.abs(error) < 2;
   }
 
   public boolean isPIDOn(){
     return pidOn;
-  }
-
-  public boolean isAtSetpoint(){
-    double error = setpoint - getEnc();
-    return Math.abs(error) <= 2;
   }
 
   public void newSetpoint(double setpoint){
