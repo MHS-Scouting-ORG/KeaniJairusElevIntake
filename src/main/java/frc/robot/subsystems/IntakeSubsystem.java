@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
@@ -20,6 +21,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean pidOn = false;
   private double encoderVal;
   private double setpoint;
+  private DigitalInput restingLimitSwitch;
+  private DigitalInput intakingLimitSwitch;
 
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless); 
@@ -29,6 +32,9 @@ public class IntakeSubsystem extends SubsystemBase {
     maxSpeed = 0.5;
     rEnc = intakePivotMotor.getEncoder();
     pid = new PIDController(0, 0, 0);
+    restingLimitSwitch = new DigitalInput(0);
+    intakingLimitSwitch = new DigitalInput(1);
+    pid.setTolerance(encoderVal);
   }
 
   //////////////////////////
@@ -39,8 +45,16 @@ public class IntakeSubsystem extends SubsystemBase {
     return rEnc.getPosition();
   }
 
+  public boolean getRestingLS(){
+    return restingLimitSwitch.get();
+  }
+
+  public boolean getIntakingLS(){
+    return intakingLimitSwitch.get();
+  }
+
   //////////////////////////
-  //   Movement Methods   //
+  //   Intaking Methods   //
   //////////////////////////
 
   public void intake(){
@@ -50,6 +64,13 @@ public class IntakeSubsystem extends SubsystemBase {
   public void outtake(){
     intakeMotor.set(-maxSpeed);
   }
+  
+  public void stopIntake(){
+    intakeMotor.stopMotor();
+  }
+  ////////////////////////
+  //  Pivoting Methods  //
+  ////////////////////////
 
   //Deadzone for the Xbox Controller and sets a max speed of 0.5 in both directions
   public double deadZone(double speed){
@@ -66,7 +87,6 @@ public class IntakeSubsystem extends SubsystemBase {
       return speed;
     }
   }
-
   
   public void manualIntake(double speed){
     intakePivotMotor.set(deadZone(speed));
@@ -91,9 +111,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
   }
 
-  public void stopIntake(){
-    intakeMotor.stopMotor();
-  }
+  
 
   public void stopPivotIntake(){
     intakePivotMotor.stopMotor();
@@ -126,20 +144,16 @@ public class IntakeSubsystem extends SubsystemBase {
   
   @Override
   public void periodic() {
-    encoderVal = getEnc();
     double pidSpeed = 0;
 
     if(pidOn){
-      pidSpeed = pid.calculate(encoderVal, setpoint);
+      pidSpeed = pid.calculate(getEnc(), setpoint);
     }
-    else{
+    if(pidSpeed > maxSpeed){
       pidSpeed = maxSpeed;
     }
-    if(pidSpeed > 0){
-      pidSpeed = 0;
-    }
-    else if(pidSpeed < 0){
-      pidSpeed = 0;
+    else if(pidSpeed < -maxSpeed){
+      pidSpeed = -maxSpeed;
     }
     intakePivotMotor.set(pidSpeed);
 

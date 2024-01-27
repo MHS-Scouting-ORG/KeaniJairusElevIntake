@@ -2,16 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.IntakeCommands;
+package frc.robot.commands.IntakeCommands.PivotCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeTransferCmd extends Command {
+public class TransferPositionCmd extends Command {
   
   private IntakeSubsystem i_Subsystem;
 
-  public IntakeTransferCmd(IntakeSubsystem iSubs) {
+  public TransferPositionCmd(IntakeSubsystem iSubs) {
     i_Subsystem = iSubs;
     addRequirements(iSubs);
   }

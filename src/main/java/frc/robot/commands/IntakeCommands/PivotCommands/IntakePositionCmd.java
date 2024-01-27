@@ -1,13 +1,13 @@
-package frc.robot.commands.IntakeCommands;
+package frc.robot.commands.IntakeCommands.PivotCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class FloorIntakeCmd extends Command {
+public class IntakePositionCmd extends Command {
   
   private IntakeSubsystem i_subsystem;
 
-  public FloorIntakeCmd(IntakeSubsystem iSubs) {
+  public IntakePositionCmd(IntakeSubsystem iSubs) {
     i_subsystem = iSubs;
     addRequirements(iSubs);
   }
