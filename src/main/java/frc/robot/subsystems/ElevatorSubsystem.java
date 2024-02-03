@@ -16,14 +16,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   private CANSparkMax elevMotor1;
   private CANSparkMax elevMotor2;
   private RelativeEncoder enc;
-  private double speedCap;
 
   private PIDController pid;
   private double previousError;
   private double currentError;
-
-  private double topEncLimit;
-  private double bottomEncLimit;
 
   private DigitalInput topLS;
   private DigitalInput bottomLS;
@@ -31,23 +27,18 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     elevMotor1 = new CANSparkMax(ElevatorConstants.ELEVATOR_MOTOR_PORT1, MotorType.kBrushless);
     elevMotor2 = new CANSparkMax(ElevatorConstants.ELEVATOR_MOTOR_PORT2, MotorType.kBrushless);
+    
+    elevMotor1.setIdleMode(IdleMode.kBrake);
+    elevMotor2.setIdleMode(IdleMode.kBrake);
 
     topLS = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
     bottomLS = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
 
     enc = elevMotor1.getEncoder();
 
-    speedCap = ElevatorConstants.SPEED_CAP;
-
-    elevMotor1.setIdleMode(IdleMode.kBrake);
-    elevMotor2.setIdleMode(IdleMode.kBrake);
-
-    topEncLimit = ElevatorConstants.TOP_ENC_LIMIT;
-    bottomEncLimit = ElevatorConstants.BOTTOM_ENC_LIMIT;
-
     pid = new PIDController(ElevatorConstants.ELEVATOR_KP, ElevatorConstants.ELEVATOR_KI, ElevatorConstants.ELEVATOR_KD);
-    previousError = 0;
     pid.setTolerance(1);
+    previousError = 0;
   }
 
   ////////////////////////
@@ -77,8 +68,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void toBottom(){
     if (getEnc() > -50) {
-      elevMotor1.set(-speedCap);
-      elevMotor2.set(-speedCap);
+      elevMotor1.set(-ElevatorConstants.SPEED_CAP);
+      elevMotor2.set(-ElevatorConstants.SPEED_CAP);
     }
     else {
       elevStop();
@@ -87,8 +78,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void toTop() {
     if (getEnc() < 50) {
-      elevMotor1.set(speedCap);
-      elevMotor2.set(speedCap);
+      elevMotor1.set(ElevatorConstants.SPEED_CAP);
+      elevMotor2.set(ElevatorConstants.SPEED_CAP);
     }
     else {
       elevStop();
@@ -121,11 +112,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     if (Math.abs(speed) < 0.1) {
       return 0;
     }
-    else if (speed > speedCap) {
-      return speedCap;
+    else if (speed > ElevatorConstants.SPEED_CAP) {
+      return ElevatorConstants.SPEED_CAP;
     }
-    else if (speed < -speedCap) {
-      return -speedCap;
+    else if (speed < -ElevatorConstants.SPEED_CAP) {
+      return -ElevatorConstants.SPEED_CAP;
     }
     else {
       return speed;
@@ -137,16 +128,16 @@ public class ElevatorSubsystem extends SubsystemBase {
   //////////////////
   
   public double calculateSpeed(double setpoint){
-    double error = pid.calculate(getEnc(), setpoint);
+    double output = pid.calculate(getEnc(), setpoint);
 
-    if (error > speedCap){
-      return speedCap;
+    if (output > ElevatorConstants.SPEED_CAP){
+      return ElevatorConstants.SPEED_CAP;
     }
-    else if (error < -speedCap){
-      return -speedCap;
+    else if (output < -ElevatorConstants.SPEED_CAP){
+      return -ElevatorConstants.SPEED_CAP;
     }
     else{
-      return error;
+      return output;
     }
   }
 
@@ -164,13 +155,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void toTopPID(){
-    elevMotor1.set(calculateSpeed(topEncLimit));
-    elevMotor2.set(calculateSpeed(topEncLimit));
+    elevMotor1.set(calculateSpeed(ElevatorConstants.TOP_ENC_LIMIT));
+    elevMotor2.set(calculateSpeed(ElevatorConstants.TOP_ENC_LIMIT));
   }
 
   public void toBottomPID(){
-    elevMotor1.set(calculateSpeed(bottomEncLimit));
-    elevMotor2.set(calculateSpeed(bottomEncLimit));
+    elevMotor1.set(calculateSpeed(ElevatorConstants.BOTTOM_ENC_LIMIT));
+    elevMotor2.set(calculateSpeed(ElevatorConstants.BOTTOM_ENC_LIMIT));
   }
 
   @Override
