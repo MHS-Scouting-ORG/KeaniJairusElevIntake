@@ -35,7 +35,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePivotMotor = new CANSparkMax(IntakeConstants.INTAKEPIVOT_PORT, MotorType.kBrushless);
     intakeMotor.setIdleMode(IdleMode.kCoast);
     intakePivotMotor.setIdleMode(IdleMode.kBrake);
-    maxSpeed = IntakeConstants.SPEED_CAP;
+    maxSpeed = IntakeConstants.INTAKE_MAXSPEED;
     pidSpeed = 0;
     rEnc = intakePivotMotor.getEncoder();
     pid = new PIDController(IntakeConstants.INTAKEPIVOT_KP, IntakeConstants.INTAKEPIVOT_KI, IntakeConstants.INTAKEPIVOT_KD);
