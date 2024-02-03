@@ -39,7 +39,7 @@ public class IntakeSubsystem extends SubsystemBase {
     pid = new PIDController(IntakeConstants.INTAKEPIVOT_KP, IntakeConstants.INTAKEPIVOT_KI, IntakeConstants.INTAKEPIVOT_KD);
     restingLimitSwitch = new DigitalInput(IntakeConstants.INTAKE_RESTING_LS_PORT);
     intakingLimitSwitch = new DigitalInput(IntakeConstants.INTAKE_INTAKING_LS_PORT);
-    opticalSensor = new DigitalInput(IntakeConstants.INTAKE_OPTICAL_PORT);
+    opticalSensor = new DigitalInput(0);
   }
 
   //////////////////////////

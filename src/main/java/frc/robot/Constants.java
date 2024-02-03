@@ -14,7 +14,6 @@ public final class Constants {
     public static final double INTAKE_MAXSPEED = 0.5;
     public static final double INTAKE_ENCTOLERANCE = 2;
   }
-
   public static class ElevatorConstants {
     public static final int ELEVATOR_MOTOR_PORT1 = 3;
     public static final int ELEVATOR_MOTOR_PORT2 = 4;
