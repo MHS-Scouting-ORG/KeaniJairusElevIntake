@@ -1,18 +1,18 @@
 package frc.robot.commands.ElevatorCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ElevatorConstants;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.Constants.HangConstants;
+import frc.robot.subsystems.HangSubsystem;
 
 public class ElevatorToBottomPIDCommand extends Command {
 
-  private ElevatorSubsystem elevSub;
+  private HangSubsystem hangSub;
 
-  public ElevatorToBottomPIDCommand(ElevatorSubsystem newElevSub) {
+  public ElevatorToBottomPIDCommand(HangSubsystem newElevSub) {
 
-    elevSub = newElevSub;
+    hangSub = newElevSub;
 
-    addRequirements(elevSub);
+    addRequirements(hangSub);
   }
 
   @Override
@@ -20,15 +20,17 @@ public class ElevatorToBottomPIDCommand extends Command {
 
   @Override
   public void execute() {
-    elevSub.toBottomPID();
+    hangSub.toBottomPID();
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    hangSub.elevStop();
+  }
 
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return elevSub.getEnc() < ElevatorConstants.BOTTOM_ENC_LIMIT;
+    return hangSub.getEnc() < HangConstants.BOTTOM_ENC_LIMIT;
   }
 }
