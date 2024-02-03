@@ -13,6 +13,7 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
+  
   private CANSparkMax intakeMotor;
   private CANSparkMax intakePivotMotor;
 
