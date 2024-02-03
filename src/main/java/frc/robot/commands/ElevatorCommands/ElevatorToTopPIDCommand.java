@@ -29,6 +29,6 @@ public class ElevatorToTopPIDCommand extends Command {
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return elevSub.getEnc() > ElevatorConstants.TOP_ENC_LIMIT;
+    return elevSub.getEnc() > ElevatorConstants.TOP_ENC_LIMIT || elevSub.getTopLimitSwitch();
   }
 }
