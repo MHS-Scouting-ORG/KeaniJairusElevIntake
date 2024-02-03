@@ -3,9 +3,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.HangSubsystem;
 import frc.robot.commands.ElevatorCommands.ElevatorToBottomCommand;
 import frc.robot.commands.ElevatorCommands.ElevatorToTopCommand;
 import frc.robot.commands.ElevatorCommands.ManualElevatorCommand;
@@ -20,7 +21,7 @@ import frc.robot.subsystems.UnderIntakeSubsystem;
 
 public class RobotContainer {
   private final IntakeSubsystem i_subsystem = new IntakeSubsystem();
-  private final ElevatorSubsystem elevSub = new ElevatorSubsystem();
+  private final HangSubsystem hangSub = new HangSubsystem();
   private final UnderIntakeSubsystem u_subsystem = new UnderIntakeSubsystem();
 
   //private final XboxController xboxController = new XboxController(0);
@@ -38,8 +39,9 @@ public class RobotContainer {
     //new JoystickButton(joystick, 5).onTrue(new TransferPositionCmd(i_subsystem));
     //new JoystickButton(joystick, 4).onTrue(new IntakePositionCmd(i_subsystem));
     new JoystickButton(joystick, 1).onTrue(new IntakeCmd(u_subsystem));
-    new JoystickButton(joystick, 6).onTrue(new OuttakeCmd(u_subsystem));
-     new JoystickButton(joystick, 2).onTrue(new DeliverCmd(u_subsystem));
+    new JoystickButton(joystick, 6).toggleOnTrue(new OuttakeCmd(u_subsystem));
+    new JoystickButton(joystick, 6).toggleOnFalse(new InstantCommand(() -> u_subsystem.stopIntake()));
+    new JoystickButton(joystick, 2).whileTrue(new DeliverCmd(u_subsystem));
     //new JoystickButton(joystick, 2).onTrue(new DeliverCmd(i_subsystem));
 
     // new JoystickButton(joystick,   6).onTrue(new ElevatorToTopCommand(elevSub));

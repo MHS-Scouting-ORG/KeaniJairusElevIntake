@@ -34,7 +34,7 @@ public class IntakeCmd extends Command {
   public void end(boolean interrupted) {
     u_subsystem.stopIntake();
   }
-
+    
   @Override
   public boolean isFinished() {
     return u_subsystem.getOpticalSensor();
