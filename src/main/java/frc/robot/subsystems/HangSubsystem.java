@@ -164,6 +164,9 @@ public class HangSubsystem extends SubsystemBase {
     hangMotor2.set(calculateSpeed(HangConstants.BOTTOM_ENC_LIMIT));
   }
 
+  public boolean isAtSetpoint(){
+    return Math.abs(getEnc() - pid.getSetpoint()) <= 3;
+  }
   @Override
   public void periodic() {
 
@@ -173,6 +176,7 @@ public class HangSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Hang Enc 1", getEnc());
     SmartDashboard.putNumber("Hang Enc 2", hangMotor2.getEncoder().getPosition());
     SmartDashboard.putBoolean("Hang Top LS", getTopLimitSwitch());
+    SmartDashboard.putBoolean("isAtSetpoint", isAtSetpoint());
     // SmartDashboard.putBoolean("Hang Bottom LS", getBottomLimitSwitch());
   }
 }
