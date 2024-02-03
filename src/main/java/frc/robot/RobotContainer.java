@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.HangSubsystem;
 import frc.robot.commands.ElevatorCommands.ElevatorToBottomCommand;
 import frc.robot.commands.ElevatorCommands.ElevatorToTopCommand;
 import frc.robot.commands.ElevatorCommands.ManualElevatorCommand;
@@ -20,7 +20,7 @@ import frc.robot.subsystems.UnderIntakeSubsystem;
 
 public class RobotContainer {
   private final IntakeSubsystem i_subsystem = new IntakeSubsystem();
-  private final ElevatorSubsystem elevSub = new ElevatorSubsystem();
+  private final HangSubsystem elevSub = new HangSubsystem();
   private final UnderIntakeSubsystem u_subsystem = new UnderIntakeSubsystem();
 
   //private final XboxController xboxController = new XboxController(0);
