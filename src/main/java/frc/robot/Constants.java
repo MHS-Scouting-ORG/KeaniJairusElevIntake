@@ -3,6 +3,7 @@ package frc.robot;
 public final class Constants {
   public static class IntakeConstants {
     public static final int INTAKE_PORT = 1;
+    public static final int INTAKE_PORT2 = 2;
     public static final int INTAKEPIVOT_PORT = 5;
     public static final int INTAKE_RESTING_LS_PORT = 7;
     public static final int INTAKE_INTAKING_LS_PORT = 8;

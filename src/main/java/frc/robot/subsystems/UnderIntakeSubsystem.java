@@ -10,7 +10,7 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakeMotor;
 
   public UnderIntakeSubsystem() {
-    intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT2, MotorType.kBrushless);
   }
 
   public void intake(){
