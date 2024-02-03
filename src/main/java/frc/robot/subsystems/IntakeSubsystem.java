@@ -16,14 +16,13 @@ public class IntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakeMotor;
   private CANSparkMax intakePivotMotor;
 
-  private double maxSpeed;
   private RelativeEncoder rEnc;
 
   private PIDController pid;  
   private boolean pidOn = false;
-  private double encoderVal;
   private double setpoint;
   private double pidSpeed;
+  private double error = getEnc() - setpoint;
 
   private DigitalInput restingLimitSwitch;
   private DigitalInput intakingLimitSwitch;
@@ -35,14 +34,12 @@ public class IntakeSubsystem extends SubsystemBase {
     intakePivotMotor = new CANSparkMax(IntakeConstants.INTAKEPIVOT_PORT, MotorType.kBrushless);
     intakeMotor.setIdleMode(IdleMode.kCoast);
     intakePivotMotor.setIdleMode(IdleMode.kBrake);
-    maxSpeed = IntakeConstants.INTAKE_MAXSPEED;
     pidSpeed = 0;
     rEnc = intakePivotMotor.getEncoder();
     pid = new PIDController(IntakeConstants.INTAKEPIVOT_KP, IntakeConstants.INTAKEPIVOT_KI, IntakeConstants.INTAKEPIVOT_KD);
     restingLimitSwitch = new DigitalInput(IntakeConstants.INTAKE_RESTING_LS_PORT);
     intakingLimitSwitch = new DigitalInput(IntakeConstants.INTAKE_INTAKING_LS_PORT);
     opticalSensor = new DigitalInput(IntakeConstants.INTAKE_OPTICAL_PORT);
-    pid.setTolerance(encoderVal);
   }
 
   //////////////////////////
@@ -70,11 +67,11 @@ public class IntakeSubsystem extends SubsystemBase {
   //////////////////////////
 
   public void intake(){
-    intakeMotor.set(maxSpeed);
+    intakeMotor.set(IntakeConstants.INTAKE_MAXSPEED);
   }
 
   public void outtake(){
-    intakeMotor.set(-maxSpeed);
+    intakeMotor.set(-IntakeConstants.INTAKE_MAXSPEED);
   }
   
   public void stopIntake(){
@@ -90,11 +87,11 @@ public class IntakeSubsystem extends SubsystemBase {
     if(Math.abs(speed) < 0.1){
       return 0;
     }
-    else if(speed > maxSpeed){
-      return maxSpeed;
+    else if(speed > IntakeConstants.INTAKE_MAXSPEED){
+      return IntakeConstants.INTAKE_MAXSPEED;
     }
-    else if(speed < -maxSpeed){
-      return -maxSpeed;   
+    else if(speed < -IntakeConstants.INTAKE_MAXSPEED){
+      return -IntakeConstants.INTAKE_MAXSPEED;   
     }
     else{
       return speed;
@@ -153,8 +150,8 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    double error = getEnc() - setpoint;
-    return Math.abs(error) < 2;
+    //If the error is/is not in range of the encoder tolerance, it returns true/false if is at the setpoint or not
+    return Math.abs(error) < IntakeConstants.INTAKE_ENCTOLERANCE;
   }
 
   public boolean isPIDOn(){
@@ -171,11 +168,11 @@ public class IntakeSubsystem extends SubsystemBase {
     if(pidOn){
       pidSpeed = pid.calculate(getEnc(), setpoint);
 
-      if(pidSpeed > maxSpeed){
-        pidSpeed = maxSpeed;
+      if(pidSpeed > IntakeConstants.INTAKE_MAXSPEED){
+        pidSpeed = IntakeConstants.INTAKE_MAXSPEED;
       }
-      else if(pidSpeed < -maxSpeed){
-        pidSpeed = -maxSpeed;
+      else if(pidSpeed < -IntakeConstants.INTAKE_MAXSPEED){
+        pidSpeed = -IntakeConstants.INTAKE_MAXSPEED;
       }
       intakePivotMotor.set(pidSpeed);
     }
