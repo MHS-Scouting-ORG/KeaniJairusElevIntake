@@ -16,10 +16,12 @@ import frc.robot.commands.IntakeCommands.PivotCommands.IntakePositionCmd;
 import frc.robot.commands.IntakeCommands.PivotCommands.RestingPositionCmd;
 import frc.robot.commands.IntakeCommands.PivotCommands.ManualIntakePivot;
 import frc.robot.commands.IntakeCommands.PivotCommands.TransferPositionCmd;
+import frc.robot.subsystems.UnderIntakeSubsystem;
 
 public class RobotContainer {
   private final IntakeSubsystem i_subsystem = new IntakeSubsystem();
   private final ElevatorSubsystem elevSub = new ElevatorSubsystem();
+  private final UnderIntakeSubsystem u_subsystem = new UnderIntakeSubsystem();
 
   //private final XboxController xboxController = new XboxController(0);
   private final Joystick joystick = new Joystick(1);
@@ -32,11 +34,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(joystick, 3).onTrue(new RestingPositionCmd(i_subsystem));
-    new JoystickButton(joystick, 5).onTrue(new TransferPositionCmd(i_subsystem));
-    new JoystickButton(joystick, 4).onTrue(new IntakePositionCmd(i_subsystem));
-    new JoystickButton(joystick, 1).onTrue(new IntakeCmd(i_subsystem));
-    new JoystickButton(joystick, 2).onTrue(new DeliverCmd(i_subsystem));
+    //new JoystickButton(joystick, 3).onTrue(new RestingPositionCmd(i_subsystem));
+    //new JoystickButton(joystick, 5).onTrue(new TransferPositionCmd(i_subsystem));
+    //new JoystickButton(joystick, 4).onTrue(new IntakePositionCmd(i_subsystem));
+    new JoystickButton(joystick, 1).onTrue(new IntakeCmd(u_subsystem));
+    new JoystickButton(joystick, 6).onTrue(new OuttakeCmd(u_subsystem));
+    //new JoystickButton(joystick, 2).onTrue(new DeliverCmd(i_subsystem));
 
     // new JoystickButton(joystick,   6).onTrue(new ElevatorToTopCommand(elevSub));
     // new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCommand(elevSub));

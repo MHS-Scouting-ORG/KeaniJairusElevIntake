@@ -7,6 +7,8 @@ public class TransferPositionCmd extends Command {
 
   private IntakeSubsystem intakeSubs;
 
+  //Sets the intake pivot position to transfer the note from the intake to the indexer/shooter
+
   public TransferPositionCmd(IntakeSubsystem newIntakeSubs) {
     intakeSubs = newIntakeSubs;
 

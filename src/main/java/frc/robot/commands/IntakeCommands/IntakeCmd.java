@@ -6,16 +6,18 @@ package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.UnderIntakeSubsystem;
 
 public class IntakeCmd extends Command {
   
-  private IntakeSubsystem i_subsystem;
+  //private IntakeSubsystem i_subsystem;
+  private UnderIntakeSubsystem u_subsystem;
 
   //Runs the elevator intake to "intake" notes
   
-  public IntakeCmd(IntakeSubsystem iSubs) {
-    i_subsystem = iSubs;
-    addRequirements(i_subsystem);
+  public IntakeCmd(UnderIntakeSubsystem uSubs) {
+    u_subsystem = uSubs;
+    addRequirements(u_subsystem);
   }
 
   @Override
@@ -25,16 +27,16 @@ public class IntakeCmd extends Command {
 
   @Override
   public void execute() {
-    i_subsystem.intake();
+    u_subsystem.intake();
   }
 
   @Override
   public void end(boolean interrupted) {
-    i_subsystem.stopIntake();
+    u_subsystem.stopIntake();
   }
 
   @Override
   public boolean isFinished() {
-    return i_subsystem.getOpticalSensor();
+    return false;
   }
 }
