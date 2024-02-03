@@ -14,16 +14,16 @@ public final class Constants {
     public static final double INTAKE_MAXSPEED = 0.5;
     public static final double INTAKE_ENCTOLERANCE = 2;
   }
-  public static class ElevatorConstants {
-    public static final int ELEVATOR_MOTOR_PORT1 = 3;
-    public static final int ELEVATOR_MOTOR_PORT2 = 4;
+  public static class HangConstants {
+    public static final int HANG_MOTOR_PORT1 = 3;
+    public static final int HANG_MOTOR_PORT2 = 4;
     public static final int TOP_LS_PORT = 6;
     public static final int BOTTOM_LS_PORT = 2;
     public static final double SPEED_CAP = 0.5;
     public static final double TOP_ENC_LIMIT = 50;
     public static final double BOTTOM_ENC_LIMIT = -50;
-    public static final double ELEVATOR_KP = 0;
-    public static final double ELEVATOR_KI = 0;
-    public static final double ELEVATOR_KD = 0;
+    public static final double HANG_KP = 0;
+    public static final double HANG_KI = 0;
+    public static final double HANG_KD = 0;
   }
 }

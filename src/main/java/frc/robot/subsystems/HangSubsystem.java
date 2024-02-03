@@ -9,12 +9,12 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.HangConstants;
 
-public class ElevatorSubsystem extends SubsystemBase {
+public class HangSubsystem extends SubsystemBase {
 
-  private CANSparkMax elevMotor1;
-  private CANSparkMax elevMotor2;
+  private CANSparkMax hangMotor1;
+  private CANSparkMax hangMotor2;
   private RelativeEncoder enc;
 
   private PIDController pid;
@@ -24,19 +24,19 @@ public class ElevatorSubsystem extends SubsystemBase {
   private DigitalInput topLS;
   private DigitalInput bottomLS;
 
-  public ElevatorSubsystem() {
-    elevMotor1 = new CANSparkMax(ElevatorConstants.ELEVATOR_MOTOR_PORT1, MotorType.kBrushless);
-    elevMotor2 = new CANSparkMax(ElevatorConstants.ELEVATOR_MOTOR_PORT2, MotorType.kBrushless);
+  public HangSubsystem() {
+    hangMotor1 = new CANSparkMax(HangConstants.HANG_MOTOR_PORT1, MotorType.kBrushless);
+    hangMotor2 = new CANSparkMax(HangConstants.HANG_MOTOR_PORT2, MotorType.kBrushless);
     
-    elevMotor1.setIdleMode(IdleMode.kBrake);
-    elevMotor2.setIdleMode(IdleMode.kBrake);
+    hangMotor1.setIdleMode(IdleMode.kBrake);
+    hangMotor2.setIdleMode(IdleMode.kBrake);
 
-    topLS = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
-    bottomLS = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
+    topLS = new DigitalInput(HangConstants.TOP_LS_PORT);
+    bottomLS = new DigitalInput(HangConstants.BOTTOM_LS_PORT);
 
-    enc = elevMotor1.getEncoder();
+    enc = hangMotor1.getEncoder();
 
-    pid = new PIDController(ElevatorConstants.ELEVATOR_KP, ElevatorConstants.ELEVATOR_KI, ElevatorConstants.ELEVATOR_KD);
+    pid = new PIDController(HangConstants.HANG_KP, HangConstants.HANG_KI, HangConstants.HANG_KD);
     pid.setTolerance(1);
     previousError = 0;
   }
@@ -62,14 +62,14 @@ public class ElevatorSubsystem extends SubsystemBase {
   //////////////////////////////
 
   public void elevStop(){
-    elevMotor1.stopMotor();
-    elevMotor2.stopMotor();
+    hangMotor1.stopMotor();
+    hangMotor2.stopMotor();
   }
 
   public void toBottom(){
     if (getEnc() > -50) {
-      elevMotor1.set(-ElevatorConstants.SPEED_CAP);
-      elevMotor2.set(-ElevatorConstants.SPEED_CAP);
+      hangMotor1.set(-HangConstants.SPEED_CAP);
+      hangMotor2.set(-HangConstants.SPEED_CAP);
     }
     else {
       elevStop();
@@ -78,8 +78,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void toTop() {
     if (getEnc() < 50) {
-      elevMotor1.set(ElevatorConstants.SPEED_CAP);
-      elevMotor2.set(ElevatorConstants.SPEED_CAP);
+      hangMotor1.set(HangConstants.SPEED_CAP);
+      hangMotor2.set(HangConstants.SPEED_CAP);
     }
     else {
       elevStop();
@@ -87,23 +87,23 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   // Checks if limit switches are pressed to prevent movement in that direction
-  public void ManualElevator(double speed) {
+  public void ManualHang(double speed) {
     if (getTopLimitSwitch() && speed > 0) {
       elevStop();
     }
     // else if (getBottomLimitSwitch() && speed > 0.1){
-    //   elevMotor1.set(deadzone(speed));
+    //   hangMotor1.set(deadzone(speed));
     // }
     // else if (!getTopLimitSwitch() && !getBottomLimitSwitch()){
-    //   elevMotor1.set(deadzone(speed));
+    //   hangMotor1.set(deadzone(speed));
     // }
     else{
-      elevMotor1.set(deadzone(speed));
-      elevMotor2.set(deadzone(speed));
+      hangMotor1.set(deadzone(speed));
+      hangMotor2.set(deadzone(speed));
     }
 
     // This line is in case of no limitswitches and just sets motor to joystick speed
-    // elevMotor1.set(deadzone(speed)); 
+    // hangMotor1.set(deadzone(speed)); 
   }
 
 
@@ -112,11 +112,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     if (Math.abs(speed) < 0.1) {
       return 0;
     }
-    else if (speed > ElevatorConstants.SPEED_CAP) {
-      return ElevatorConstants.SPEED_CAP;
+    else if (speed > HangConstants.SPEED_CAP) {
+      return HangConstants.SPEED_CAP;
     }
-    else if (speed < -ElevatorConstants.SPEED_CAP) {
-      return -ElevatorConstants.SPEED_CAP;
+    else if (speed < -HangConstants.SPEED_CAP) {
+      return -HangConstants.SPEED_CAP;
     }
     else {
       return speed;
@@ -130,11 +130,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   public double calculateSpeed(double setpoint){
     double output = pid.calculate(getEnc(), setpoint);
 
-    if (output > ElevatorConstants.SPEED_CAP){
-      return ElevatorConstants.SPEED_CAP;
+    if (output > HangConstants.SPEED_CAP){
+      return HangConstants.SPEED_CAP;
     }
-    else if (output < -ElevatorConstants.SPEED_CAP){
-      return -ElevatorConstants.SPEED_CAP;
+    else if (output < -HangConstants.SPEED_CAP){
+      return -HangConstants.SPEED_CAP;
     }
     else{
       return output;
@@ -155,13 +155,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void toTopPID(){
-    elevMotor1.set(calculateSpeed(ElevatorConstants.TOP_ENC_LIMIT));
-    elevMotor2.set(calculateSpeed(ElevatorConstants.TOP_ENC_LIMIT));
+    hangMotor1.set(calculateSpeed(HangConstants.TOP_ENC_LIMIT));
+    hangMotor2.set(calculateSpeed(HangConstants.TOP_ENC_LIMIT));
   }
 
   public void toBottomPID(){
-    elevMotor1.set(calculateSpeed(ElevatorConstants.BOTTOM_ENC_LIMIT));
-    elevMotor2.set(calculateSpeed(ElevatorConstants.BOTTOM_ENC_LIMIT));
+    hangMotor1.set(calculateSpeed(HangConstants.BOTTOM_ENC_LIMIT));
+    hangMotor2.set(calculateSpeed(HangConstants.BOTTOM_ENC_LIMIT));
   }
 
   @Override
@@ -170,9 +170,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     resetI();
 
     // SmartDashboard
-    SmartDashboard.putNumber("Elevator Enc 1", getEnc());
-    SmartDashboard.putNumber("Elevator Enc 2", elevMotor2.getEncoder().getPosition());
-    SmartDashboard.putBoolean("Elevator Top LS", getTopLimitSwitch());
-    // SmartDashboard.putBoolean("Elevator Bottom LS", getBottomLimitSwitch());
+    SmartDashboard.putNumber("Hang Enc 1", getEnc());
+    SmartDashboard.putNumber("Hang Enc 2", hangMotor2.getEncoder().getPosition());
+    SmartDashboard.putBoolean("Hang Top LS", getTopLimitSwitch());
+    // SmartDashboard.putBoolean("Hang Bottom LS", getBottomLimitSwitch());
   }
 }
