@@ -31,6 +31,6 @@ public class ElevatorToBottomPIDCommand extends Command {
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return hangSub.getEnc() < HangConstants.BOTTOM_ENC_LIMIT;
+    return hangSub.isAtSetpoint();
   }
 }

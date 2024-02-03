@@ -33,6 +33,6 @@ public class ElevatorToTopCommand extends Command {
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return hangSub.getEnc() > HangConstants.TOP_ENC_LIMIT;
+    return hangSub.getEnc() > HangConstants.TOP_ENC_LIMIT || hangSub.getTopLimitSwitch();
   }
 }
