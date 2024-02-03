@@ -6,6 +6,8 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class RestingPositionCmd extends Command {
   private IntakeSubsystem i_Subsystem;
 
+  //Sets the intake pivot position to its "resting" position
+
   public RestingPositionCmd(IntakeSubsystem iSubs) {
     i_Subsystem = iSubs;
     addRequirements(iSubs);

@@ -11,7 +11,7 @@ public class ManualIntakePivot extends Command {
   private IntakeSubsystem i_subsystem;
   private DoubleSupplier speed;
 
-  //Runs the intake pivot manually using an Xbox Controller
+  //Runs the intake pivot manually using a joystick
 
   public ManualIntakePivot(IntakeSubsystem iSubs, DoubleSupplier speed) {
     i_subsystem = iSubs;

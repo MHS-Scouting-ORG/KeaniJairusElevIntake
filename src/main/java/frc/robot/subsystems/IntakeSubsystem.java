@@ -101,9 +101,10 @@ public class IntakeSubsystem extends SubsystemBase {
     }
   }
   
+  //Checks if any of the intake limit switches are pressed and prevents movement in that direction
   public void manualIntake(double speed){
 
-    if (getRestingLS() && speed > 0){
+    if (getRestingLS() && speed > 0){ 
       stopPivotIntake();
     }
     // else if (getIntakingLS() && speed < 0){

@@ -7,6 +7,8 @@ public class IntakePositionCmd extends Command {
   
   private IntakeSubsystem i_subsystem;
 
+  //Sets the intake pivot position to "intake" off the ground
+
   public IntakePositionCmd(IntakeSubsystem iSubs) {
     i_subsystem = iSubs;
     addRequirements(i_subsystem);
