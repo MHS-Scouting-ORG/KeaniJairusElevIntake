@@ -39,6 +39,7 @@ public class RobotContainer {
     //new JoystickButton(joystick, 4).onTrue(new IntakePositionCmd(i_subsystem));
     new JoystickButton(joystick, 1).onTrue(new IntakeCmd(u_subsystem));
     new JoystickButton(joystick, 6).onTrue(new OuttakeCmd(u_subsystem));
+     new JoystickButton(joystick, 2).onTrue(new DeliverCmd(u_subsystem));
     //new JoystickButton(joystick, 2).onTrue(new DeliverCmd(i_subsystem));
 
     // new JoystickButton(joystick,   6).onTrue(new ElevatorToTopCommand(elevSub));

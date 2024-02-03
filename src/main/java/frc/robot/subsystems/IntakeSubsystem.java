@@ -22,7 +22,6 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean pidOn = false;
   private double setpoint;
   private double pidSpeed;
-  private double error = getEnc() - setpoint;
 
   private DigitalInput restingLimitSwitch;
   private DigitalInput intakingLimitSwitch;
@@ -151,6 +150,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public boolean isAtSetpoint(){
     //If the error is/is not in range of the encoder tolerance, it returns true/false if is at the setpoint or not
+    double error = getEnc() - setpoint;
     return Math.abs(error) < IntakeConstants.INTAKE_ENCTOLERANCE;
   }
 
