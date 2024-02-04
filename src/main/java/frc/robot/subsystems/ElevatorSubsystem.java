@@ -9,12 +9,12 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.HangConstants;
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.ElevatorConstants;
 
-public class HangSubsystem extends SubsystemBase {
+public class ElevatorSubsystem extends SubsystemBase {
 
-  private CANSparkMax hangMotor1;
-  private CANSparkMax hangMotor2;
+  private CANSparkMax elevMotor;
   private RelativeEncoder enc;
 
   private PIDController pid;
@@ -24,19 +24,17 @@ public class HangSubsystem extends SubsystemBase {
   private DigitalInput topLS;
   private DigitalInput bottomLS;
 
-  public HangSubsystem() {
-    hangMotor1 = new CANSparkMax(HangConstants.HANG_MOTOR_PORT1, MotorType.kBrushless);
-    hangMotor2 = new CANSparkMax(HangConstants.HANG_MOTOR_PORT2, MotorType.kBrushless);
+  public ElevatorSubsystem() {
+    elevMotor = new CANSparkMax(ElevatorConstants.ELEVATOR_MOTOR_PORT, MotorType.kBrushless);
     
-    hangMotor1.setIdleMode(IdleMode.kBrake);
-    hangMotor2.setIdleMode(IdleMode.kBrake);
+    elevMotor.setIdleMode(IdleMode.kBrake);
 
-    topLS = new DigitalInput(HangConstants.TOP_LS_PORT);
-    bottomLS = new DigitalInput(HangConstants.BOTTOM_LS_PORT);
+    topLS = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
+    bottomLS = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
 
-    enc = hangMotor1.getEncoder();
+    enc = elevMotor.getEncoder();
 
-    pid = new PIDController(HangConstants.HANG_KP, HangConstants.HANG_KI, HangConstants.HANG_KD);
+    pid = new PIDController(ElevatorConstants.ELEV_KP, ElevatorConstants.ELEV_KI, ElevatorConstants.ELEV_KD);
     pid.setTolerance(1);
     previousError = 0;
   }
@@ -62,14 +60,12 @@ public class HangSubsystem extends SubsystemBase {
   //////////////////////////////
 
   public void elevStop(){
-    hangMotor1.stopMotor();
-    hangMotor2.stopMotor();
+    elevMotor.stopMotor();
   }
 
   public void toBottom(){
     if (getEnc() > -50) {
-      hangMotor1.set(-HangConstants.SPEED_CAP);
-      hangMotor2.set(-HangConstants.SPEED_CAP);
+      elevMotor.set(-ElevatorConstants.SPEED_CAP);
     }
     else {
       elevStop();
@@ -78,8 +74,7 @@ public class HangSubsystem extends SubsystemBase {
 
   public void toTop() {
     if (getEnc() < 50) {
-      hangMotor1.set(HangConstants.SPEED_CAP);
-      hangMotor2.set(HangConstants.SPEED_CAP);
+      elevMotor.set(ElevatorConstants.SPEED_CAP);
     }
     else {
       elevStop();
@@ -92,18 +87,17 @@ public class HangSubsystem extends SubsystemBase {
       elevStop();
     }
     // else if (getBottomLimitSwitch() && speed > 0.1){
-    //   hangMotor1.set(deadzone(speed));
+    //   elevMotor.set(deadzone(speed));
     // }
     // else if (!getTopLimitSwitch() && !getBottomLimitSwitch()){
-    //   hangMotor1.set(deadzone(speed));
+    //   elevMotor.set(deadzone(speed));
     // }
     else{
-      hangMotor1.set(deadzone(speed));
-      hangMotor2.set(deadzone(speed));
+      elevMotor.set(deadzone(speed));
     }
 
     // This line is in case of no limitswitches and just sets motor to joystick speed
-    // hangMotor1.set(deadzone(speed)); 
+    // elevMotor.set(deadzone(speed)); 
   }
 
 
@@ -112,11 +106,11 @@ public class HangSubsystem extends SubsystemBase {
     if (Math.abs(speed) < 0.1) {
       return 0;
     }
-    else if (speed > HangConstants.SPEED_CAP) {
-      return HangConstants.SPEED_CAP;
+    else if (speed > ElevatorConstants.SPEED_CAP) {
+      return ElevatorConstants.SPEED_CAP;
     }
-    else if (speed < -HangConstants.SPEED_CAP) {
-      return -HangConstants.SPEED_CAP;
+    else if (speed < -ElevatorConstants.SPEED_CAP) {
+      return -ElevatorConstants.SPEED_CAP;
     }
     else {
       return speed;
@@ -130,11 +124,11 @@ public class HangSubsystem extends SubsystemBase {
   public double calculateSpeed(double setpoint){
     double output = pid.calculate(getEnc(), setpoint);
 
-    if (output > HangConstants.SPEED_CAP){
-      return HangConstants.SPEED_CAP;
+    if (output > ElevatorConstants.SPEED_CAP){
+      return ElevatorConstants.SPEED_CAP;
     }
-    else if (output < -HangConstants.SPEED_CAP){
-      return -HangConstants.SPEED_CAP;
+    else if (output < -ElevatorConstants.SPEED_CAP){
+      return -ElevatorConstants.SPEED_CAP;
     }
     else{
       return output;
@@ -154,14 +148,12 @@ public class HangSubsystem extends SubsystemBase {
     previousError = currentError;
   }
 
-  public void toTopPID(){
-    hangMotor1.set(calculateSpeed(HangConstants.TOP_ENC_LIMIT));
-    hangMotor2.set(calculateSpeed(HangConstants.TOP_ENC_LIMIT));
+  public void toSetpoint(double setpoint){
+    elevMotor.set(calculateSpeed(setpoint));
   }
 
-  public void toBottomPID(){
-    hangMotor1.set(calculateSpeed(HangConstants.BOTTOM_ENC_LIMIT));
-    hangMotor2.set(calculateSpeed(HangConstants.BOTTOM_ENC_LIMIT));
+  public void holdAtPoint(){
+    elevMotor.set(calculateSpeed(getEnc()));
   }
 
   public boolean isAtSetpoint(){
@@ -173,10 +165,9 @@ public class HangSubsystem extends SubsystemBase {
     resetI();
 
     // SmartDashboard
-    SmartDashboard.putNumber("[H] Enc 1", getEnc());
-    SmartDashboard.putNumber("[H] Enc 2", hangMotor2.getEncoder().getPosition());
-    SmartDashboard.putBoolean("[H] Top LS", getTopLimitSwitch());
-    SmartDashboard.putBoolean("[H] isAtSetpoint", isAtSetpoint());
+    SmartDashboard.putNumber("[E] Enc", getEnc());
+    SmartDashboard.putBoolean("[E] Top LS", getTopLimitSwitch());
+    SmartDashboard.putBoolean("[E] isAtSetpoint", isAtSetpoint());
     // SmartDashboard.putBoolean("Hang Bottom LS", getBottomLimitSwitch());
   }
 }

@@ -1,16 +1,16 @@
-package frc.robot.commands.ElevatorCommands;
+package frc.robot.commands.HangCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.HangConstants;
 import frc.robot.subsystems.HangSubsystem;
 
-public class ElevatorToBottomCommand extends Command {
+public class HangToBottomCmd extends Command {
 
   private HangSubsystem hangSub;
 
   // Command moves hangator to bottom until encoder value is met or limit swtich is pressed
 
-  public ElevatorToBottomCommand(HangSubsystem newElevSub) {
+  public HangToBottomCmd(HangSubsystem newElevSub) {
     
     hangSub = newElevSub;
     
