@@ -35,7 +35,7 @@ public class UnderIntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Intake Optical Limit Switch", getOpticalSensor());
-    SmartDashboard.putNumber("Intake Speed", intakeMotor.get());
+    SmartDashboard.putBoolean("[I] Optical Sensor", getOpticalSensor());
+    SmartDashboard.putNumber("[I] Speed", intakeMotor.get());
   }
 }
