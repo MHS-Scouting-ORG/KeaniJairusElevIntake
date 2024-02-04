@@ -167,6 +167,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("[E] Enc", getEnc());
     SmartDashboard.putBoolean("[E] Top LS", getTopLimitSwitch());
     SmartDashboard.putBoolean("[E] isAtSetpoint", isAtSetpoint());
-    // SmartDashboard.putBoolean("Hang Bottom LS", getBottomLimitSwitch());
+    // SmartDashboard.putBoolean("[E] Bottom LS", getBottomLimitSwitch());
   }
 }
