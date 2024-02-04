@@ -18,7 +18,7 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   }
 
   public boolean getOpticalSensor(){
-    return opticalSensor.get();
+    return !opticalSensor.get();
   }
 
   public void intake(){

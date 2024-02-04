@@ -1,4 +1,4 @@
-package frc.robot.commands.ElevatorCommands;
+package frc.robot.commands.HangCommands;
 
 import java.util.function.DoubleSupplier;
 
@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.HangSubsystem;
 
-public class ManualElevatorCommand extends Command {
+public class ManualHangCmd extends Command {
 
   private HangSubsystem hangSub;
   private DoubleSupplier doubleSupplier;
 
   // Command allows manual control of elevator using a joystick
 
-  public ManualElevatorCommand(HangSubsystem newHangSub, DoubleSupplier newDoubleSupplier) {
+  public ManualHangCmd(HangSubsystem newHangSub, DoubleSupplier newDoubleSupplier) {
 
     hangSub = newHangSub;
     doubleSupplier = newDoubleSupplier;

@@ -1,17 +1,19 @@
-package frc.robot.commands.ElevatorCommands;
+package frc.robot.commands.HangCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.HangConstants;
 import frc.robot.subsystems.HangSubsystem;
 
-public class ElevatorToBottomPIDCommand extends Command {
+public class HangToTopCmd extends Command {
 
   private HangSubsystem hangSub;
 
-  public ElevatorToBottomPIDCommand(HangSubsystem newElevSub) {
+  // Command moves hangator to top until encoder value is met or limit swtich is pressed
 
-    hangSub = newElevSub;
-
+  public HangToTopCmd(HangSubsystem newHangSub) {
+    
+    hangSub = newHangSub;
+    
     addRequirements(hangSub);
   }
 
@@ -20,7 +22,7 @@ public class ElevatorToBottomPIDCommand extends Command {
 
   @Override
   public void execute() {
-    hangSub.toBottomPID();
+    hangSub.toTop();
   }
 
   @Override
@@ -31,6 +33,6 @@ public class ElevatorToBottomPIDCommand extends Command {
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return hangSub.isAtSetpoint();
+    return hangSub.getEnc() > HangConstants.TOP_ENC_LIMIT || hangSub.getTopLimitSwitch();
   }
 }
