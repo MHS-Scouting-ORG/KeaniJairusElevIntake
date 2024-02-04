@@ -21,7 +21,6 @@ public class RobotContainer {
   private final UnderIntakeSubsystem u_subsystem = new UnderIntakeSubsystem();
   private final ElevatorSubsystem elevSub = new ElevatorSubsystem();
 
-  //private final XboxController xboxController = new XboxController(0);
   private final Joystick joystick = new Joystick(1);
 
   public RobotContainer() {
