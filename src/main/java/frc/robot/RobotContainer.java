@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.commands.HangCommands.HangToBottomPIDCmd;
-import frc.robot.commands.ElevatorCommands.ElevatorToBottom;
+import frc.robot.commands.ElevatorCommands.ElevatorToBottomCmd;
 import frc.robot.commands.ElevatorCommands.ElevatorToTopCmd;
 import frc.robot.commands.ElevatorCommands.ManualElevatorCmd;
 import frc.robot.commands.HangCommands.HangToBottomCmd;
@@ -42,11 +42,11 @@ public class RobotContainer {
     new JoystickButton(joystick, 6).toggleOnFalse(new InstantCommand(() -> u_subsystem.stopIntake()));
     new JoystickButton(joystick, 2).whileTrue(new DeliverCmd(u_subsystem));
 
-    new JoystickButton(joystick,   7).onTrue(new ElevatorToTopCommand(hangSub));
-    new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCommand(hangSub));
+    new JoystickButton(joystick,   7).onTrue(new HangToTopCmd(hangSub));
+    new JoystickButton(joystick, 4).onTrue(new HangToBottomCmd(hangSub));
 
     new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
-    new JoystickButton(joystick, 4).onTrue(new ElevatorToBottom(elevSub));
+    new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCmd(elevSub));
   }
 
   public Command getAutonomousCommand() {

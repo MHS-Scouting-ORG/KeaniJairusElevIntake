@@ -3,11 +3,11 @@ package frc.robot.commands.ElevatorCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorToBottom extends Command {
+public class ElevatorToBottomCmd extends Command {
 
   private ElevatorSubsystem elevSub;
 
-  public ElevatorToBottom(ElevatorSubsystem newElevSub) {
+  public ElevatorToBottomCmd(ElevatorSubsystem newElevSub) {
 
     elevSub = newElevSub;
 
