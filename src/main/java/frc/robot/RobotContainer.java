@@ -33,10 +33,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // new JoystickButton(joystick, 1).onTrue(new IntakeCmd(u_subsystem));
-    // new JoystickButton(joystick, 6).toggleOnTrue(new OuttakeCmd(u_subsystem));
-    // new JoystickButton(joystick, 6).toggleOnFalse(new InstantCommand(() -> u_subsystem.stopIntake()));
-    // new JoystickButton(joystick, 2).whileTrue(new DeliverCmd(u_subsystem));
+    new JoystickButton(joystick, 1).whileTrue(new IntakeCmd(u_subsystem));
+    new JoystickButton(joystick, 6).toggleOnTrue(new OuttakeCmd(u_subsystem));
+    new JoystickButton(joystick, 6).toggleOnFalse(new InstantCommand(() -> u_subsystem.stopIntake()));
+    new JoystickButton(joystick, 2).whileTrue(new DeliverCmd(u_subsystem));
 
     // new JoystickButton(joystick, 5).onTrue(new HangToTopCmd(hangSub));
     // new JoystickButton(joystick, 3).onTrue(new HangToBottomCmd(hangSub));
