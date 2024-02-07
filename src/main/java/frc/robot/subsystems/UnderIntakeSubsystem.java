@@ -18,6 +18,9 @@ public class UnderIntakeSubsystem extends SubsystemBase {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless);
     intakeMotor2 = new CANSparkMax(IntakeConstants.INTAKE_PORT2, MotorType.kBrushless);
     opticalSensor = new DigitalInput(IntakeConstants.INTAKE_OPTICAL_PORT);
+
+    intakeMotor.setSmartCurrentLimit(20); 
+    intakeMotor2.setSmartCurrentLimit(20); 
   }
 
   public boolean getOpticalSensor(){
