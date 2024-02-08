@@ -37,7 +37,6 @@ public class HangSubsystem extends SubsystemBase {
     enc = hangMotor1.getEncoder();
 
     pid = new PIDController(HangConstants.HANG_KP, HangConstants.HANG_KI, HangConstants.HANG_KD);
-    pid.setTolerance(1);
     previousError = 0;
   }
 

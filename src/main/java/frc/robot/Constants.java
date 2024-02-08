@@ -13,6 +13,7 @@ public final class Constants {
     public static final double INTAKEPIVOT_KD = 0;
     public static final double INTAKE_MAXSPEED = 0.2;
     public static final double INTAKE_ENCTOLERANCE = 2;
+    public static final int SMART_CURRENT_LIMIT = 20;
   }
   public static class HangConstants {
     public static final int HANG_MOTOR_PORT1 = 3;
