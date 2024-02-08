@@ -3,7 +3,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import javax.management.relation.Relation;
+
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import frc.robot.Constants.IntakeConstants;
@@ -14,6 +18,8 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakeMotor2;
   private DigitalInput opticalSensor;
 
+  private RelativeEncoder enc;
+
   public UnderIntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless);
     intakeMotor2 = new CANSparkMax(IntakeConstants.INTAKE_PORT2, MotorType.kBrushless);
@@ -21,6 +27,12 @@ public class UnderIntakeSubsystem extends SubsystemBase {
 
     intakeMotor.setSmartCurrentLimit(IntakeConstants.SMART_CURRENT_LIMIT); 
     intakeMotor2.setSmartCurrentLimit(IntakeConstants.SMART_CURRENT_LIMIT); 
+
+    enc = intakeMotor.getEncoder();
+  }
+
+  public double getEnc(){
+    return enc.getPosition();
   }
 
   public boolean getOpticalSensor(){
@@ -40,6 +52,15 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   public void manualIntake(double speed){
     intakeMotor.set(-deadzone(speed));
     intakeMotor2.set(deadzone(speed));
+  }
+
+  public void toEncoder(double enc){
+    double holdEnc = getEnc();
+
+    while (getEnc() > holdEnc - enc){
+      intake();
+    }
+    stopIntake();
   }
 
   public double deadzone(double speed) {
@@ -66,5 +87,6 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("[I] Optical Sensor", getOpticalSensor());
     SmartDashboard.putNumber("[I] Speed", intakeMotor.get());
+    SmartDashboard.putNumber("[I] Encoder", getEnc());
   }
 }
