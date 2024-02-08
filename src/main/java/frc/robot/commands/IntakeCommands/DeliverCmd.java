@@ -27,6 +27,6 @@ public class DeliverCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return !intakeSubs.getOpticalSensor();
   }
 }
