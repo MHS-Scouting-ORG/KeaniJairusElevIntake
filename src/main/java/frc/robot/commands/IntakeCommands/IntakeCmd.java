@@ -24,7 +24,7 @@ public class IntakeCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    u_Subsystem.toEncoder(3.825);
+    u_Subsystem.toEncoder(3.8);
   }
 
   @Override
