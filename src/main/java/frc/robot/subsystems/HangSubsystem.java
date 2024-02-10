@@ -60,9 +60,13 @@ public class HangSubsystem extends SubsystemBase {
   // Basic Movement Methods //
   //////////////////////////////
 
-  public void elevStop() {
-    hangMotor1.stopMotor();
-    hangMotor2.stopMotor();
+  public void mrsStop(){
+    if(getTopMRS()){
+      stopHang();
+    }
+    if(getBottomMRS()){
+      stopHang();
+    }
   }
 
   public void toBottom() {
@@ -70,7 +74,7 @@ public class HangSubsystem extends SubsystemBase {
       hangMotor1.set(-HangConstants.SPEED_CAP);
       hangMotor2.set(-HangConstants.SPEED_CAP);
     } else {
-      elevStop();
+      stopHang();
     }
   }
 
@@ -80,14 +84,14 @@ public class HangSubsystem extends SubsystemBase {
       hangMotor2.set(HangConstants.SPEED_CAP);
     } 
     else {
-      elevStop();
+      stopHang();
     }
   }
 
   // Checks if limit switches are pressed to prevent movement in that direction
   public void ManualHang(double speed) {
     if (getTopMRS() && speed > 0) {
-      elevStop();
+      stopHang();
     }
     // else if (getBottomLimitSwitch() && speed > 0.1){
     // hangMotor1.set(deadzone(speed));

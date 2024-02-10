@@ -24,7 +24,7 @@ public class HangToBottomCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    hangSub.elevStop();
+    hangSub.stopHang();
   }
 
   @Override
