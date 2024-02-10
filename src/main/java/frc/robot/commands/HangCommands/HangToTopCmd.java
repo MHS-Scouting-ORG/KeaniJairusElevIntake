@@ -15,7 +15,8 @@ public class HangToTopCmd extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   @Override
   public void execute() {
@@ -23,11 +24,12 @@ public class HangToTopCmd extends Command {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return hangSub.isAtSetpoint() || hangSub.getTopLimitSwitch();
+    return hangSub.isAtSetpoint() || hangSub.getTopMRS();
   }
 }

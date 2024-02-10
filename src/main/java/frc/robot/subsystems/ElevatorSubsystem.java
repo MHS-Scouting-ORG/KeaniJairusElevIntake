@@ -25,7 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem() {
     elevMotor = new CANSparkMax(ElevatorConstants.ELEVATOR_MOTOR_PORT, MotorType.kBrushless);
-    
+
     elevMotor.setIdleMode(IdleMode.kBrake);
 
     topLS = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
@@ -39,7 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   ////////////////////////
-  //  Accessor Methods  //
+  // Accessor Methods //
   ////////////////////////
 
   public double getEnc() {
@@ -55,18 +55,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   //////////////////////////////
-  //  Basic Movement Methods  //
+  // Basic Movement Methods //
   //////////////////////////////
 
-  public void elevStop(){
+  public void elevStop() {
     elevMotor.stopMotor();
   }
 
-  public void toBottom(){
+  public void toBottom() {
     if (getEnc() > -50) {
       elevMotor.set(-ElevatorConstants.SPEED_CAP);
-    }
-    else {
+    } else {
       elevStop();
     }
   }
@@ -74,8 +73,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void toTop() {
     if (getEnc() < 50) {
       elevMotor.set(ElevatorConstants.SPEED_CAP);
-    }
-    else {
+    } else {
       elevStop();
     }
   }
@@ -86,78 +84,73 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevStop();
     }
     // else if (getBottomLimitSwitch() && speed > 0.1){
-    //   elevMotor.set(deadzone(speed));
+    // elevMotor.set(deadzone(speed));
     // }
     // else if (!getTopLimitSwitch() && !getBottomLimitSwitch()){
-    //   elevMotor.set(deadzone(speed));
+    // elevMotor.set(deadzone(speed));
     // }
-    else{
+    else {
       elevMotor.set(deadzone(speed));
     }
 
-    // This line is in case of no limitswitches and just sets motor to joystick speed
-    // elevMotor.set(deadzone(speed)); 
+    // This line is in case of no limitswitches and just sets motor to joystick
+    // speed
+    // elevMotor.set(deadzone(speed));
   }
-
 
   // Deadzone includes a speedcap at 0.5 in either direction
   public double deadzone(double speed) {
     if (Math.abs(speed) < 0.1) {
       return 0;
-    }
-    else if (speed > ElevatorConstants.SPEED_CAP) {
+    } else if (speed > ElevatorConstants.SPEED_CAP) {
       return ElevatorConstants.SPEED_CAP;
-    }
-    else if (speed < -ElevatorConstants.SPEED_CAP) {
+    } else if (speed < -ElevatorConstants.SPEED_CAP) {
       return -ElevatorConstants.SPEED_CAP;
-    }
-    else {
+    } else {
       return speed;
     }
   }
 
   //////////////////
-  //  PID Methods //
+  // PID Methods //
   //////////////////
-  
-  public double calculateSpeed(double setpoint){
+
+  public double calculateSpeed(double setpoint) {
     double output = pid.calculate(getEnc(), setpoint);
 
-    if (output > ElevatorConstants.SPEED_CAP){
+    if (output > ElevatorConstants.SPEED_CAP) {
       return ElevatorConstants.SPEED_CAP;
-    }
-    else if (output < -ElevatorConstants.SPEED_CAP){
+    } else if (output < -ElevatorConstants.SPEED_CAP) {
       return -ElevatorConstants.SPEED_CAP;
-    }
-    else{
+    } else {
       return output;
     }
   }
 
-  public void resetI(){
+  public void resetI() {
     currentError = pid.getPositionError();
-    
-    if (currentError > 0 && previousError < 0){
+
+    if (currentError > 0 && previousError < 0) {
+      pid.reset();
+    } else if (currentError < 0 && previousError > 0) {
       pid.reset();
     }
-    else if (currentError < 0 && previousError > 0){
-      pid.reset();
-    }
-    
+
     previousError = currentError;
   }
 
-  public void toSetpoint(double setpoint){
+  public void toSetpoint(double setpoint) {
     elevMotor.set(calculateSpeed(setpoint));
   }
 
-  public void holdAtPoint(){
+  public void holdAtPoint() {
     elevMotor.set(calculateSpeed(getEnc()));
   }
 
-  public boolean isAtSetpoint(){
+  public boolean isAtSetpoint() {
     return Math.abs(getEnc() - pid.getSetpoint()) <= 3;
   }
+
   @Override
   public void periodic() {
 

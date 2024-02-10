@@ -11,7 +11,7 @@ public class ManualIntakeCmd extends Command {
   private UnderIntakeSubsystem intakeSub;
   private DoubleSupplier doubleSupplier;
 
-  // Command allows manual control of elevator using a joystick
+  // Command allows manual control of the intake using a joystick
 
   public ManualIntakeCmd(UnderIntakeSubsystem newIntakeSub, DoubleSupplier newDoubleSupplier) {
 

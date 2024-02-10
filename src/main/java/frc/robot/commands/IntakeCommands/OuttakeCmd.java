@@ -5,17 +5,16 @@ import frc.robot.subsystems.UnderIntakeSubsystem;
 
 public class OuttakeCmd extends Command {
 
-  //private IntakeSubsystem i_subsystem;
   private UnderIntakeSubsystem u_subsystem;
 
-  //Runs the elevator intake to "outtake" notes
+  //Runs the under the bumper intake to "outtake" notes
   
   public OuttakeCmd(UnderIntakeSubsystem uSubs) {
     u_subsystem = uSubs;
     addRequirements(u_subsystem);
   }
-
-  @Override
+  
+  @Override  
   public void initialize() {
 
   }

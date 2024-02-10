@@ -1,12 +1,12 @@
 package frc.robot.commands.IntakeCommands;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.UnderIntakeSubsystem;
 
 public class IntakeCmd extends Command {
 
   private UnderIntakeSubsystem u_Subsystem;
+
+  //Runs the under the bumper intake to "intake" notes
 
   public IntakeCmd(UnderIntakeSubsystem uSubs) {
     u_Subsystem = uSubs;
@@ -21,7 +21,7 @@ public class IntakeCmd extends Command {
   public void execute() {
     u_Subsystem.intake();
   }
-
+  
   @Override
   public void end(boolean interrupted) {
     u_Subsystem.toEncoder(3.8);

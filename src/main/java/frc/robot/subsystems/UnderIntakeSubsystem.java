@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import javax.management.relation.Relation;
+
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -85,6 +85,7 @@ public class UnderIntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    //SmartDashboard
     SmartDashboard.putBoolean("[I] Optical Sensor", getOpticalSensor());
     SmartDashboard.putNumber("[I] Speed", intakeMotor.get());
     SmartDashboard.putNumber("[I] Encoder", getEnc());
