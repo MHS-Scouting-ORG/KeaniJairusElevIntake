@@ -63,6 +63,7 @@ public class UnderIntakeSubsystem extends SubsystemBase {
     stopIntake();
   }
 
+  //Deadzone for the intake that sets a max speed of 0.2 in both directions
   public double deadzone(double speed) {
     if (Math.abs(speed) < 0.1) {
       return 0;

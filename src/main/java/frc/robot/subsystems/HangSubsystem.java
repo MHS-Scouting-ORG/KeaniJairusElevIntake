@@ -57,7 +57,7 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   //////////////////////////////
-  // Basic Movement Methods //
+  //  Basic Movement Methods  //
   //////////////////////////////
 
   public void mrsStop(){
@@ -187,6 +187,6 @@ public class HangSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("[H] Enc #2", hangMotor2.getEncoder().getPosition());
     SmartDashboard.putBoolean("[H] Top MRS", getTopMRS());
     SmartDashboard.putBoolean("[H] isAtSetpoint", isAtSetpoint());
-    // SmartDashboard.putBoolean("Hang Bottom MRS", getBottomMRS());
+    // SmartDashboard.putBoolean("[H] Bottom MRS", getBottomMRS());
   }
 }
