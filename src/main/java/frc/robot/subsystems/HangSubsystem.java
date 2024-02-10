@@ -181,12 +181,12 @@ public class HangSubsystem extends SubsystemBase {
     resetI();
 
     mrsStop();
-    
+
     // SmartDashboard
-    SmartDashboard.putNumber("[H] Enc 1", getEnc());
-    SmartDashboard.putNumber("[H] Enc 2", hangMotor2.getEncoder().getPosition());
-    SmartDashboard.putBoolean("[H] Top LS", getTopMRS());
+    SmartDashboard.putNumber("[H] Enc #1", getEnc());
+    SmartDashboard.putNumber("[H] Enc #2", hangMotor2.getEncoder().getPosition());
+    SmartDashboard.putBoolean("[H] Top MRS", getTopMRS());
     SmartDashboard.putBoolean("[H] isAtSetpoint", isAtSetpoint());
-    // SmartDashboard.putBoolean("Hang Bottom LS", getBottomLimitSwitch());
+    // SmartDashboard.putBoolean("Hang Bottom MRS", getBottomMRS());
   }
 }
