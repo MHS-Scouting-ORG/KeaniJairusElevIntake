@@ -15,6 +15,7 @@ public final class Constants {
     public static final double INTAKE_ENCTOLERANCE = 2;
     public static final int SMART_CURRENT_LIMIT = 20;
   }
+
   public static class HangConstants {
     public static final int HANG_MOTOR_PORT1 = 3;
     public static final int HANG_MOTOR_PORT2 = 4;
@@ -26,6 +27,7 @@ public final class Constants {
     public static final double HANG_KP = 0.01;
     public static final double HANG_KI = 0;
     public static final double HANG_KD = 0;
+    public static final int SMART_CURRENT_LIMIT = 20;
   }
 
   public static class ElevatorConstants {
@@ -36,5 +38,6 @@ public final class Constants {
     public static final double ELEV_KP = 0.01;
     public static final double ELEV_KI = 0;
     public static final double ELEV_KD = 0;
+    public static final int SMART_CURRENT_LIMIT = 20;
   }
 }
