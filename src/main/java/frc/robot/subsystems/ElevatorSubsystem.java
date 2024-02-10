@@ -102,11 +102,14 @@ public class ElevatorSubsystem extends SubsystemBase {
   public double deadzone(double speed) {
     if (Math.abs(speed) < 0.1) {
       return 0;
-    } else if (speed > ElevatorConstants.SPEED_CAP) {
+    } 
+    else if (speed > ElevatorConstants.SPEED_CAP) {
       return ElevatorConstants.SPEED_CAP;
-    } else if (speed < -ElevatorConstants.SPEED_CAP) {
+    } 
+    else if (speed < -ElevatorConstants.SPEED_CAP) {
       return -ElevatorConstants.SPEED_CAP;
-    } else {
+    } 
+    else {
       return speed;
     }
   }
@@ -120,9 +123,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     if (output > ElevatorConstants.SPEED_CAP) {
       return ElevatorConstants.SPEED_CAP;
-    } else if (output < -ElevatorConstants.SPEED_CAP) {
+    } 
+    else if (output < -ElevatorConstants.SPEED_CAP) {
       return -ElevatorConstants.SPEED_CAP;
-    } else {
+    } 
+    else {
       return output;
     }
   }
@@ -132,7 +137,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     if (currentError > 0 && previousError < 0) {
       pid.reset();
-    } else if (currentError < 0 && previousError > 0) {
+    } 
+    else if (currentError < 0 && previousError > 0) {
       pid.reset();
     }
 

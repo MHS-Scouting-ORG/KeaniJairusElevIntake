@@ -180,13 +180,8 @@ public class HangSubsystem extends SubsystemBase {
 
     resetI();
 
-    if (getTopMRS()) {
-      stopHang();
-    }
-    if (getBottomMRS()) {
-      stopHang();
-    }
-
+    mrsStop();
+    
     // SmartDashboard
     SmartDashboard.putNumber("[H] Enc 1", getEnc());
     SmartDashboard.putNumber("[H] Enc 2", hangMotor2.getEncoder().getPosition());

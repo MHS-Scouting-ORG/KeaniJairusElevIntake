@@ -17,9 +17,9 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakeMotor;
   private CANSparkMax intakeMotor2;
   private DigitalInput opticalSensor;
-
+ 
   private RelativeEncoder enc;
-
+ 
   public UnderIntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless);
     intakeMotor2 = new CANSparkMax(IntakeConstants.INTAKE_PORT2, MotorType.kBrushless);
