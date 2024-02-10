@@ -20,7 +20,7 @@ public class ManualIntakeCmd extends Command {
     
     addRequirements(intakeSub);
   }
-
+  
   @Override
   public void initialize() {}
 
