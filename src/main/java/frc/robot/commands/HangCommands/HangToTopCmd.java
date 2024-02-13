@@ -20,16 +20,17 @@ public class HangToTopCmd extends Command {
 
   @Override
   public void execute() {
-    hangSub.toTopPID();
+    hangSub.toTop();
   }
 
   @Override
   public void end(boolean interrupted) {
+    hangSub.stopHang();
   }
 
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return hangSub.isAtSetpoint() || hangSub.getTopMRS();
+    return hangSub.getMRS();
   }
 }

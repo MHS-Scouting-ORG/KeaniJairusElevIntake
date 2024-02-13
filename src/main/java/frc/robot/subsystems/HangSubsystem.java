@@ -21,8 +21,7 @@ public class HangSubsystem extends SubsystemBase {
   private double previousError;
   private double currentError;
 
-  private DigitalInput topMRS;
-  private DigitalInput bottomMRS;
+  private DigitalInput mrs;
 
   public HangSubsystem() {
     hangMotor1 = new CANSparkMax(HangConstants.HANG_MOTOR_PORT1, MotorType.kBrushless);
@@ -31,8 +30,7 @@ public class HangSubsystem extends SubsystemBase {
     hangMotor1.setIdleMode(IdleMode.kBrake);
     hangMotor2.setIdleMode(IdleMode.kBrake);
 
-    topMRS = new DigitalInput(HangConstants.TOP_LS_PORT);
-    bottomMRS = new DigitalInput(HangConstants.BOTTOM_LS_PORT);
+    mrs = new DigitalInput(HangConstants.MRS_PORT);
 
     enc = hangMotor1.getEncoder();
 
@@ -48,49 +46,45 @@ public class HangSubsystem extends SubsystemBase {
     return enc.getPosition();
   }
 
-  public boolean getTopMRS() {
-    return topMRS.get();
-  }
-
-  public boolean getBottomMRS() {
-    return bottomMRS.get();
+  public boolean getMRS() {
+    return !mrs.get();
   }
 
   //////////////////////////////
   //  Basic Movement Methods  //
   //////////////////////////////
 
-  public void mrsStop(){
-    if(getTopMRS()){
-      stopHang();
-    }
-    if(getBottomMRS()){
-      stopHang();
-    }
-  }
-
   public void toBottom() {
-    if (getEnc() > -50) {
+    while(getMRS()){
+      periodic();
       hangMotor1.set(-HangConstants.SPEED_CAP);
       hangMotor2.set(-HangConstants.SPEED_CAP);
-    } else {
-      stopHang();
     }
+    while(!getMRS()){
+      periodic();
+      hangMotor1.set(-HangConstants.SPEED_CAP);
+      hangMotor2.set(-HangConstants.SPEED_CAP);
+    }
+    stopHang();
   }
 
   public void toTop() {
-    if (getEnc() < 50) {
+    while(getMRS()){
+      periodic();
       hangMotor1.set(HangConstants.SPEED_CAP);
       hangMotor2.set(HangConstants.SPEED_CAP);
-    } 
-    else {
-      stopHang();
     }
+    while(!getMRS()){
+      periodic();
+      hangMotor1.set(HangConstants.SPEED_CAP);
+      hangMotor2.set(HangConstants.SPEED_CAP);
+    }
+    stopHang();
   }
 
   // Checks if limit switches are pressed to prevent movement in that direction
   public void ManualHang(double speed) {
-    if (getTopMRS() && speed > 0) {
+    if (getMRS() && speed > 0) {
       stopHang();
     }
     // else if (getBottomLimitSwitch() && speed > 0.1){
@@ -180,13 +174,10 @@ public class HangSubsystem extends SubsystemBase {
 
     resetI();
 
-    mrsStop();
-
     // SmartDashboard
     SmartDashboard.putNumber("[H] Enc #1", getEnc());
     SmartDashboard.putNumber("[H] Enc #2", hangMotor2.getEncoder().getPosition());
-    SmartDashboard.putBoolean("[H] Top MRS", getTopMRS());
+    SmartDashboard.putBoolean("[H] MRS", getMRS());
     SmartDashboard.putBoolean("[H] isAtSetpoint", isAtSetpoint());
-    // SmartDashboard.putBoolean("[H] Bottom MRS", getBottomMRS());
   }
 }

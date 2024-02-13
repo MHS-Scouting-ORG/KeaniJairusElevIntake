@@ -19,7 +19,7 @@ public class HangToBottomCmd extends Command {
 
   @Override
   public void execute() {
-    hangSub.toBottomPID();
+    hangSub.toBottom();
   }
 
   @Override
@@ -30,6 +30,6 @@ public class HangToBottomCmd extends Command {
   @Override
   public boolean isFinished() {
     // Add limit switch condiiton
-    return hangSub.isAtSetpoint();
+    return hangSub.getMRS();
   }
 }
