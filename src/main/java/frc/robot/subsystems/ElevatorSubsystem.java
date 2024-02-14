@@ -36,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     enc = elevMotor.getEncoder();
 
     pid = new PIDController(ElevatorConstants.ELEV_KP, ElevatorConstants.ELEV_KI, ElevatorConstants.ELEV_KD);
-    pid.setTolerance(1);
+    pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
   }
 
