@@ -25,6 +25,7 @@ public class IntakeCmd extends Command {
   
   @Override
   public void end(boolean interrupted) {
+    // FIXME Fix encoder count with actual intake
     u_Subsystem.toEncoder(3.8);
   }
 

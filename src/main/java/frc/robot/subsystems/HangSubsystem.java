@@ -88,23 +88,8 @@ public class HangSubsystem extends SubsystemBase {
 
   // Checks if limit switches are pressed to prevent movement in that direction
   public void ManualHang(double speed) {
-    if (getMRS() && speed > 0) {
-      stopHang();
-    }
-    // else if (getBottomLimitSwitch() && speed > 0.1){
-    // hangMotor1.set(deadzone(speed));
-    // }
-    // else if (!getTopLimitSwitch() && !getBottomLimitSwitch()){
-    // hangMotor1.set(deadzone(speed));
-    // }
-    else {
-      hangMotor1.set(deadzone(speed));
-      hangMotor2.set(deadzone(speed));
-    }
-
-    // This line is in case of no limitswitches and just sets motor to joystick
-    // speed
-    // hangMotor1.set(deadzone(speed));
+    hangMotor1.set(deadzone(speed));
+    hangMotor2.set(deadzone(speed));
   }
 
   // Deadzone includes a speedcap at 0.5 in either direction

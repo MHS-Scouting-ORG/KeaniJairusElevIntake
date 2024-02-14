@@ -30,6 +30,7 @@ public class DeliverCmd extends Command {
 
   @Override
   public boolean isFinished() {
+    // FIXME Change end cond. to use indexer optical sensor
     return !intakeSubs.getOpticalSensor();
   }
 }

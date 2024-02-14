@@ -18,6 +18,7 @@ public class ElevatorToTopCmd extends Command {
 
   @Override
   public void execute() {
+    // FIXME Change encoder setpoint for top
     elevSub.toSetpoint(50);
   }
 
@@ -28,6 +29,7 @@ public class ElevatorToTopCmd extends Command {
 
   @Override
   public boolean isFinished() {
+    // FIXME Add limitswitch code
     return elevSub.isAtSetpoint();
   }
 }

@@ -27,7 +27,7 @@ public class ManualHangCmd extends Command {
   @Override
   public void execute() {
     hangSub.ManualHang(doubleSupplier.getAsDouble());
-    SmartDashboard.putNumber("Manual Elevator Speed", doubleSupplier.getAsDouble());
+    SmartDashboard.putNumber("Manual Hang Speed", doubleSupplier.getAsDouble());
   }
 
   @Override

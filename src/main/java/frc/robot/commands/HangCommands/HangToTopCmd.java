@@ -30,7 +30,6 @@ public class HangToTopCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    // Add limit switch condiiton
     return hangSub.getMRS();
   }
 }

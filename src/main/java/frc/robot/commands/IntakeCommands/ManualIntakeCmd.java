@@ -27,7 +27,7 @@ public class ManualIntakeCmd extends Command {
   @Override
   public void execute() {
     intakeSub.manualIntake(doubleSupplier.getAsDouble());
-    SmartDashboard.putNumber("Manual Elevator Speed", doubleSupplier.getAsDouble());
+    SmartDashboard.putNumber("Manual Intake Speed", doubleSupplier.getAsDouble());
   }
 
   @Override
