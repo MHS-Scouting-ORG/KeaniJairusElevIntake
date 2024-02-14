@@ -27,6 +27,9 @@ public class HangSubsystem extends SubsystemBase {
     hangMotor1 = new CANSparkMax(HangConstants.HANG_MOTOR_PORT1, MotorType.kBrushless);
     hangMotor2 = new CANSparkMax(HangConstants.HANG_MOTOR_PORT2, MotorType.kBrushless);
 
+    hangMotor1.setSmartCurrentLimit(HangConstants.SMART_CURRENT_LIMIT);
+    hangMotor2.setSmartCurrentLimit(HangConstants.SMART_CURRENT_LIMIT);
+
     hangMotor1.setIdleMode(IdleMode.kBrake);
     hangMotor2.setIdleMode(IdleMode.kBrake);
 
@@ -38,9 +41,9 @@ public class HangSubsystem extends SubsystemBase {
     previousError = 0;
   }
 
-  ////////////////////////
+  //////////////////////
   // Accessor Methods //
-  ////////////////////////
+  //////////////////////
 
   public double getEnc() {
     return enc.getPosition();
@@ -176,7 +179,6 @@ public class HangSubsystem extends SubsystemBase {
 
     // SmartDashboard
     SmartDashboard.putNumber("[H] Enc #1", getEnc());
-    SmartDashboard.putNumber("[H] Enc #2", hangMotor2.getEncoder().getPosition());
     SmartDashboard.putBoolean("[H] MRS", getMRS());
     SmartDashboard.putBoolean("[H] isAtSetpoint", isAtSetpoint());
   }

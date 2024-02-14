@@ -26,6 +26,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     elevMotor = new CANSparkMax(ElevatorConstants.ELEVATOR_MOTOR_PORT, MotorType.kBrushless);
 
+    elevMotor.setSmartCurrentLimit(ElevatorConstants.SMART_CURRENT_LIMIT);
+
     elevMotor.setIdleMode(IdleMode.kBrake);
 
     topLS = new DigitalInput(ElevatorConstants.TOP_LS_PORT);

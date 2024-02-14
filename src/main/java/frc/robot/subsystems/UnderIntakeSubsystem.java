@@ -88,7 +88,5 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   public void periodic() {
     //SmartDashboard
     SmartDashboard.putBoolean("[I] Optical Sensor", getOpticalSensor());
-    SmartDashboard.putNumber("[I] Speed", intakeMotor.get());
-    SmartDashboard.putNumber("[I] Encoder", getEnc());
   }
 }
