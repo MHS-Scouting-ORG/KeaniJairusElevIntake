@@ -85,9 +85,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     if (getTopLimitSwitch() && speed > 0) {
       elevStop();
     }
-    // else if (getBottomLimitSwitch() && speed > 0.1){
-    // elevMotor.set(deadzone(speed));
-    // }
+    else if (getBottomLimitSwitch() && speed < 0){
+      elevStop();
+    }
     // else if (!getTopLimitSwitch() && !getBottomLimitSwitch()){
     // elevMotor.set(deadzone(speed));
     // }
@@ -168,6 +168,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("[E] Enc", getEnc());
     SmartDashboard.putBoolean("[E] Top LS", getTopLimitSwitch());
     SmartDashboard.putBoolean("[E] isAtSetpoint", isAtSetpoint());
-    // SmartDashboard.putBoolean("[E] Bottom LS", getBottomLimitSwitch());
+    SmartDashboard.putBoolean("[E] Bottom LS", getBottomLimitSwitch());
   }
 }

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HangConstants;
-
+ 
 public class HangSubsystem extends SubsystemBase {
 
   private CANSparkMax hangMotor1;
@@ -51,7 +51,7 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   public boolean getMRS() {
-    return !mrs.get();
+    return mrs.get();
   }
 
   //////////////////////////////

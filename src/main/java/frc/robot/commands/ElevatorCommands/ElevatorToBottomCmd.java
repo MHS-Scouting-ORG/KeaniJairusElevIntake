@@ -30,7 +30,6 @@ public class ElevatorToBottomCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    // FIXME Add limitswitch code
-    return elevSub.isAtSetpoint();
+    return elevSub.isAtSetpoint() || elevSub.getBottomLimitSwitch();
   }
 }
