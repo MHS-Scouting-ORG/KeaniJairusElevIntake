@@ -49,12 +49,12 @@ public class RobotContainer {
     //new JoystickButton(joystick, 5).onTrue(new HangToTopCmd(hangSub));
     //new JoystickButton(joystick, 3).onTrue(new HangToBottomCmd(hangSub));
 
-    new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
-    new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCmd(elevSub));
-    new JoystickButton(joystick, 7).onTrue(new ElevatorToAmpCmd(elevSub));
-    new JoystickButton(joystick, 8).onTrue(new ElevatorToSourceCmd(elevSub));
-    new JoystickButton(joystick, 9).onTrue(new ElevatorToSpeakerCmd(elevSub));
-    new JoystickButton(joystick, 10).onTrue(new ElevatorToWingCmd(elevSub));
+    // new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
+    // new JoystickButton(joystick, 4).onTrue(new ElevatorToBottomCmd(elevSub));
+    // new JoystickButton(joystick, 7).onTrue(new ElevatorToAmpCmd(elevSub));
+    // new JoystickButton(joystick, 8).onTrue(new ElevatorToSourceCmd(elevSub));
+    // new JoystickButton(joystick, 9).onTrue(new ElevatorToSpeakerCmd(elevSub));
+    // new JoystickButton(joystick, 10).onTrue(new ElevatorToWingCmd(elevSub));
   }
 
   public Command getAutonomousCommand() {
