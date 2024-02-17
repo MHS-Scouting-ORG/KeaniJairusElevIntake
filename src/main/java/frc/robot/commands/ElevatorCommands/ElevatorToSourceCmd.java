@@ -3,25 +3,23 @@ package frc.robot.commands.ElevatorCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorToAmp extends Command {
-  
+public class ElevatorToSourceCmd extends Command {
+
   public ElevatorSubsystem elevSub;
 
-  //Runs the elevator to the position where we shoot into the amp
+  //Runs the elevator to the position where we intake from the source through the shooter
 
-  public ElevatorToAmp(ElevatorSubsystem newElevSub) {
+  public ElevatorToSourceCmd(ElevatorSubsystem newElevSub) {
     elevSub = newElevSub;
     addRequirements(elevSub);
   }
 
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
-    //17 Inches from the ground
+    //Default Position?? || ??
     elevSub.toSetpoint(0);
   }
 
@@ -32,6 +30,7 @@ public class ElevatorToAmp extends Command {
 
   @Override
   public boolean isFinished() {
+    //Or elevSub.getBottomLimitSwitch if its the default position
     return elevSub.isAtSetpoint() || elevSub.getTopLimitSwitch();
   }
 }

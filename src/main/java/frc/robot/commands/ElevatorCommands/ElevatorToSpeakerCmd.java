@@ -7,13 +7,13 @@ package frc.robot.commands.ElevatorCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorToWing extends Command {
-  
+public class ElevatorToSpeakerCmd extends Command {
+
   public ElevatorSubsystem elevSub;
 
-  //Runs the elevator to the position where we shoot from outside the wing
+  //Runs the elevator to the position where we shoot into the speaker
 
-  public ElevatorToWing(ElevatorSubsystem newElevSub) {
+  public ElevatorToSpeakerCmd(ElevatorSubsystem newElevSub) {
     elevSub = newElevSub;
     addRequirements(elevSub);
   }
