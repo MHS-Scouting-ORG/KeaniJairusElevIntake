@@ -19,6 +19,7 @@ public class ElevatorToWingCmd extends Command {
 
   @Override
   public void execute() {
+    //FIXME Change the encoder setpoint for outside the speaker
     elevSub.toSetpoint(0);
   }
 

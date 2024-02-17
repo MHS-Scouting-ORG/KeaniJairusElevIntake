@@ -16,7 +16,7 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   private CANSparkMax intakeMotor;
   private CANSparkMax intakeMotor2;
   private DigitalInput opticalSensor;
- 
+
   private RelativeEncoder enc;
  
   public UnderIntakeSubsystem() {
@@ -87,5 +87,6 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   public void periodic() {
     //SmartDashboard
     SmartDashboard.putBoolean("[I] Optical Sensor", getOpticalSensor());
+    SmartDashboard.putNumber("[I] Encoder", getEnc());
   }
 }

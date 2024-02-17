@@ -22,6 +22,7 @@ public class ElevatorToAmpCmd extends Command {
   @Override
   public void execute() {
     //17 Inches from the ground
+    //FIXME Change the encoder setpoint for the AMP position
     elevSub.toSetpoint(0);
   }
 
