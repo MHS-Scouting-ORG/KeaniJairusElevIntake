@@ -39,13 +39,13 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   }
 
   public void intake(double xSpeed){
-    intakeMotor.set(-IntakeConstants.INTAKE_MAXSPEED/xSpeed);
-    intakeMotor2.set(IntakeConstants.INTAKE_MAXSPEED/xSpeed);
+    intakeMotor.set(Math.abs(xSpeed));
+    intakeMotor2.set(xSpeed);
   }
 
   public void outtake(double xSpeed){
-    intakeMotor.set(IntakeConstants.INTAKE_MAXSPEED/xSpeed);
-    intakeMotor2.set(-IntakeConstants.INTAKE_MAXSPEED/xSpeed);
+    intakeMotor.set(Math.abs(xSpeed));
+    intakeMotor2.set(Math.abs(xSpeed));
   }
 
   public void manualIntake(double speed){
