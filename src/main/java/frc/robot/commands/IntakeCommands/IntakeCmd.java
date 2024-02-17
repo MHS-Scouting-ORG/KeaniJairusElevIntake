@@ -2,6 +2,9 @@ package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.UnderIntakeSubsystem;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -12,17 +15,19 @@ public class IntakeCmd extends Command {
   private boolean triggered;
   private boolean finished;
 
+  private DoubleSupplier doubleSupp;
+
   private Timer timer;
 
-  public IntakeCmd(UnderIntakeSubsystem uSubs) {
+  public IntakeCmd(UnderIntakeSubsystem uSubs, DoubleSupplier newDoubleSupp) {
     u_Subsystem = uSubs;
     timer = new Timer();
+    doubleSupp = newDoubleSupp;
     addRequirements(u_Subsystem);
   }
 
   @Override
   public void initialize() {
-    u_Subsystem.intake();
     triggered = false;
     finished = false;
     timer.stop();
@@ -31,6 +36,7 @@ public class IntakeCmd extends Command {
 
   @Override
   public void execute() {
+    u_Subsystem.intake(doubleSupp.getAsDouble());
     if (u_Subsystem.getOpticalSensor() && !triggered){
       triggered = true;
       timer.start();

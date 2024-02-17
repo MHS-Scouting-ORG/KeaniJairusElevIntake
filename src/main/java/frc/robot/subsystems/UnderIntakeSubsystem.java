@@ -38,14 +38,14 @@ public class UnderIntakeSubsystem extends SubsystemBase {
     return opticalSensor.get();
   }
 
-  public void intake(){
-    intakeMotor.set(-IntakeConstants.INTAKE_MAXSPEED);
-    intakeMotor2.set(IntakeConstants.INTAKE_MAXSPEED);
+  public void intake(double xSpeed){
+    intakeMotor.set(-IntakeConstants.INTAKE_MAXSPEED/xSpeed);
+    intakeMotor2.set(IntakeConstants.INTAKE_MAXSPEED/xSpeed);
   }
 
-  public void outtake(){
-    intakeMotor.set(IntakeConstants.INTAKE_MAXSPEED);
-    intakeMotor2.set(-IntakeConstants.INTAKE_MAXSPEED);
+  public void outtake(double xSpeed){
+    intakeMotor.set(IntakeConstants.INTAKE_MAXSPEED/xSpeed);
+    intakeMotor2.set(-IntakeConstants.INTAKE_MAXSPEED/xSpeed);
   }
 
   public void manualIntake(double speed){
@@ -57,7 +57,8 @@ public class UnderIntakeSubsystem extends SubsystemBase {
     double holdEnc = getEnc();
 
     while (getEnc() > holdEnc - enc){
-      intake();
+      //FIXME Add double param
+      //intake();
     }
     stopIntake();
   }

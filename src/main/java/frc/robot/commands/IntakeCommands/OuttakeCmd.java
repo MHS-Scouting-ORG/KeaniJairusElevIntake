@@ -21,7 +21,8 @@ public class OuttakeCmd extends Command {
 
   @Override
   public void execute() {
-    u_subsystem.outtake();
+    // FIXME Add double param
+    //u_subsystem.outtake();
   }
 
   @Override
