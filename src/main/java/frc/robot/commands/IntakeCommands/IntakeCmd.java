@@ -2,6 +2,7 @@ package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.UnderIntakeSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 
 public class IntakeCmd extends Command {
 
@@ -26,7 +27,12 @@ public class IntakeCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     // FIXME Fix encoder count with actual intake
-    u_Subsystem.toEncoder(5);
+    //u_Subsystem.toEncoder(1.5);
+    while(u_Subsystem.getOpticalSensor()){
+      u_Subsystem.intake();
+    }
+    Timer.delay(0.05);
+    u_Subsystem.stopIntake();
   }
 
   @Override

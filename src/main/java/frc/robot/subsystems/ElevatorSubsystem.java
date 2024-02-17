@@ -48,6 +48,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     return enc.getPosition();
   }
 
+  public void resetEnc(){
+    enc.setPosition(0);
+  }
+
   public boolean getTopLimitSwitch() {
     return topLS.get();
   }
