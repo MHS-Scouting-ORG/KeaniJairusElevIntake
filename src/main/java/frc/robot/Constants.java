@@ -14,7 +14,8 @@ public final class Constants {
   public static class HangConstants {
     public static final int HANG_MOTOR_PORT1 = 5;
     public static final int HANG_MOTOR_PORT2 = 8;
-    public static final int MRS_PORT = 8;
+    public static final int TOP_MRS_PORT = 2;
+    public static final int BOTTOM_MRS_PORT = 3;
 
     public static final double SPEED_CAP = 0.5;
 

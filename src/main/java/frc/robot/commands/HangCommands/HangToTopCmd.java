@@ -8,9 +8,7 @@ public class HangToTopCmd extends Command {
   private HangSubsystem hangSub;
 
   public HangToTopCmd(HangSubsystem newHangSub) {
-
     hangSub = newHangSub;
-
     addRequirements(hangSub);
   }
 
@@ -30,6 +28,6 @@ public class HangToTopCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return hangSub.getMRS();
+    return hangSub.getTopMRS();
   }
 }

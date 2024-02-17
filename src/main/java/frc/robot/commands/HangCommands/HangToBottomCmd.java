@@ -8,9 +8,7 @@ public class HangToBottomCmd extends Command {
   private HangSubsystem hangSub;
 
   public HangToBottomCmd(HangSubsystem newElevSub) {
-
     hangSub = newElevSub;
-
     addRequirements(hangSub);
   }
 
@@ -29,6 +27,6 @@ public class HangToBottomCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return hangSub.getMRS();
+    return hangSub.getBottomMRS();
   }
 }

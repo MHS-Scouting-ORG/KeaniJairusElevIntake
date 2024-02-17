@@ -21,7 +21,8 @@ public class HangSubsystem extends SubsystemBase {
   private double previousError;
   private double currentError;
 
-  private DigitalInput mrs;
+  private DigitalInput topMRS;
+  private DigitalInput bottomMRS;
 
   public HangSubsystem() {
     hangMotor1 = new CANSparkMax(HangConstants.HANG_MOTOR_PORT1, MotorType.kBrushless);
@@ -33,7 +34,8 @@ public class HangSubsystem extends SubsystemBase {
     hangMotor1.setIdleMode(IdleMode.kBrake);
     hangMotor2.setIdleMode(IdleMode.kBrake);
 
-    mrs = new DigitalInput(HangConstants.MRS_PORT);
+    topMRS = new DigitalInput(HangConstants.TOP_MRS_PORT);
+    bottomMRS = new DigitalInput(HangConstants.BOTTOM_MRS_PORT);
 
     enc = hangMotor1.getEncoder();
 
@@ -50,8 +52,12 @@ public class HangSubsystem extends SubsystemBase {
     return enc.getPosition();
   }
 
-  public boolean getMRS() {
-    return mrs.get();
+  public boolean getTopMRS() {
+    return topMRS.get();
+  }
+
+  public boolean getBottomMRS(){
+    return bottomMRS.get();
   }
 
   //////////////////////////////
@@ -59,31 +65,13 @@ public class HangSubsystem extends SubsystemBase {
   //////////////////////////////
 
   public void toBottom() {
-    while(getMRS()){
-      periodic();
-      hangMotor1.set(-HangConstants.SPEED_CAP);
-      hangMotor2.set(-HangConstants.SPEED_CAP);
-    }
-    while(!getMRS()){
-      periodic();
-      hangMotor1.set(-HangConstants.SPEED_CAP);
-      hangMotor2.set(-HangConstants.SPEED_CAP);
-    }
-    stopHang();
+   hangMotor1.set(-HangConstants.SPEED_CAP);
+   hangMotor2.set(-HangConstants.SPEED_CAP);
   }
 
   public void toTop() {
-    while(getMRS()){
-      periodic();
-      hangMotor1.set(HangConstants.SPEED_CAP);
-      hangMotor2.set(HangConstants.SPEED_CAP);
-    }
-    while(!getMRS()){
-      periodic();
-      hangMotor1.set(HangConstants.SPEED_CAP);
-      hangMotor2.set(HangConstants.SPEED_CAP);
-    }
-    stopHang();
+    hangMotor1.set(HangConstants.SPEED_CAP);
+    hangMotor2.set(HangConstants.SPEED_CAP);
   }
 
   // Checks if limit switches are pressed to prevent movement in that direction
@@ -165,7 +153,8 @@ public class HangSubsystem extends SubsystemBase {
 
     // SmartDashboard
     SmartDashboard.putNumber("[H] Enc #1", getEnc());
-    SmartDashboard.putBoolean("[H] MRS", getMRS());
+    SmartDashboard.putBoolean("[H] Top MRS", getTopMRS());
+    SmartDashboard.putBoolean("[H] Bottom MRS", getBottomMRS());
     SmartDashboard.putBoolean("[H] isAtSetpoint", isAtSetpoint());
   }
 }
