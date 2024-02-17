@@ -16,8 +16,6 @@ public class IntakeCmd extends Command {
 
   public IntakeCmd(UnderIntakeSubsystem uSubs) {
     u_Subsystem = uSubs;
-    triggered = false;
-    finished = false;
     timer = new Timer();
     addRequirements(u_Subsystem);
   }
@@ -50,7 +48,6 @@ public class IntakeCmd extends Command {
     //u_Subsystem.toEncoder(1.5);
     u_Subsystem.stopIntake();
     timer.stop();
-    timer.reset();
   }
 
   @Override
