@@ -15,14 +15,16 @@ public class IntakeCmd extends Command {
   private boolean triggered;
   private boolean finished;
 
-  private DoubleSupplier doubleSupp;
+  private DoubleSupplier doubleSuppY;
+  private DoubleSupplier doubleSuppX;
 
   private Timer timer;
 
-  public IntakeCmd(UnderIntakeSubsystem uSubs, DoubleSupplier newDoubleSupp) {
+  public IntakeCmd(UnderIntakeSubsystem uSubs, DoubleSupplier newDoubleSuppY, DoubleSupplier newDoubleSuppX) {
     u_Subsystem = uSubs;
     timer = new Timer();
-    doubleSupp = newDoubleSupp;
+    doubleSuppY = newDoubleSuppY;
+    doubleSuppX = newDoubleSuppX;
     addRequirements(u_Subsystem);
   }
 
@@ -36,12 +38,13 @@ public class IntakeCmd extends Command {
 
   @Override
   public void execute() {
-    u_Subsystem.intake(doubleSupp.getAsDouble());
+    u_Subsystem.intake(Math.hypot(doubleSuppX.getAsDouble(), doubleSuppY.getAsDouble()));
     if (u_Subsystem.getOpticalSensor() && !triggered){
       triggered = true;
       timer.start();
     }
     SmartDashboard.putNumber("[I] Timer", timer.get());
+    SmartDashboard.putNumber("[I] Speed", Math.hypot(doubleSuppX.getAsDouble(), doubleSuppY.getAsDouble()));
     if (triggered && timer.get() > 0.04){
       finished = true;
     }
