@@ -32,8 +32,8 @@ public class IntakeCmd extends Command {
   public void initialize() {
     triggered = false;
     finished = false;
-    timer.stop();
-    timer.reset();
+    //timer.stop();
+    //timer.reset();
   }
 
   @Override
@@ -61,6 +61,6 @@ public class IntakeCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return u_Subsystem.getOpticalSensor();
+    return finished;
   }
 }
