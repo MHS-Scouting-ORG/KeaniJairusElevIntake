@@ -41,11 +41,11 @@ public class IntakeCmd extends Command {
     u_Subsystem.intake(Math.hypot(doubleSuppX.getAsDouble(), doubleSuppY.getAsDouble()));
     if (u_Subsystem.getOpticalSensor() && !triggered){
       triggered = true;
-      timer.start();
+      // timer.start();
     }
-    SmartDashboard.putNumber("[I] Timer", timer.get());
+    // SmartDashboard.putNumber("[I] Timer", timer.get());
     SmartDashboard.putNumber("[I] Speed", Math.hypot(doubleSuppX.getAsDouble(), doubleSuppY.getAsDouble()));
-    if (triggered && timer.get() > 0.04){
+    if (triggered && !u_Subsystem.getOpticalSensor()){
       finished = true;
     }
 
@@ -54,13 +54,13 @@ public class IntakeCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     // FIXME Fix encoder count with actual intake
-    //u_Subsystem.toEncoder(1.5);
+    // u_Subsystem.toEncoder(1.5);
     u_Subsystem.stopIntake();
-    timer.stop();
+    // timer.stop();
   }
 
   @Override
   public boolean isFinished() {
-    return finished;
+    return u_Subsystem.getOpticalSensor();
   }
 }
