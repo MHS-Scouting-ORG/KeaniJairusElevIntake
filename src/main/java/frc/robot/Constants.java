@@ -4,6 +4,7 @@ public final class Constants {
   public static class IntakeConstants {
     public static final int INTAKE_PORT = 9;
     public static final int INTAKE_PORT2 = 10;
+    
     public static final int INTAKE_OPTICAL_PORT = 9;
 
     public static final double INTAKE_MAXSPEED = 0.8;
@@ -14,6 +15,7 @@ public final class Constants {
   public static class HangConstants {
     public static final int HANG_MOTOR_PORT1 = 5;
     public static final int HANG_MOTOR_PORT2 = 8;
+
     public static final int TOP_MRS_PORT = 2;
     public static final int BOTTOM_MRS_PORT = 3;
 
