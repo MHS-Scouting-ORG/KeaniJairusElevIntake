@@ -20,8 +20,7 @@ public class DeliverCmd extends Command {
 
   @Override
   public void execute() {
-    // FIXME Add double param
-    //intakeSubs.intake();
+    intakeSubs.intake(1);
   }
 
   @Override
