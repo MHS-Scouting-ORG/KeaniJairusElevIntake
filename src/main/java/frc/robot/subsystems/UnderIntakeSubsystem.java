@@ -41,13 +41,14 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   }
 
   public void intake(double xSpeed){
-    intakeMotor.set(deadzone(Math.abs(xSpeed)*1.5));
-    intakeMotor2.set(deadzone(Math.abs(xSpeed)*1.5));
+    // Multiplies given joystick value by 1.2 then deadzones value
+    intakeMotor.set(deadzone(Math.abs(xSpeed)*1.2));
+    intakeMotor2.set(deadzone(Math.abs(xSpeed)*1.2));
   }
 
-  public void outtake(double xSpeed){
-    intakeMotor.set(Math.abs(xSpeed));
-    intakeMotor2.set(Math.abs(xSpeed));
+  public void outtake(){
+    intakeMotor.set(-IntakeConstants.INTAKE_MAXSPEED);
+    intakeMotor2.set(-IntakeConstants.INTAKE_MAXSPEED);
   }
 
   public void manualIntake(double speed){
@@ -55,15 +56,14 @@ public class UnderIntakeSubsystem extends SubsystemBase {
     intakeMotor2.set(deadzone(speed));
   }
 
-  public void toEncoder(double enc){
-    double holdEnc = getEnc();
+  // public void toEncoder(double enc){
+  //   double holdEnc = getEnc();
 
-    while (getEnc() > holdEnc - enc){
-      //FIXME Add double param
-      //intake();
-    }
-    stopIntake();
-  }
+  //   while (getEnc() > holdEnc - enc){
+  //     intake();
+  //   }
+  //   stopIntake();
+  // }
 
   //Deadzone for the intake that sets a max speed of 0.2 in both directions
   public double deadzone(double speed) {
