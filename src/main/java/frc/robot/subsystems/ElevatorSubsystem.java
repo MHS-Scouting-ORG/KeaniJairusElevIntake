@@ -19,6 +19,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private PIDController pid;
   private double previousError;
   private double currentError;
+  private double setpoint;
 
   private DigitalInput topLS;
   private DigitalInput bottomLS;
@@ -124,18 +125,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   // PID Methods //
   //////////////////
 
-  public double calculateSpeed(double setpoint) {
-    double output = pid.calculate(getEnc(), setpoint);
-
-    if (output > ElevatorConstants.SPEED_CAP) {
-      return ElevatorConstants.SPEED_CAP;
-    } 
-    else if (output < -ElevatorConstants.SPEED_CAP) {
-      return -ElevatorConstants.SPEED_CAP;
-    } 
-    else {
-      return output;
-    }
+  public void setSetpoint(double setpoint) {
+    this.setpoint = setpoint;
   }
 
   public void resetI() {
@@ -151,14 +142,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     previousError = currentError;
   }
 
-  public void toSetpoint(double setpoint) {
-    elevMotor.set(calculateSpeed(setpoint));
-  }
-
-  public void holdAtPoint() {
-    elevMotor.set(calculateSpeed(getEnc()));
-  }
-
   public boolean isAtSetpoint() {
     return Math.abs(getEnc() - pid.getSetpoint()) <= 3;
   }
@@ -167,6 +150,18 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
 
     resetI();
+
+    double output = pid.calculate(getEnc(), setpoint);
+
+    if (output > ElevatorConstants.SPEED_CAP) {
+      elevMotor.set(ElevatorConstants.SPEED_CAP);
+    } 
+    else if (output < -ElevatorConstants.SPEED_CAP) {
+      elevMotor.set(ElevatorConstants.SPEED_CAP);
+    } 
+    else {
+      elevMotor.set(output);
+    }
 
     // SmartDashboard
     SmartDashboard.putNumber("[E] Enc", getEnc());

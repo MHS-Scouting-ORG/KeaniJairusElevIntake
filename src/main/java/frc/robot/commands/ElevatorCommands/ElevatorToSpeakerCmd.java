@@ -24,7 +24,7 @@ public class ElevatorToSpeakerCmd extends Command {
   @Override
   public void execute() {
     //FIXME Change the encoder setpoint for the Speaker position
-    elevSub.toSetpoint(0);
+    elevSub.setSetpoint(0);
   }
 
   @Override

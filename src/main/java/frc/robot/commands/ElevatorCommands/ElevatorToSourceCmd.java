@@ -21,7 +21,7 @@ public class ElevatorToSourceCmd extends Command {
   public void execute() {
     //Default Position?? || ??
     //FIXME Change the encoder setpoint for the Source position
-    elevSub.toSetpoint(0);
+    elevSub.setSetpoint(0);
   }
 
   @Override
