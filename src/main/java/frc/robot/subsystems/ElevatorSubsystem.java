@@ -1,9 +1,6 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -13,8 +10,7 @@ import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
-  private CANSparkMax elevMotor;
-  private RelativeEncoder enc;
+  private TalonFX elevMotor;
 
   private PIDController pid;
   private double previousError;
@@ -25,16 +21,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   private DigitalInput bottomLS;
 
   public ElevatorSubsystem() {
-    elevMotor = new CANSparkMax(ElevatorConstants.ELEVATOR_MOTOR_PORT, MotorType.kBrushless);
-
-    elevMotor.setSmartCurrentLimit(ElevatorConstants.SMART_CURRENT_LIMIT);
-
-    elevMotor.setIdleMode(IdleMode.kBrake);
+    elevMotor = new TalonFX(ElevatorConstants.ELEVATOR_MOTOR_PORT);
 
     topLS = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
     bottomLS = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
-
-    enc = elevMotor.getEncoder();
 
     pid = new PIDController(ElevatorConstants.ELEV_KP, ElevatorConstants.ELEV_KI, ElevatorConstants.ELEV_KD);
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
@@ -46,11 +36,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   ////////////////////////
 
   public double getEnc() {
-    return enc.getPosition();
+    return elevMotor.getPosition().getValue();
   }
 
   public void resetEnc(){
-    enc.setPosition(0);
+    elevMotor.setPosition(0);
   }
 
   public boolean getTopLimitSwitch() {
@@ -143,7 +133,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint() {
-    return Math.abs(getEnc() - pid.getSetpoint()) <= 3;
+    return Math.abs(getEnc() - setpoint) <= 3;
   }
 
   @Override
@@ -153,11 +143,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     double output = pid.calculate(getEnc(), setpoint);
 
-    if (output > ElevatorConstants.SPEED_CAP) {
+    if (  output > ElevatorConstants.SPEED_CAP) {
       elevMotor.set(ElevatorConstants.SPEED_CAP);
     } 
     else if (output < -ElevatorConstants.SPEED_CAP) {
-      elevMotor.set(ElevatorConstants.SPEED_CAP);
+      elevMotor.set(-ElevatorConstants.SPEED_CAP);
     } 
     else {
       elevMotor.set(output);
@@ -165,6 +155,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // SmartDashboard
     SmartDashboard.putNumber("[E] Enc", getEnc());
+    SmartDashboard.putNumber("[E] Error", output);
+    SmartDashboard.putNumber("[E] Setpoint",setpoint);
     SmartDashboard.putBoolean("[E] Top LS", getTopLimitSwitch());
     SmartDashboard.putBoolean("[E] isAtSetpoint", isAtSetpoint());
     SmartDashboard.putBoolean("[E] Bottom LS", getBottomLimitSwitch());

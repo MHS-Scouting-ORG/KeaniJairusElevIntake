@@ -20,7 +20,7 @@ public class ElevatorToBottomCmd extends Command {
   @Override
   public void execute() {
     // FIXME Change encoder setpoint for bottom
-    elevSub.setSetpoint(-50);
+    elevSub.setSetpoint(30);
   }
 
   @Override
