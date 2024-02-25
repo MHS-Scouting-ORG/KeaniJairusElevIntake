@@ -13,7 +13,7 @@ import frc.robot.commands.ElevatorCommands.ManualElevatorCmd;
 import frc.robot.commands.HangCommands.HangToBottomCmd;
 import frc.robot.commands.HangCommands.HangToTopCmd;
 import frc.robot.commands.IntakeCommands.DeliverCmd;
-import frc.robot.commands.IntakeCommands.IntakeCmd;
+import frc.robot.commands.IntakeCommands.IntakeWithStickCmd;
 import frc.robot.commands.IntakeCommands.OuttakeCmd;
 import frc.robot.subsystems.UnderIntakeSubsystem;
 import frc.robot.commands.IntakeCommands.ManualIntakeCmd;
@@ -21,6 +21,7 @@ import frc.robot.commands.HangCommands.ManualHangCmd;
 import frc.robot.commands.ElevatorCommands.ElevatorToAmpCmd;
 import frc.robot.commands.ElevatorCommands.ElevatorToSourceCmd;
 import frc.robot.commands.ElevatorCommands.ElevatorToSpeakerCmd;
+import frc.robot.commands.IntakeCommands.IntakeCmd;
 import frc.robot.commands.ElevatorCommands.ElevatorToWingCmd;
 
 public class RobotContainer {
@@ -41,9 +42,9 @@ public class RobotContainer {
 
   private void configureBindings() {
     
-    //new JoystickButton(joystick, 1).onTrue(new IntakeCmd(u_subsystem,() ->joystick.getY(), () -> joystick.getX()));
-    //new JoystickButton(joystick, 3).toggleOnTrue(new OuttakeCmd(u_subsystem));
-    //new JoystickButton(joystick, 3).toggleOnFalse(new InstantCommand(() -> u_subsystem.stopIntake()));
+    new JoystickButton(joystick, 1).onTrue(new IntakeCmd(u_subsystem));
+    new JoystickButton(joystick, 2).toggleOnTrue(new OuttakeCmd(u_subsystem));
+    new JoystickButton(joystick, 2).toggleOnFalse(new InstantCommand(() -> u_subsystem.stopIntake()));
     //new JoystickButton(joystick, 2).onTrue(new DeliverCmd(u_subsystem));
 
     //new JoystickButton(joystick, 5).onTrue(new HangToTopCmd(hangSub));

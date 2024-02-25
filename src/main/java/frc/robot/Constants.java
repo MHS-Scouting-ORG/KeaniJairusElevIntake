@@ -3,9 +3,8 @@ package frc.robot;
 public final class Constants {
   public static class IntakeConstants {
     public static final int INTAKE_PORT = 9;
-    public static final int INTAKE_PORT2 = 10;
     
-    public static final int INTAKE_OPTICAL_PORT = 9;
+    public static final int INTAKE_OPTICAL_PORT = 1;
 
     public static final double INTAKE_MAXSPEED = 0.8;
 
@@ -34,12 +33,13 @@ public final class Constants {
 
   public static class ElevatorConstants {
     public static final int ELEVATOR_MOTOR_PORT = 2;
-    public static final int TOP_LS_PORT = 6;
-    public static final int BOTTOM_LS_PORT = 1;
+    public static final int TOP_LS_PORT = 0;
+    public static final int BOTTOM_LS_PORT = 3;
 
     public static final double SPEED_CAP = 0.5;
-    public static final double ELEV_KP = 0.01;
-    public static final double ELEV_KI = 0;
+
+    public static final double ELEV_KP = 0.07;
+    public static final double ELEV_KI = 0.001;
     public static final double ELEV_KD = 0;
 
     public static final int SMART_CURRENT_LIMIT = 20;

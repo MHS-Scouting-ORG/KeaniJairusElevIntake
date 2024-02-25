@@ -20,7 +20,7 @@ public class ElevatorStoragePositionCmd extends Command {
   @Override
   public void execute() {
     //FIXME Change the encoder setpoint for storage position
-    elevSub.toSetpoint(0);
+    elevSub.setSetpoint(0);
   }
 
   @Override
