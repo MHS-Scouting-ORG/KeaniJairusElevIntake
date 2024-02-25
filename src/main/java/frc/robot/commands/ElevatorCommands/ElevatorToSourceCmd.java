@@ -27,7 +27,7 @@ public class ElevatorToSourceCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     elevSub.elevStop();
-  }  c  
+  }  
 
   @Override
   public boolean isFinished() {

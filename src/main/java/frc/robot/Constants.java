@@ -32,7 +32,7 @@ public final class Constants {
   }
 
   public static class ElevatorConstants {
-    public static final int ELEVATOR_MOTOR_PORT = 2;
+    public static final int ELEVATOR_MOTOR_PORT = 12;
     public static final int TOP_LS_PORT = 0;
     public static final int BOTTOM_LS_PORT = 3;
 
