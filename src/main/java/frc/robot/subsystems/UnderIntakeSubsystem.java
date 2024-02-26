@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import frc.robot.Constants.IntakeConstants;
@@ -22,6 +23,8 @@ public class UnderIntakeSubsystem extends SubsystemBase {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless);
     opticalSensor = new DigitalInput(IntakeConstants.INTAKE_OPTICAL_PORT);
 
+    intakeMotor.setIdleMode(IdleMode.kCoast);
+    intakeMotor.setInverted(false);
     intakeMotor.setSmartCurrentLimit(IntakeConstants.SMART_CURRENT_LIMIT); 
 
     enc = intakeMotor.getEncoder();
@@ -37,7 +40,7 @@ public class UnderIntakeSubsystem extends SubsystemBase {
 
   public void intake(double xSpeed){
     // Multiplies given joystick value by 1.2 then deadzones value
-    intakeMotor.set(deadzone(Math.abs(xSpeed)*1.2));
+    intakeMotor.set(xSpeed);
   }
 
   public void outtake(){

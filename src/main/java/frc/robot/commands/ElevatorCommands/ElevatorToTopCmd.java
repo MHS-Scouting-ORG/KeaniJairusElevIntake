@@ -19,6 +19,7 @@ public class ElevatorToTopCmd extends Command {
   @Override
   public void execute() {
     // FIXME Change encoder setpoint for top
+    // TOP IS 56 ENCODER COUNTS 
     elevSub.setSetpoint(50);
   }
 

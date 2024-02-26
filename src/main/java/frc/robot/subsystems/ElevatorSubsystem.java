@@ -33,6 +33,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     topLS = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
     bottomLS = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
 
+    elevMotor.setInverted(true);
+ 
     pid = new PIDController(ElevatorConstants.ELEV_KP, ElevatorConstants.ELEV_KI, ElevatorConstants.ELEV_KD);
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
@@ -51,11 +53,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean getTopLimitSwitch() {
-    return topLS.get();
+    return !topLS.get();
   }
 
   public boolean getBottomLimitSwitch() {
-    return bottomLS.get();
+    return !bottomLS.get();
   }
 
   //////////////////////////////
@@ -150,15 +152,15 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     double output = pid.calculate(getEnc(), setpoint);
 
-    if (  output > ElevatorConstants.SPEED_CAP) {
-      elevMotor.set(ElevatorConstants.SPEED_CAP);
-    } 
-    else if (output < -ElevatorConstants.SPEED_CAP) {
-      elevMotor.set(-ElevatorConstants.SPEED_CAP);
-    } 
-    else {
-      elevMotor.set(output);
-    }
+    // if (  output > ElevatorConstants.SPEED_CAP) {
+    //   elevMotor.set(ElevatorConstants.SPEED_CAP);
+    // } 
+    // else if (output < -ElevatorConstants.SPEED_CAP) {
+    //   elevMotor.set(-ElevatorConstants.SPEED_CAP);
+    // } 
+    // else {
+    //   elevMotor.set(output);
+    // }
 
     // SmartDashboard
     SmartDashboard.putNumber("[E] Enc", getEnc());

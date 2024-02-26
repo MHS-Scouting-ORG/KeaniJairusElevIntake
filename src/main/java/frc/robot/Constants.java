@@ -6,7 +6,7 @@ public final class Constants {
     
     public static final int INTAKE_OPTICAL_PORT = 1;
 
-    public static final double INTAKE_MAXSPEED = 0.8;
+    public static final double INTAKE_MAXSPEED = 0.2;
 
     public static final int SMART_CURRENT_LIMIT = 20;
   }
@@ -15,8 +15,8 @@ public final class Constants {
     public static final int HANG_MOTOR_PORT1 = 5;
     public static final int HANG_MOTOR_PORT2 = 8;
 
-    public static final int TOP_MRS_PORT = 2;
-    public static final int BOTTOM_MRS_PORT = 3;
+    public static final int TOP_MRS_PORT = 4;
+    public static final int BOTTOM_MRS_PORT = 5;
 
     public static final double SPEED_CAP = 0.5;
 
@@ -33,10 +33,10 @@ public final class Constants {
 
   public static class ElevatorConstants {
     public static final int ELEVATOR_MOTOR_PORT = 12;
-    public static final int TOP_LS_PORT = 0;
-    public static final int BOTTOM_LS_PORT = 3;
+    public static final int TOP_LS_PORT = 3;
+    public static final int BOTTOM_LS_PORT = 0;
 
-    public static final double SPEED_CAP = 0.5;
+    public static final double SPEED_CAP = 0.2;
 
     public static final double ELEV_KP = 0.07;
     public static final double ELEV_KI = 0.001;
