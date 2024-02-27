@@ -38,8 +38,8 @@ public final class Constants {
 
     public static final double SPEED_CAP = 0.2;
 
-    public static final double ELEV_KP = 0.07;
-    public static final double ELEV_KI = 0.001;
+    public static final double ELEV_KP = 0.008;
+    public static final double ELEV_KI = 0.00;
     public static final double ELEV_KD = 0;
 
     public static final int SMART_CURRENT_LIMIT = 20;
