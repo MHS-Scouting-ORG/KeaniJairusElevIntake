@@ -26,6 +26,7 @@ public class ElevatorToBottomCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     elevSub.elevStop();
+    elevSub.resetEnc();
   }
 
   @Override
