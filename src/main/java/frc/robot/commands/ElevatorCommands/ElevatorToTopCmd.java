@@ -30,6 +30,6 @@ public class ElevatorToTopCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return elevSub.isAtSetpoint() || elevSub.getTopLimitSwitch();
+    return elevSub.getTopLimitSwitch() || elevSub.isAtSetpoint();
   }
 }

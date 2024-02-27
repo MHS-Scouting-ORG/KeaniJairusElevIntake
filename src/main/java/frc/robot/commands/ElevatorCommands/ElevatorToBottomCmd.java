@@ -26,11 +26,10 @@ public class ElevatorToBottomCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     elevSub.elevStop();
-    elevSub.resetEnc();
   }
 
   @Override
   public boolean isFinished() {
-    return elevSub.isAtSetpoint() || elevSub.getBottomLimitSwitch();
+    return elevSub.getBottomLimitSwitch() || elevSub.isAtSetpoint();
   }
 }

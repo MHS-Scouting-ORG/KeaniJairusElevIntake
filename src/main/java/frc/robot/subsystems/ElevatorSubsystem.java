@@ -38,6 +38,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     pid = new PIDController(ElevatorConstants.ELEV_KP, ElevatorConstants.ELEV_KI, ElevatorConstants.ELEV_KD);
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
+
     
     setpoint = 0;
   }
@@ -144,11 +145,14 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint() {
-    return Math.abs(getEnc() - setpoint) <= 3;
+    return pid.atSetpoint();
   }
 
   @Override
   public void periodic() {
+    if(getBottomLimitSwitch()){
+      resetEnc();
+    }
 
     resetI();
 
@@ -166,9 +170,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // SmartDashboard
     SmartDashboard.putNumber("[E] Enc", getEnc());
-    SmartDashboard.putNumber("[E] Error", output);
+    SmartDashboard.putNumber("[E] Output", output);
     SmartDashboard.putNumber("[E] Setpoint",setpoint);
-    SmartDashboard.putBoolean("[E] isAtSetpoint", isAtSetpoint());
+    SmartDashboard.putBoolean("[E] isAtSetpoint", pid.atSetpoint());
     SmartDashboard.putBoolean("[E] Top LS", getTopLimitSwitch());
     SmartDashboard.putBoolean("[E] Bottom LS", getBottomLimitSwitch());
   }
