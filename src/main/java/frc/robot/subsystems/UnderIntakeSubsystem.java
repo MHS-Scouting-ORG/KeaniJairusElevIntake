@@ -18,12 +18,12 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   private DigitalInput opticalSensor;
 
   private RelativeEncoder enc;
- 
+  
   public UnderIntakeSubsystem() {
     intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless);
     opticalSensor = new DigitalInput(IntakeConstants.INTAKE_OPTICAL_PORT);
 
-    intakeMotor.setIdleMode(IdleMode.kCoast);
+    intakeMotor.setIdleMode(IdleMode.kBrake);
     intakeMotor.setInverted(false);
     intakeMotor.setSmartCurrentLimit(IntakeConstants.SMART_CURRENT_LIMIT); 
 
