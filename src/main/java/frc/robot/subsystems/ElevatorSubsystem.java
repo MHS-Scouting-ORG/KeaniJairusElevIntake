@@ -150,6 +150,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if(getBottomLimitSwitch()){
+      setSetpoint(0);
       resetEnc();
     }
 
