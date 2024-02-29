@@ -17,7 +17,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private PIDController pid;
   private double previousError;
   private double currentError;
-  private double setpoint;
+  private static double setpoint;
 
   private DigitalInput topLS;
   private DigitalInput bottomLS;
@@ -39,7 +39,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
 
-    
     setpoint = 0;
   }
 
