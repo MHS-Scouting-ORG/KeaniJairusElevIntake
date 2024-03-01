@@ -149,24 +149,24 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(getBottomLimitSwitch()){
-      setSetpoint(0);
-      resetEnc();
-    }
+    // if(getBottomLimitSwitch()){
+    //   setSetpoint(0);
+    //   resetEnc();
+    // }
 
-    resetI();
+    // resetI();
 
     double output = pid.calculate(getEnc(), setpoint);
 
-    if (  output > ElevatorConstants.SPEED_CAP) {
-      elevMotor.set(ElevatorConstants.SPEED_CAP);
-    } 
-    else if (output < -ElevatorConstants.SPEED_CAP) {
-      elevMotor.set(-ElevatorConstants.SPEED_CAP);
-    } 
-    else {
-      elevMotor.set(output);
-    }
+    // if (  output > ElevatorConstants.SPEED_CAP) {
+    //   elevMotor.set(ElevatorConstants.SPEED_CAP);
+    // } 
+    // else if (output < -ElevatorConstants.SPEED_CAP) {
+    //   elevMotor.set(-ElevatorConstants.SPEED_CAP);
+    // } 
+    // else {
+    //   elevMotor.set(output);
+    // }
 
     // SmartDashboard
     SmartDashboard.putNumber("[E] Enc", getEnc());

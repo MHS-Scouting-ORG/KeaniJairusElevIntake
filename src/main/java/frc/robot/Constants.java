@@ -6,7 +6,7 @@ public final class Constants {
     
     public static final int INTAKE_OPTICAL_PORT = 1;
 
-    public static final double INTAKE_MAXSPEED = 0.2;
+    public static final double INTAKE_MAXSPEED = 0.9;
 
     public static final int SMART_CURRENT_LIMIT = 20;
   }
