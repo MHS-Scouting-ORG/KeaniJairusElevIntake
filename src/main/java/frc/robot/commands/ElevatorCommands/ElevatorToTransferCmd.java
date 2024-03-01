@@ -7,13 +7,13 @@ package frc.robot.commands.ElevatorCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorToSpeakerCmd extends Command {
+public class ElevatorToTransferCmd extends Command {
 
   public ElevatorSubsystem elevSub;
 
   //Runs the elevator to the position where we shoot into the speaker
 
-  public ElevatorToSpeakerCmd(ElevatorSubsystem newElevSub) {
+  public ElevatorToTransferCmd(ElevatorSubsystem newElevSub) {
     elevSub = newElevSub;
     addRequirements(elevSub);
   }
@@ -23,8 +23,7 @@ public class ElevatorToSpeakerCmd extends Command {
 
   @Override
   public void execute() {
-    //FIXME Change the encoder setpoint for the Speaker position
-    elevSub.setSetpoint(0);
+    elevSub.setSetpoint(38);
   }
 
   @Override
