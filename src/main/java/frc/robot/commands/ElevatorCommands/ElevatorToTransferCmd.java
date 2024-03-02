@@ -23,7 +23,8 @@ public class ElevatorToTransferCmd extends Command {
 
   @Override
   public void execute() {
-    elevSub.setSetpoint(38);
+    //FIXME Change the encoder setpoint for outside the speaker
+    elevSub.setSetpoint(0);
   }
 
   @Override

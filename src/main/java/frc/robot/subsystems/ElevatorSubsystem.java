@@ -157,12 +157,24 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     double output = pid.calculate(getEnc(), setpoint);
 
+    if (getBottomLimitSwitch() && output < 0){
+      elevStop();
+    }
+
+    if (getTopLimitSwitch() && output > 0){
+      elevStop();
+    }
+
+    if (isAtSetpoint()){
+      elevStop();
+    }
+
     if (  output > ElevatorConstants.SPEED_CAP) {
       elevMotor.set(ElevatorConstants.SPEED_CAP);
     } 
     else if (output < -ElevatorConstants.SPEED_CAP) {
       elevMotor.set(-ElevatorConstants.SPEED_CAP);
-    } 
+    }
     else {
       elevMotor.set(output);
     }
