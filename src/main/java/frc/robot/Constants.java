@@ -36,7 +36,7 @@ public final class Constants {
     public static final int TOP_LS_PORT = 3;
     public static final int BOTTOM_LS_PORT = 0;
 
-    public static final double SPEED_CAP = 0.3;
+    public static final double SPEED_CAP = 0.6;
 
     public static final double ELEV_KP = 0.03;
     public static final double ELEV_KI = 0.0001;
