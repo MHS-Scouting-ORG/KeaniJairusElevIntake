@@ -7,8 +7,8 @@ public class HangToBottomCmd extends Command {
 
   private HangSubsystem hangSub;
 
-  public HangToBottomCmd(HangSubsystem newElevSub) {
-    hangSub = newElevSub;
+  public HangToBottomCmd(HangSubsystem newHangSub) {
+    hangSub = newHangSub;
     addRequirements(hangSub);
   }
 
