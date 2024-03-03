@@ -19,13 +19,14 @@ public class ElevatorToTopCmd extends Command {
   @Override
   public void execute() {
     // FIXME Change encoder setpoint for top
+    // top is 713
     elevSub.setSetpoint(0);
   }
 
   @Override
   public void end(boolean interrupted) {
     elevSub.elevStop();
-  }
+  }  
 
   @Override
   public boolean isFinished() {
