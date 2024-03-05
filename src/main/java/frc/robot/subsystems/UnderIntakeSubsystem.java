@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Constants.IntakeConstants;
 
@@ -15,8 +14,6 @@ public class UnderIntakeSubsystem extends SubsystemBase {
   
   private TalonFX intakeMotor;
   private DigitalInput opticalSensor;
-
-  private RelativeEncoder enc;
   
   public UnderIntakeSubsystem() {
     intakeMotor = new TalonFX(IntakeConstants.INTAKE_PORT);
