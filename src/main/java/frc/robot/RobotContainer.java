@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.HangSubsystem;
-import frc.robot.commands.ElevatorCommands.ElevatorToBottomCmd;
+import frc.robot.commands.ElevatorCommands.ElevatorRestingPosition;
 import frc.robot.commands.ElevatorCommands.ElevatorToTopCmd;
 import frc.robot.commands.ElevatorCommands.ManualElevatorCmd;
 import frc.robot.commands.HangCommands.HangToBottomCmd;
