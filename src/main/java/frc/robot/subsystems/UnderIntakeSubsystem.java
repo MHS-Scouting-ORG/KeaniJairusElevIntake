@@ -4,34 +4,33 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
-import com.revrobotics.CANSparkMax;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import frc.robot.Constants.IntakeConstants;
 
 public class UnderIntakeSubsystem extends SubsystemBase {
   
-  private CANSparkMax intakeMotor;
+  private TalonFX intakeMotor;
   private DigitalInput opticalSensor;
 
   private RelativeEncoder enc;
   
   public UnderIntakeSubsystem() {
-    intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_PORT, MotorType.kBrushless);
+    intakeMotor = new TalonFX(IntakeConstants.INTAKE_PORT);
     opticalSensor = new DigitalInput(IntakeConstants.INTAKE_OPTICAL_PORT);
 
-    intakeMotor.setIdleMode(IdleMode.kBrake);
+    intakeMotor.setNeutralMode(NeutralModeValue.Brake);
     intakeMotor.setInverted(false);
-    intakeMotor.setSmartCurrentLimit(IntakeConstants.SMART_CURRENT_LIMIT); 
+    intakeMotor.getConfigurator().apply(new CurrentLimitsConfigs().withSupplyCurrentLimitEnable(true));
+    intakeMotor.getConfigurator().apply(new CurrentLimitsConfigs().withSupplyCurrentLimit(IntakeConstants.SMART_CURRENT_LIMIT));
 
-    enc = intakeMotor.getEncoder();
   }
 
   public double getEnc(){
-    return enc.getPosition();
+    return intakeMotor.getPosition().getValue();
   }
 
   public boolean getOpticalSensor(){
