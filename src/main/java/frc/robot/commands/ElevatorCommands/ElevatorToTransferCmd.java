@@ -11,7 +11,7 @@ public class ElevatorToTransferCmd extends Command {
 
   public ElevatorSubsystem elevSub;
 
-  //Runs the elevator to the position where we shoot into the speaker
+  //Runs the elevator to the position where we transfer a note from the intake into the indexer
 
   public ElevatorToTransferCmd(ElevatorSubsystem newElevSub) {
     elevSub = newElevSub;
@@ -23,9 +23,8 @@ public class ElevatorToTransferCmd extends Command {
 
   @Override
   public void execute() {
-    //FIXME Change the encoder setpoint for outside the speaker
-    // Transfer is 185
-    elevSub.setSetpoint(185);
+    // Transfer/Shooting is 110
+    elevSub.setSetpoint(110);
   }
 
   @Override

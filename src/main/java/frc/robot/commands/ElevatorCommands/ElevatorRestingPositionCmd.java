@@ -3,14 +3,14 @@ package frc.robot.commands.ElevatorCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorStoragePositionCmd extends Command {
-  
-  public ElevatorSubsystem elevSub;
+public class ElevatorRestingPositionCmd extends Command {
 
-  //Runs the elevator to the position where we shoot from outside the wing
+  private ElevatorSubsystem elevSub;
 
-  public ElevatorStoragePositionCmd(ElevatorSubsystem newElevSub) {
+  public ElevatorRestingPositionCmd(ElevatorSubsystem newElevSub) {
+
     elevSub = newElevSub;
+
     addRequirements(elevSub);
   }
 
@@ -19,7 +19,7 @@ public class ElevatorStoragePositionCmd extends Command {
 
   @Override
   public void execute() {
-    //FIXME Change the encoder setpoint for storage position
+    //Bottom/Resting is 0
     elevSub.setSetpoint(0);
   }
 
@@ -30,6 +30,6 @@ public class ElevatorStoragePositionCmd extends Command {
 
   @Override
   public boolean isFinished() {
-    return elevSub.isAtSetpoint() || elevSub.getTopLimitSwitch();
+    return elevSub.getBottomLimitSwitch() || elevSub.isAtSetpoint();
   }
 }
