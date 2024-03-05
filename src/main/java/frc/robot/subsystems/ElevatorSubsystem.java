@@ -28,7 +28,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevMotor.getConfigurator().apply(new CurrentLimitsConfigs().withSupplyCurrentLimitEnable(true));
     elevMotor.getConfigurator().apply(new CurrentLimitsConfigs().withSupplyCurrentLimit(ElevatorConstants.SMART_CURRENT_LIMIT));
 
-    elevMotor.setNeutralMode(NeutralModeValue.Coast);
+    elevMotor.setNeutralMode(NeutralModeValue.Brake);
 
     topLS = new DigitalInput(ElevatorConstants.TOP_LS_PORT);
     bottomLS = new DigitalInput(ElevatorConstants.BOTTOM_LS_PORT);
@@ -165,19 +165,19 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevStop();
     }
 
-    // if (isAtSetpoint()){
-    //   elevStop();
-    // }
+    if (isAtSetpoint()){
+      elevStop();
+    }
 
-    // if (  output > ElevatorConstants.SPEED_CAP) {
-    //   elevMotor.set(ElevatorConstants.SPEED_CAP);
-    // } 
-    // else if (output < -ElevatorConstants.SPEED_CAP) {
-    //   elevMotor.set(-ElevatorConstants.SPEED_CAP);
-    // }
-    // else {
-    //   elevMotor.set(output);
-    // }
+    if (output > ElevatorConstants.SPEED_CAP) {
+      elevMotor.set(ElevatorConstants.SPEED_CAP);
+    } 
+    else if (output < -ElevatorConstants.SPEED_CAP) {
+      elevMotor.set(-ElevatorConstants.SPEED_CAP);
+    }
+    else {
+      elevMotor.set(output);
+    }
 
     // SmartDashboard
     SmartDashboard.putNumber("[E] Enc", getEnc());
