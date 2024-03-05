@@ -157,13 +157,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     double output = pid.calculate(getEnc(), setpoint);
 
-    // if (getBottomLimitSwitch() && output < 0){
-    //   elevStop();
-    // }
+    if (getBottomLimitSwitch() && output < 0){
+      elevStop();
+    }
 
-    // if (getTopLimitSwitch() && output > 0){
-    //   elevStop();
-    // }
+    if (getTopLimitSwitch() && output > 0){
+      elevStop();
+    }
 
     // if (isAtSetpoint()){
     //   elevStop();
