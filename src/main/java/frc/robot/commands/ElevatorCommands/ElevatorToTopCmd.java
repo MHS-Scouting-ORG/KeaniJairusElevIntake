@@ -19,7 +19,7 @@ public class ElevatorToTopCmd extends Command {
   @Override
   public void execute() {
     // Top/Amp is 174
-    elevSub.setSetpoint(174);
+    elevSub.setSetpoint(170);
   }
 
   @Override

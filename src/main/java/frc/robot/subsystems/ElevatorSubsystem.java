@@ -161,15 +161,15 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevStop();
     }
 
-    if (getTopLimitSwitch() && output > 0){
+    else if (getTopLimitSwitch() && output > 0){
       elevStop();
     }
 
-    if (isAtSetpoint()){
+    else if (isAtSetpoint()){
       elevStop();
     }
 
-    if (output > ElevatorConstants.SPEED_CAP) {
+    else if (output > ElevatorConstants.SPEED_CAP) {
       elevMotor.set(ElevatorConstants.SPEED_CAP);
     } 
     else if (output < -ElevatorConstants.SPEED_CAP) {

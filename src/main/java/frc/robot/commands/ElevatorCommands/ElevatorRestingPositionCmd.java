@@ -20,7 +20,7 @@ public class ElevatorRestingPositionCmd extends Command {
   @Override
   public void execute() {
     //Bottom/Resting is 0
-    elevSub.setSetpoint(0);
+    elevSub.setSetpoint(-1);
   }
 
   @Override
