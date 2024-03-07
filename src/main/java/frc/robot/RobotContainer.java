@@ -33,7 +33,7 @@ public class RobotContainer {
   public RobotContainer() {
     //i_subsystem.setDefaultCommand(new ManualIntakePivot(u_subsystem, () -> joystick.getY()));
     //hangSub.setDefaultCommand(new ManualHangCmd(hangSub, () -> joystick.getY()));
-    // elevSub.setDefaultCommand(new ManualElevatorCmd(elevSub, () -> joystick.getY()));
+    elevSub.setDefaultCommand(new ManualElevatorCmd(elevSub, () -> joystick.getY()));
     //u_subsystem.setDefaultCommand(new ManualIntakeCmd(u_subsystem, () -> joystick.getY()));
     configureBindings();
   }
@@ -49,9 +49,9 @@ public class RobotContainer {
     // //new JoystickButton(joystick, 5).onTrue(new HangToTopCmd(hangSub));
     // //new JoystickButton(joystick, 3).onTrue(new HangToBottomCmd(hangSub));
 
-    new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
-    new JoystickButton(joystick, 4).onTrue(new ElevatorRestingPositionCmd(elevSub));
-    new JoystickButton(joystick, 5).onTrue(new ElevatorToTransferCmd(elevSub));
+    // new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
+    // new JoystickButton(joystick, 4).onTrue(new ElevatorRestingPositionCmd(elevSub));
+    // new JoystickButton(joystick, 5).onTrue(new ElevatorToTransferCmd(elevSub));
   }
 
   public Command getAutonomousCommand() {

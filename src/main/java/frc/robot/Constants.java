@@ -37,7 +37,7 @@ public final class Constants {
     public static final int BOTTOM_LS_PORT = 0;
 
     //FIXME Up speed after testing
-    public static final double SPEED_CAP = 0.875;
+    public static final double SPEED_CAP = 0.6;//0.875;
 
     public static final double ELEV_KP = 0.03;
     public static final double ELEV_KI = 0.001;

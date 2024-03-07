@@ -157,27 +157,27 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     double output = pid.calculate(getEnc(), setpoint);
 
-    if (getBottomLimitSwitch() && output < 0){
-      elevStop();
-    }
+    // if (getBottomLimitSwitch() && output < 0){
+    //   elevStop();
+    // }
 
-    else if (getTopLimitSwitch() && output > 0){
-      elevStop();
-    }
+    // else if (getTopLimitSwitch() && output > 0){
+    //   elevStop();
+    // }
 
-    else if (isAtSetpoint()){
-      elevStop();
-    }
+    // else if (isAtSetpoint()){
+    //   elevStop();
+    // }
 
-    else if (output > ElevatorConstants.SPEED_CAP) {
-      elevMotor.set(ElevatorConstants.SPEED_CAP);
-    } 
-    else if (output < -ElevatorConstants.SPEED_CAP) {
-      elevMotor.set(-ElevatorConstants.SPEED_CAP);
-    }
-    else {
-      elevMotor.set(output);
-    }
+    // else if (output > ElevatorConstants.SPEED_CAP) {
+    //   elevMotor.set(ElevatorConstants.SPEED_CAP);
+    // } 
+    // else if (output < -ElevatorConstants.SPEED_CAP) {
+    //   elevMotor.set(-ElevatorConstants.SPEED_CAP);
+    // }
+    // else {
+    //   elevMotor.set(output);
+    // }
 
     // SmartDashboard
     SmartDashboard.putNumber("[E] Enc", getEnc());
