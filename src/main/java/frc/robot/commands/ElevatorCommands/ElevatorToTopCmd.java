@@ -15,7 +15,6 @@ public class ElevatorToTopCmd extends Command {
 
   @Override
   public void initialize() {
-    elevSub.enablePID();
   }
 
   @Override
@@ -26,7 +25,6 @@ public class ElevatorToTopCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    elevSub.disablePID();
     elevSub.elevStop();
   }  
 

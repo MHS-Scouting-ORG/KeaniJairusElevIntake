@@ -32,13 +32,12 @@ public class ElevatorToTransferCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    elevSub.disablePID();
     elevSub.elevStop();
     SmartDashboard.putBoolean("TransferPosition?", false);
   }
 
   @Override
   public boolean isFinished() {
-    return elevSub.isAtSetpoint() || elevSub.getTopLimitSwitch();
+    return elevSub.isAtSetpoint();
   }
 }
