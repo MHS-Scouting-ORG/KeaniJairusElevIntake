@@ -25,7 +25,7 @@ public class RobotContainer {
   private final HangSubsystem hangSub = new HangSubsystem();
   private final UnderIntakeSubsystem u_subsystem = new UnderIntakeSubsystem();
   private final ElevatorSubsystem elevSub = new ElevatorSubsystem();
-  private final Command setZero = new InstantCommand(() -> elevSub.setSetpoint(0));
+  private final Command setZero = new InstantCommand(() -> elevSub.setSetpoint(elevSub.getEnc()));
 
   private final Joystick joystick = new Joystick(1);
   //private final XboxController xbox = new XboxController(1);
@@ -33,7 +33,7 @@ public class RobotContainer {
   public RobotContainer() {
     //i_subsystem.setDefaultCommand(new ManualIntakePivot(u_subsystem, () -> joystick.getY()));
     //hangSub.setDefaultCommand(new ManualHangCmd(hangSub, () -> joystick.getY()));
-    elevSub.setDefaultCommand(new ManualElevatorCmd(elevSub, () -> joystick.getY()));
+    // elevSub.setDefaultCommand(new ManualElevatorCmd(elevSub, () -> joystick.getY()));
     //u_subsystem.setDefaultCommand(new ManualIntakeCmd(u_subsystem, () -> joystick.getY()));
     configureBindings();
   }
@@ -43,15 +43,15 @@ public class RobotContainer {
     // new JoystickButton(joystick, 1).onTrue(new IntakeCmd(u_subsystem));
     // new JoystickButton(joystick, 2).toggleOnTrue(new OuttakeCmd(u_subsystem));
     // new JoystickButton(joystick, 2).toggleOnFalse(new InstantCommand(() -> u_subsystem.stopIntake()));
-    new JoystickButton(joystick, 3).onTrue(new InstantCommand(() -> elevSub.resetEnc()));
     // //new JoystickButton(joystick, 2).onTrue(new DeliverCmd(u_subsystem));
 
-    // //new JoystickButton(joystick, 5).onTrue(new HangToTopCmd(hangSub));
-    // //new JoystickButton(joystick, 3).onTrue(new HangToBottomCmd(hangSub));
+    // new JoystickButton(joystick, 5).onTrue(new HangToTopCmd(hangSub));
+    //new JoystickButton(joystick, 3).onTrue(new HangToBottomCmd(hangSub));
 
-    // new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
-    // new JoystickButton(joystick, 4).onTrue(new ElevatorRestingPositionCmd(elevSub));
-    // new JoystickButton(joystick, 5).onTrue(new ElevatorToTransferCmd(elevSub));
+    new JoystickButton(joystick, 3).onTrue(new InstantCommand(() -> elevSub.resetEnc()));
+    new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
+    new JoystickButton(joystick, 4).onTrue(new ElevatorRestingPositionCmd(elevSub));
+    new JoystickButton(joystick, 5).onTrue(new ElevatorToTransferCmd(elevSub));
   }
 
   public Command getAutonomousCommand() {

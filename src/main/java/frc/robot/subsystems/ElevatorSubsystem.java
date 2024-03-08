@@ -39,7 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
 
-    setpoint = 0;
+    // setpoint = 0;
   }
 
   ////////////////////////
@@ -87,6 +87,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   // Checks if limit switches are pressed to prevent movement in that direction
+  //MUST BE RAN ON A DEFAULT COMMAND
   public void ManualHang(double speed) {
     if (getTopLimitSwitch() && speed > 0) {
       elevStop();
@@ -157,27 +158,27 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     double output = pid.calculate(getEnc(), setpoint);
 
-    // if (getBottomLimitSwitch() && output < 0){
-    //   elevStop();
-    // }
+    if (getBottomLimitSwitch() && output < 0){
+      elevStop();
+    }
 
-    // else if (getTopLimitSwitch() && output > 0){
-    //   elevStop();
-    // }
+    else if (getTopLimitSwitch() && output > 0){
+      elevStop();
+    }
 
-    // else if (isAtSetpoint()){
-    //   elevStop();
-    // }
+    else if (isAtSetpoint()){
+      elevStop();
+    }
 
-    // else if (output > ElevatorConstants.SPEED_CAP) {
-    //   elevMotor.set(ElevatorConstants.SPEED_CAP);
-    // } 
-    // else if (output < -ElevatorConstants.SPEED_CAP) {
-    //   elevMotor.set(-ElevatorConstants.SPEED_CAP);
-    // }
-    // else {
-    //   elevMotor.set(output);
-    // }
+    else if (output > ElevatorConstants.SPEED_CAP) {
+      elevMotor.set(ElevatorConstants.SPEED_CAP);
+    } 
+    else if (output < -ElevatorConstants.SPEED_CAP) {
+      elevMotor.set(-ElevatorConstants.SPEED_CAP);
+    }
+    else {
+      elevMotor.set(output);
+    }
 
     // SmartDashboard
     SmartDashboard.putNumber("[E] Enc", getEnc());

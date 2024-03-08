@@ -4,6 +4,7 @@
 
 package frc.robot.commands.ElevatorCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
@@ -19,7 +20,9 @@ public class ElevatorToTransferCmd extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    SmartDashboard.putBoolean("TransferPosition?", true);
+  }
 
   @Override
   public void execute() {
@@ -30,6 +33,7 @@ public class ElevatorToTransferCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     elevSub.elevStop();
+    SmartDashboard.putBoolean("TransferPosition?", false);
   }
 
   @Override
