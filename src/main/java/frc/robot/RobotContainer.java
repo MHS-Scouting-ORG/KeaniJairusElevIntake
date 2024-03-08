@@ -49,7 +49,7 @@ public class RobotContainer {
     // //new JoystickButton(joystick, 5).onTrue(new HangToTopCmd(hangSub));
     // //new JoystickButton(joystick, 3).onTrue(new HangToBottomCmd(hangSub));
 
-    // new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
+    new JoystickButton(joystick, 6).onTrue(new ElevatorToTopCmd(elevSub));
     new JoystickButton(joystick, 4).onTrue(new ElevatorRestingPositionCmd(elevSub));
     new JoystickButton(joystick, 5).onTrue(new ElevatorToTransferCmd(elevSub));
   }
