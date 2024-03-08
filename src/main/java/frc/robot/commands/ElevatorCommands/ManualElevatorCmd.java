@@ -20,7 +20,9 @@ public class ManualElevatorCmd extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elevSub.disablePID();
+  }
 
   @Override
   public void execute() {

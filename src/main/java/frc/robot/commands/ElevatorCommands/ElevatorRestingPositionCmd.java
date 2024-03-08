@@ -15,7 +15,9 @@ public class ElevatorRestingPositionCmd extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elevSub.enablePID();
+  }
 
   @Override
   public void execute() {
@@ -25,6 +27,7 @@ public class ElevatorRestingPositionCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
+    elevSub.disablePID();
     elevSub.elevStop();
   }
 
