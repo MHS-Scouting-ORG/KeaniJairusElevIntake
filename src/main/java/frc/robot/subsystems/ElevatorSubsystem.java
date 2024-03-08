@@ -18,7 +18,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double previousError;
   private double currentError;
   private double setpoint;
-  private boolean pidOn;
+  private boolean pidOn = false;
   private double manualSpeed;
 
   private DigitalInput topLS;
@@ -41,7 +41,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
     manualSpeed = 0;
-    pidOn = false;
 
     // setpoint = 0;
   }
@@ -168,14 +167,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     resetI();
 
-    double output; 
-
-    if(pidOn){
-      output = pid.calculate(getEnc(), setpoint);
-    }
-    else{
-      output = manualSpeed;
-    }
+    double output = pid.calculate(getEnc(), setpoint);
 
     if (getBottomLimitSwitch() && output < 0){
       elevStop();

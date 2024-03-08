@@ -28,7 +28,7 @@ public class ElevatorRestingPositionCmd extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    elevSub.disablePID();
+    elevSub.setSetpoint(0);
     elevSub.elevStop();
     SmartDashboard.putBoolean("RestingPosition?", true);
   }
