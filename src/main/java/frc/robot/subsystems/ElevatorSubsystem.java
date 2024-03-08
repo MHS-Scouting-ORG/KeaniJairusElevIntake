@@ -18,6 +18,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double previousError;
   private double currentError;
   private double setpoint;
+  private boolean pidOn;
+  private double manualSpeed;
 
   private DigitalInput topLS;
   private DigitalInput bottomLS;
@@ -38,6 +40,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     pid = new PIDController(ElevatorConstants.ELEV_KP, ElevatorConstants.ELEV_KI, ElevatorConstants.ELEV_KD);
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
+    manualSpeed = 0;
+    pidOn = false;
 
     // setpoint = 0;
   }
@@ -99,7 +103,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // elevMotor.set(deadzone(speed));
     // }
     else {
-      elevMotor.set(deadzone(speed));
+      manualSpeed = (deadzone(speed));
     }
 
     // This line is in case of no limitswitches and just sets motor to joystick
@@ -148,6 +152,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     return pid.atSetpoint();
   }
 
+  public void enablePID(){
+    pidOn = true;
+  }
+
+  public void disablePID(){
+    pidOn = false;
+  }
+
   @Override
   public void periodic() {
     if(getBottomLimitSwitch()){
@@ -156,7 +168,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     resetI();
 
-    double output = pid.calculate(getEnc(), setpoint);
+    double output; 
+
+    if(pidOn){
+      output = pid.calculate(getEnc(), setpoint);
+    }
+    else{
+      output = manualSpeed;
+    }
 
     if (getBottomLimitSwitch() && output < 0){
       elevStop();
