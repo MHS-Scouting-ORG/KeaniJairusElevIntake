@@ -31,7 +31,9 @@ public class ManualElevatorCmd extends Command {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    elevSub.ManualHang(0);
+  }
 
   @Override
   public boolean isFinished() {

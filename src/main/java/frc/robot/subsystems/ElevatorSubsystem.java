@@ -40,6 +40,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     pid = new PIDController(ElevatorConstants.ELEV_KP, ElevatorConstants.ELEV_KI, ElevatorConstants.ELEV_KD);
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
+    manualSpeed = 0;
     pidOn = false;
 
     setpoint = 0;
