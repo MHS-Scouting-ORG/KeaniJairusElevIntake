@@ -25,7 +25,7 @@ public class RobotContainer {
   private final HangSubsystem hangSub = new HangSubsystem();
   private final UnderIntakeSubsystem u_subsystem = new UnderIntakeSubsystem();
   private final ElevatorSubsystem elevSub = new ElevatorSubsystem();
-  private final Command setZero = new InstantCommand(() -> elevSub.setSetpoint(elevSub.getEnc()));
+  private final Command setElevInit = new InstantCommand(() -> elevSub.setSetpoint(elevSub.getEnc()));
 
   private final Joystick joystick = new Joystick(1);
   //private final XboxController xbox = new XboxController(1);
@@ -58,7 +58,7 @@ public class RobotContainer {
     return null;
   }
 
-  public Command setZero() {
-    return setZero;
+  public Command setElevInit() {
+    return setElevInit;
   }
 }

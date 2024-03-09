@@ -39,7 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
     previousError = 0;
 
-    // setpoint = 0;
+    setpoint = getEnc();
   }
 
   ////////////////////////
