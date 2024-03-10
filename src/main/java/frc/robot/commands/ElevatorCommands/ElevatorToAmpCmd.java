@@ -22,7 +22,7 @@ public class ElevatorToAmpCmd extends Command {
     // Amp is 155
     elevSub.setSetpoint(155);
   }
-
+ 
   @Override
   public void end(boolean interrupted) {
     elevSub.elevStop();
