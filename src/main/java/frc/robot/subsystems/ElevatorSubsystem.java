@@ -128,7 +128,16 @@ public class ElevatorSubsystem extends SubsystemBase {
   //////////////////
 
   public void setSetpoint(double setpoint) {
-    this.setpoint = setpoint;
+    if(setpoint > 174){
+      this.setpoint = 174;
+    }
+    else if(setpoint < 0){
+      this.setpoint = 0;
+    }
+    else{
+      this.setpoint = setpoint;
+    }
+    
   }
 
   public void resetI() {
