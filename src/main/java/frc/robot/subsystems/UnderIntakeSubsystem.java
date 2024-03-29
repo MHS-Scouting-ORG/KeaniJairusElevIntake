@@ -20,7 +20,7 @@ public class UnderIntakeSubsystem extends SubsystemBase {
     opticalSensor = new DigitalInput(IntakeConstants.INTAKE_OPTICAL_PORT);
 
     intakeMotor.setNeutralMode(NeutralModeValue.Brake);
-    intakeMotor.setInverted(false);
+    intakeMotor.setInverted(true);
     intakeMotor.getConfigurator().apply(new CurrentLimitsConfigs().withSupplyCurrentLimitEnable(true));
     intakeMotor.getConfigurator().apply(new CurrentLimitsConfigs().withSupplyCurrentLimit(IntakeConstants.SMART_CURRENT_LIMIT));
 

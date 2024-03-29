@@ -26,13 +26,12 @@ public class ElevatorToTransferCmd extends Command {
 
   @Override
   public void execute() {
-    // Transfer/Shooting is 110
-    elevSub.setSetpoint(110);
+    // Transfer/Shooting is 80
+    elevSub.setSetpoint(50);
   }
 
   @Override
   public void end(boolean interrupted) {
-    elevSub.elevStop();
     SmartDashboard.putBoolean("TransferPosition?", false);
   }
 

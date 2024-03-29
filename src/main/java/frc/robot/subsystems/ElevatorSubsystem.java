@@ -36,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevMotor.setInverted(true);
  
     pid = new PIDController(ElevatorConstants.ELEV_KP, ElevatorConstants.ELEV_KI, ElevatorConstants.ELEV_KD);
-    pid.setTolerance(ElevatorConstants.PID_TOLERANCE);
+    pid.setTolerance(1);
     previousError = 0;
 
     setpoint = getEnc();
@@ -160,14 +160,16 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     if (getBottomLimitSwitch() && output < 0){
       elevStop();
+      output = 0;
     }
 
     else if (getTopLimitSwitch() && output > 0){
       elevStop();
+      output = 0;
     }
 
     else if (isAtSetpoint()){
-      elevStop();
+      output = 0;
     }
 
     else if (output > ElevatorConstants.SPEED_CAP) {
@@ -184,7 +186,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("[E] Enc", getEnc());
     SmartDashboard.putNumber("[E] Output", output);
     SmartDashboard.putNumber("[E] Setpoint",setpoint);
-    SmartDashboard.putBoolean("[E] isAtSetpoint", pid.atSetpoint());
+    SmartDashboard.putBoolean("[E] isAtSetpoint", isAtSetpoint());
     SmartDashboard.putBoolean("[E] Top LS", getTopLimitSwitch());
     SmartDashboard.putBoolean("[E] Bottom LS", getBottomLimitSwitch());
   }
